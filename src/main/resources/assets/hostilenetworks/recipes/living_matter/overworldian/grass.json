@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hostilenetworks",
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "treeLeaves"
+    },
+    {
+      "item": "minecraft:dirt",
+      "data": 0
+    },
+    {
+      "item": "hostilenetworks:overworld_prediction",
+      "data": 0
+    }
+  ],
+  "result": {
+    "count": 4,
+    "data": 1,
+    "item": "minecraft:tallgrass"
+  }
+}

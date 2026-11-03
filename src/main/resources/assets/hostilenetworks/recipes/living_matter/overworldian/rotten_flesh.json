@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hostilenetworks",
+  "ingredients": [
+    {
+      "item": "hostilenetworks:overworld_prediction",
+      "data": 0
+    },
+    {
+      "item": "minecraft:porkchop",
+      "data": 0
+    }
+  ],
+  "result": {
+    "count": 16,
+    "item": "minecraft:rotten_flesh",
+    "data": 0
+  }
+}

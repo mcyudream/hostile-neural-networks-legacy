@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hostilenetworks",
+  "ingredients": [
+    {
+      "item": "minecraft:glowstone_dust",
+      "data": 0
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "data": 0
+    },
+    {
+      "item": "hostilenetworks:nether_prediction",
+      "data": 0
+    }
+  ],
+  "result": {
+    "count": 6,
+    "item": "minecraft:gold_ingot",
+    "data": 0
+  }
+}

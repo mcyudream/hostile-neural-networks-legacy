@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hostilenetworks",
+  "ingredients": [
+    {
+      "item": "hostilenetworks:end_prediction",
+      "data": 0
+    },
+    {
+      "item": "minecraft:emerald",
+      "data": 0
+    },
+    {
+      "data": 0,
+      "item": "minecraft:snowball"
+    },
+    {
+      "item": "minecraft:slime_ball",
+      "data": 0
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:ender_pearl",
+    "data": 0
+  }
+}

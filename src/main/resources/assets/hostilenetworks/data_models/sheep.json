@@ -1,0 +1,112 @@
+{
+  "entity": "minecraft:sheep",
+  "variants": [
+    "twilightforest:bighorn_sheep"
+  ],
+  "name_color": "rainbow",
+  "display": {
+    "nbt": {
+      "CustomName": "{\"text\":\"jeb_\"}"
+    }
+  },
+  "sim_cost": 64,
+  "input": {
+    "item": "hostilenetworks:prediction_matrix"
+  },
+  "base_drop": {
+    "id": "hostilenetworks:overworld_prediction",
+    "count": 1
+  },
+  "trivia": "hostilenetworks.trivia.sheep",
+  "fabricator_drops": [
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 0
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 1
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 2
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 3
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 4
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 5
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 6
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 7
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 8
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 9
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 10
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 11
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 12
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 13
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 14
+    },
+    {
+      "id": "minecraft:wool",
+      "count": 32,
+      "data": 15
+    },
+    {
+      "id": "minecraft:mutton",
+      "count": 32
+    },
+    {
+      "id": "potionsmaster:bezoar",
+      "optional": true,
+      "count": 16
+    }
+  ]
+}

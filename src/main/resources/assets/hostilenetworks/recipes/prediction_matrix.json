@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hostilenetworks",
+  "key": {
+    "C": {
+      "item": "minecraft:clay_ball",
+      "data": 0
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "paneGlass"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "N": {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    }
+  },
+  "pattern": [
+    "IG ",
+    "GCG",
+    " GN"
+  ],
+  "result": {
+    "count": 16,
+    "item": "hostilenetworks:prediction_matrix",
+    "data": 0
+  }
+}

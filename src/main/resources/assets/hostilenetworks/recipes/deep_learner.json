@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hostilenetworks",
+  "key": {
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "paneGlass"
+    },
+    "O": {
+      "type": "forge:ore_dict",
+      "ore": "obsidian"
+    },
+    "R": {
+      "item": "minecraft:repeater",
+      "data": 0
+    }
+  },
+  "pattern": [
+    "ORO",
+    "RGR",
+    "ODO"
+  ],
+  "result": {
+    "count": 1,
+    "item": "hostilenetworks:deep_learner",
+    "data": 0
+  }
+}

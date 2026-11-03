@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hostilenetworks",
+  "key": {
+    "C": {
+      "item": "minecraft:comparator",
+      "data": 0
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "gemDiamond"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "gemDiamond"
+    },
+    "N": {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    "O": {
+      "type": "forge:ore_dict",
+      "ore": "obsidian"
+    }
+  },
+  "pattern": [
+    " I ",
+    "GOG",
+    "NCN"
+  ],
+  "result": {
+    "count": 1,
+    "item": "hostilenetworks:loot_fabricator",
+    "data": 0
+  }
+}

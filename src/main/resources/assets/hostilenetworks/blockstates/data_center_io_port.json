@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "mode=energy": {
+      "model": "hostilenetworks:data_center_io_port_energy"
+    },
+    "mode=models": {
+      "model": "hostilenetworks:data_center_io_port_models"
+    },
+    "mode=inputs": {
+      "model": "hostilenetworks:data_center_io_port_inputs"
+    },
+    "mode=outputs": {
+      "model": "hostilenetworks:data_center_io_port_outputs"
+    }
+  }
+}

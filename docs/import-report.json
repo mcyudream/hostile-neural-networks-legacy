@@ -1,0 +1,367 @@
+{
+  "source_commit": "db9db507c49008ea80fd422c998bfb9a602e64e1",
+  "models": [
+    "bat.json",
+    "blaze.json",
+    "blocks/coal_ore.json",
+    "blocks/diamond_ore.json",
+    "blocks/emerald_ore.json",
+    "blocks/gold_ore.json",
+    "blocks/iron_ore.json",
+    "blocks/lapis_ore.json",
+    "blocks/nether_quartz_ore.json",
+    "blocks/redstone_ore.json",
+    "chicken.json",
+    "cow.json",
+    "creeper.json",
+    "elder_guardian.json",
+    "ender_dragon.json",
+    "enderman.json",
+    "evoker.json",
+    "ghast.json",
+    "guardian.json",
+    "iron_golem.json",
+    "magma_cube.json",
+    "mooshroom.json",
+    "pig.json",
+    "polar_bear.json",
+    "rabbit.json",
+    "sheep.json",
+    "shulker.json",
+    "skeleton.json",
+    "slime.json",
+    "snow_golem.json",
+    "spider.json",
+    "squid.json",
+    "vindicator.json",
+    "witch.json",
+    "wither.json",
+    "wither_skeleton.json",
+    "zombie.json",
+    "zombified_piglin.json"
+  ],
+  "excluded": [
+    {
+      "id": "allthemodium/piglich.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "ars_nouveau/wilden_mobs.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "artifacts/mimic.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "blocks/copper_ore.json",
+      "reason": "minecraft:copper_ore absent in 1.12.2"
+    },
+    {
+      "id": "breeze.json",
+      "reason": "minecraft:breeze absent in 1.12.2"
+    },
+    {
+      "id": "cod.json",
+      "reason": "minecraft:cod absent in 1.12.2"
+    },
+    {
+      "id": "drowned.json",
+      "reason": "minecraft:drowned absent in 1.12.2"
+    },
+    {
+      "id": "glow_squid.json",
+      "reason": "minecraft:glow_squid absent in 1.12.2"
+    },
+    {
+      "id": "hoglin.json",
+      "reason": "minecraft:hoglin absent in 1.12.2"
+    },
+    {
+      "id": "phantom.json",
+      "reason": "minecraft:phantom absent in 1.12.2"
+    },
+    {
+      "id": "thermal/basalz.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "thermal/blitz.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "thermal/blizz.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/alpha_yeti.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/carminite_golem.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/death_tome.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/deer.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/fire_beetle.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/giant.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/goblin.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/helmet_crab.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/hydra.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/kobold.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/lich.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/minoshroom.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/minotaur.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/naga.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/raven.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/redcap.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/skeleton_druid.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/snow_queen.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/stable_ice_core.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/towerwood_borer.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/troll.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/ur_ghast.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/winter_wolf.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/wraith.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "twilightforest/yeti.json",
+      "reason": "modern third-party model requires separate 1.12 registry verification"
+    },
+    {
+      "id": "warden.json",
+      "reason": "minecraft:warden absent in 1.12.2"
+    }
+  ],
+  "entity_renames": {
+    "minecraft:zombified_piglin": "minecraft:zombie_pigman",
+    "minecraft:evoker": "minecraft:evocation_illager",
+    "minecraft:vindicator": "minecraft:vindication_illager",
+    "minecraft:iron_golem": "minecraft:villager_golem",
+    "minecraft:snow_golem": "minecraft:snowman"
+  },
+  "stack_mappings": {
+    "minecraft:short_grass": [
+      "minecraft:tallgrass",
+      1
+    ],
+    "minecraft:smooth_stone": [
+      "minecraft:stone",
+      0
+    ],
+    "minecraft:black_stained_glass": [
+      "minecraft:stained_glass",
+      15
+    ],
+    "minecraft:cobweb": [
+      "minecraft:web",
+      0
+    ],
+    "minecraft:slime_block": [
+      "minecraft:slime",
+      0
+    ],
+    "minecraft:skeleton_skull": [
+      "minecraft:skull",
+      0
+    ],
+    "minecraft:wither_skeleton_skull": [
+      "minecraft:skull",
+      1
+    ],
+    "minecraft:zombie_head": [
+      "minecraft:skull",
+      2
+    ],
+    "minecraft:creeper_head": [
+      "minecraft:skull",
+      4
+    ],
+    "minecraft:dragon_head": [
+      "minecraft:skull",
+      5
+    ],
+    "minecraft:bone_meal": [
+      "minecraft:dye",
+      15
+    ],
+    "minecraft:ink_sac": [
+      "minecraft:dye",
+      0
+    ],
+    "minecraft:lapis_lazuli": [
+      "minecraft:dye",
+      4
+    ],
+    "minecraft:cod": [
+      "minecraft:fish",
+      0
+    ],
+    "minecraft:salmon": [
+      "minecraft:fish",
+      1
+    ],
+    "minecraft:tropical_fish": [
+      "minecraft:fish",
+      2
+    ],
+    "minecraft:pufferfish": [
+      "minecraft:fish",
+      3
+    ],
+    "minecraft:wet_sponge": [
+      "minecraft:sponge",
+      1
+    ],
+    "minecraft:white_wool": [
+      "minecraft:wool",
+      0
+    ],
+    "minecraft:red_wool": [
+      "minecraft:wool",
+      14
+    ],
+    "minecraft:poppy": [
+      "minecraft:red_flower",
+      0
+    ],
+    "minecraft:snowball": [
+      "minecraft:snowball",
+      0
+    ],
+    "minecraft:nether_quartz_ore": [
+      "minecraft:quartz_ore",
+      0
+    ],
+    "minecraft:orange_wool": [
+      "minecraft:wool",
+      1
+    ],
+    "minecraft:magenta_wool": [
+      "minecraft:wool",
+      2
+    ],
+    "minecraft:light_blue_wool": [
+      "minecraft:wool",
+      3
+    ],
+    "minecraft:yellow_wool": [
+      "minecraft:wool",
+      4
+    ],
+    "minecraft:lime_wool": [
+      "minecraft:wool",
+      5
+    ],
+    "minecraft:pink_wool": [
+      "minecraft:wool",
+      6
+    ],
+    "minecraft:gray_wool": [
+      "minecraft:wool",
+      7
+    ],
+    "minecraft:light_gray_wool": [
+      "minecraft:wool",
+      8
+    ],
+    "minecraft:cyan_wool": [
+      "minecraft:wool",
+      9
+    ],
+    "minecraft:purple_wool": [
+      "minecraft:wool",
+      10
+    ],
+    "minecraft:blue_wool": [
+      "minecraft:wool",
+      11
+    ],
+    "minecraft:brown_wool": [
+      "minecraft:wool",
+      12
+    ],
+    "minecraft:green_wool": [
+      "minecraft:wool",
+      13
+    ],
+    "minecraft:black_wool": [
+      "minecraft:wool",
+      15
+    ]
+  },
+  "ore_adaptations": {
+    "minecraft:raw_iron": "minecraft:iron_ore",
+    "minecraft:raw_gold": "minecraft:gold_ore"
+  },
+  "recipe_adaptations": {
+    "loot_fabricator": "diamond replaces unavailable netherite ingot",
+    "data_center": "dragon breath replaces unavailable echo shards",
+    "framework": "stone replaces smooth stone item"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "file": "HostileNeuralNetworks-Cleanroom-1.12.2-6.5.1-cleanroom.1.jar",
+  "sha256": "dac99c043d0dbb74eb8c2ebb5eb712a45c579f0cd755907d0c9c348128e21a72",
+  "bytes": 301888,
+  "javaClassVersion": 69,
+  "devHarnessIncluded": false,
+  "optionalDependenciesBundled": false,
+  "cleanroomBaseline": "0.4.0",
+  "compileSdk": "0.7.14-alpha"
+}

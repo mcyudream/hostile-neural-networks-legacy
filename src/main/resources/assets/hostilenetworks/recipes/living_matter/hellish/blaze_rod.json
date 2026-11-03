@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hostilenetworks",
+  "ingredients": [
+    {
+      "item": "minecraft:bone",
+      "data": 0
+    },
+    {
+      "item": "hostilenetworks:nether_prediction",
+      "data": 0
+    },
+    {
+      "item": "hostilenetworks:nether_prediction",
+      "data": 0
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:blaze_rod",
+    "data": 0
+  }
+}

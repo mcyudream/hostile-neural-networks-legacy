@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hostilenetworks",
+  "key": {
+    "C": {
+      "item": "minecraft:comparator",
+      "data": 0
+    },
+    "E": {
+      "item": "minecraft:ender_pearl",
+      "data": 0
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "paneGlass"
+    },
+    "M": {
+      "type": "forge:ore_dict",
+      "ore": "gemLapis"
+    },
+    "O": {
+      "type": "forge:ore_dict",
+      "ore": "obsidian"
+    }
+  },
+  "pattern": [
+    " G ",
+    "EOE",
+    "MCM"
+  ],
+  "result": {
+    "count": 1,
+    "item": "hostilenetworks:sim_chamber",
+    "data": 0
+  }
+}

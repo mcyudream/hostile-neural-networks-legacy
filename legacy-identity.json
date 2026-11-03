@@ -9,8 +9,10 @@
   "java": 25,
   "ae2_implementation": null,
   "ae2_loader_modid": null,
-  "status": "awaiting-renamed-artifact-verification",
+  "status": "verified-cleanroom-0.4.0",
   "author": "yudream",
   "original_authors": "Brennan Ward / Shadows_of_Fire",
-  "original_repository": "https://github.com/Shadows-of-Fire/Hostile-Neural-Networks"
+  "original_repository": "https://github.com/Shadows-of-Fire/Hostile-Neural-Networks",
+  "verification_document": "LEGACY-VERIFICATION.md",
+  "verified_jar_sha256": "3b920160364857763e3c6c4320620900f55998106a33176550e1815a11e96d24"
 }

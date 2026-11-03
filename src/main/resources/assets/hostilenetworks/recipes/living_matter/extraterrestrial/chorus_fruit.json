@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hostilenetworks",
+  "ingredients": [
+    {
+      "item": "hostilenetworks:end_prediction",
+      "data": 0
+    },
+    {
+      "item": "minecraft:apple",
+      "data": 0
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:chorus_fruit",
+    "data": 0
+  }
+}

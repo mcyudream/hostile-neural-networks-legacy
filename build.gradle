@@ -1,0 +1,120 @@
+plugins {
+    id 'java-library'
+    id 'com.cleanroommc.cleanroomgradle'
+}
+group = 'dev.shadowsoffire'
+version = '6.5.1-cleanroom.1'
+base.archivesName = 'hostile-neural-networks-legacy'
+java { toolchain.languageVersion = JavaLanguageVersion.of(25); withSourcesJar() }
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.blamejared.com' }
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
+}
+dependencies {
+    implementation cleanroom.userdev(cleanroom_version)
+    compileOnly project(':ponder')
+    compileOnly 'mezz.jei:jei_1.12.2:4.16.1.302:api'
+    if (project.hasProperty('withJei')) runtimeOnly(deobf('mezz.jei:jei_1.12.2:4.16.1.302')) { transitive = false }
+    if (project.hasProperty('withPonder')) runtimeOnly project(':ponder')
+    testImplementation 'junit:junit:4.13.2'
+}
+sourceSets {
+    dev {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+tasks.register('devHarnessJar', Jar) {
+    dependsOn tasks.devClasses
+    archiveFileName = 'hnn-verification.jar'
+    destinationDirectory = layout.buildDirectory.dir('dev')
+    from sourceSets.dev.output
+}
+extensions.getByType(net.minecraftforge.renamer.gradle.RenamerExtension).classes('reobfDevHarnessJar', tasks.named('devHarnessJar')) {
+    map.from tasks.named('reobfJar').get().map
+    libraries.from sourceSets.main.runtimeClasspath
+    output = layout.buildDirectory.file('dev/hnn-verification-srg.jar')
+}
+tasks.register('prepareDevClient') {
+    if (project.hasProperty('hnnSmoke')) dependsOn 'devHarnessJar'
+    doLast {
+        def splash = file('run/client/config/splash.properties')
+        if (!splash.exists()) { splash.parentFile.mkdirs(); splash.text = 'enabled=false\n' }
+        def harness = file('run/client/mods/hnn-verification.jar')
+        if (project.hasProperty('hnnSmoke')) {
+            copy { from tasks.devHarnessJar; into harness.parentFile }
+            delete file('run/client/hnn-smoke/report.json')
+        } else delete harness
+    }
+}
+tasks.register('prepareDevServer') {
+    if (project.hasProperty('hnnServerSmoke')) dependsOn 'devHarnessJar'
+    doLast {
+        def harness = file('run/server/mods/hnn-verification.jar')
+        if (project.hasProperty('hnnServerSmoke')) {
+            copy { from tasks.devHarnessJar; into harness.parentFile }
+            delete file('run/server/hnn-smoke/report.json')
+        } else delete harness
+    }
+}
+cleanroom {
+    runs {
+        client { configure {
+            username = 'HNNDeveloper'
+            maxHeapSize = '3G'
+            jvmArgs '-Dfoundation.loadsall=true'
+            args '--width', '1280', '--height', '800'
+            dependsOn 'prepareDevClient'
+            if (project.hasProperty('withPonder')) jvmArgs '-Dfml.coreMods.load=net.createmod.ponder.mixin.PonderMixinLoader'
+            if (project.hasProperty('hnnSmoke')) {
+                jvmArgs '-Dhnn.dev.smoke=true'
+                doLast {
+                    def report = file('run/client/hnn-smoke/report.json')
+                    if (!report.exists() || new groovy.json.JsonSlurper().parse(report).result != 'PASS')
+                        throw new GradleException('HNN verification failed; inspect run/client/hnn-smoke/report.json')
+                }
+            }
+            if (project.hasProperty('packagedSmoke')) {
+                dependsOn 'reobfJar'
+                doFirst { classpath = classpath.minus(sourceSets.main.output).plus(files(tasks.reobfJar.output)) }
+            }
+        } }
+        server { configure {
+            maxHeapSize = '2G'
+            jvmArgs '-Dfoundation.loadsall=true'
+            dependsOn 'prepareDevServer'
+            if (project.hasProperty('withPonder')) jvmArgs '-Dfml.coreMods.load=net.createmod.ponder.mixin.PonderMixinLoader'
+            if (project.hasProperty('hnnServerSmoke')) {
+                jvmArgs '-Dhnn.dev.serverSmoke=true'
+                doLast {
+                    def report = file('run/server/hnn-smoke/report.json')
+                    if (!report.exists() || new groovy.json.JsonSlurper().parse(report).result != 'PASS')
+                        throw new GradleException('HNN dedicated verification failed; inspect run/server/hnn-smoke/report.json')
+                }
+            }
+            if (project.hasProperty('packagedSmoke')) {
+                dependsOn 'reobfJar'
+                doFirst { classpath = classpath.minus(sourceSets.main.output).plus(files(tasks.reobfJar.output)) }
+            }
+        } }
+    }
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.withType(net.minecraftforge.renamer.gradle.RenameJar).configureEach {
+    javaLauncher.set(javaToolchains.launcherFor { spec -> spec.languageVersion.set(JavaLanguageVersion.of(25)) })
+}
+tasks.withType(Test).configureEach { useJUnit() }
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('mcmod.info') { expand version: project.version }
+}
+jar {
+    from 'LICENSE', 'NOTICE.md', 'upstream-lock.json'
+    manifest { attributes 'FMLCorePlugin': 'dev.shadowsoffire.hostilenetworks.compat.cleanroom.Cleanroom040ServerPlugin', 'FMLCorePluginContainsFMLMod': 'true' }
+}
+
+// Forge discovers JSON recipes using the loader ID. Item/block registry IDs stay stable.
+processResources {
+    from('src/main/resources/assets/hostilenetworks/recipes') { into 'assets/hostile-neural-networks-legacy/recipes' }
+}

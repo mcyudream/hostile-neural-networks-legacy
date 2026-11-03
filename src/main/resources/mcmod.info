@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "hostile-neural-networks-legacy",
+    "name": "Hostile Neural Networks Legacy",
+    "description": "Hostile simulations and loot production. Independent Cleanroom backport of HNN 6.5.1.",
+    "version": "${version}",
+    "mcversion": "1.12.2",
+    "authorList": [
+      "yudream"
+    ],
+    "url": "https://github.com/mcyudream/hostile-neural-networks-legacy",
+    "dependencies": [
+      "cleanroom"
+    ],
+    "useDependencyInformation": false,
+    "credits": "Original author(s): Brennan Ward / Shadows_of_Fire. Original repository: https://github.com/Shadows-of-Fire/Hostile-Neural-Networks.",
+    "logoFile": "assets/hostilenetworks/branding/icon.png"
+  }
+]

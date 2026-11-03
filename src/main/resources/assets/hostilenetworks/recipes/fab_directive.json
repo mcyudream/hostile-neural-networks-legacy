@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hostilenetworks",
+  "key": {
+    "G": [
+      {
+        "item": "hostilenetworks:overworld_prediction"
+      },
+      {
+        "item": "hostilenetworks:nether_prediction"
+      },
+      {
+        "item": "hostilenetworks:end_prediction"
+      },
+      {
+        "item": "hostilenetworks:twilight_prediction"
+      }
+    ],
+    "P": {
+      "item": "minecraft:paper",
+      "data": 0
+    },
+    "R": {
+      "item": "hostilenetworks:prediction_matrix",
+      "data": 0
+    }
+  },
+  "pattern": [
+    " G ",
+    "PRP",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "item": "hostilenetworks:fab_directive",
+    "data": 0
+  }
+}

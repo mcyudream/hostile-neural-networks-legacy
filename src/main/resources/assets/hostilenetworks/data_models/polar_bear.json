@@ -1,0 +1,32 @@
+{
+  "entity": "minecraft:polar_bear",
+  "variants": [],
+  "name_color": "#CCCCCC",
+  "display": {},
+  "sim_cost": 64,
+  "input": {
+    "item": "hostilenetworks:prediction_matrix"
+  },
+  "base_drop": {
+    "id": "hostilenetworks:overworld_prediction",
+    "count": 1
+  },
+  "trivia": "hostilenetworks.trivia.polar_bear",
+  "fabricator_drops": [
+    {
+      "id": "minecraft:fish",
+      "count": 32,
+      "data": 0
+    },
+    {
+      "id": "potionsmaster:gallbladder",
+      "optional": true,
+      "count": 16
+    },
+    {
+      "id": "minecraft:fish",
+      "count": 8,
+      "data": 1
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "entity": "minecraft:elder_guardian",
+  "variants": [],
+  "name_color": "#CBB1A5",
+  "display": {
+    "y_offset": 0.5,
+    "scale": 0.5
+  },
+  "sim_cost": 1024,
+  "input": {
+    "item": "hostilenetworks:prediction_matrix"
+  },
+  "base_drop": {
+    "id": "hostilenetworks:overworld_prediction"
+  },
+  "trivia": "hostilenetworks.trivia.elder_guardian",
+  "fabricator_drops": [
+    {
+      "id": "minecraft:fish",
+      "count": 16,
+      "data": 0
+    },
+    {
+      "id": "minecraft:fish",
+      "count": 2,
+      "data": 1
+    },
+    {
+      "id": "minecraft:fish",
+      "count": 2,
+      "data": 3
+    },
+    {
+      "id": "minecraft:fish",
+      "count": 2,
+      "data": 2
+    },
+    {
+      "id": "minecraft:prismarine_crystals",
+      "count": 8
+    },
+    {
+      "id": "minecraft:prismarine_shard",
+      "count": 24
+    },
+    {
+      "id": "minecraft:sponge",
+      "count": 32,
+      "data": 1
+    }
+  ],
+  "data_gained": {
+    "faulty": 3,
+    "basic": 12,
+    "advanced": 30,
+    "superior": 45
+  }
+}

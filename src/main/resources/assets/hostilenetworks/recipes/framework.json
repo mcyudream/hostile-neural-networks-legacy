@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hostilenetworks",
+  "key": {
+    "C": {
+      "item": "minecraft:clay_ball",
+      "data": 0
+    },
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    "R": {
+      "item": "minecraft:repeater",
+      "data": 0
+    },
+    "S": {
+      "data": 0,
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "DSD",
+    "CIC"
+  ],
+  "result": {
+    "count": 1,
+    "item": "hostilenetworks:blank_data_model",
+    "data": 0
+  }
+}

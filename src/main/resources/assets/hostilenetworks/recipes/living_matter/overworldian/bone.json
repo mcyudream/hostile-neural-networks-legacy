@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hostilenetworks",
+  "ingredients": [
+    {
+      "item": "hostilenetworks:overworld_prediction",
+      "data": 0
+    },
+    {
+      "data": 15,
+      "item": "minecraft:dye"
+    }
+  ],
+  "result": {
+    "count": 22,
+    "item": "minecraft:bone",
+    "data": 0
+  }
+}

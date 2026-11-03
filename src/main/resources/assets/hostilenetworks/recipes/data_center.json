@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hostilenetworks",
+  "key": {
+    "E": {
+      "item": "minecraft:dragon_breath",
+      "data": 0
+    },
+    "L": {
+      "item": "hostilenetworks:loot_fabricator",
+      "data": 0
+    },
+    "N": {
+      "item": "minecraft:nether_star",
+      "data": 0
+    },
+    "O": {
+      "type": "forge:ore_dict",
+      "ore": "obsidian"
+    },
+    "S": {
+      "item": "hostilenetworks:sim_chamber",
+      "data": 0
+    }
+  },
+  "pattern": [
+    "ENE",
+    "SOL",
+    "OOO"
+  ],
+  "result": {
+    "count": 1,
+    "item": "hostilenetworks:data_center",
+    "data": 0
+  }
+}

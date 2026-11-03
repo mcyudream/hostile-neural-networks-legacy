@@ -1,0 +1,40 @@
+{
+  "upstreamCommit": "db9db507c49008ea80fd422c998bfb9a602e64e1",
+  "textures": [
+    {
+      "texture": "deep_learner.png",
+      "sha256": "b8abe658a5cac336c3c86bb1bb8a1bfbf0f474e659605d28c8b98e859a8114a5",
+      "matchesUpstream": true
+    },
+    {
+      "texture": "sim_chamber.png",
+      "sha256": "8f7b72fa61409b5a0bec8f127ff4816f583a66b74b55c420b8e7588717e731be",
+      "matchesUpstream": true
+    },
+    {
+      "texture": "loot_fabricator.png",
+      "sha256": "120751b41ecb34fe2d51866ca50883a12934d069170d8f7c5931a4858b40e245",
+      "matchesUpstream": true
+    },
+    {
+      "texture": "data_center.png",
+      "sha256": "d21d725d1ef3bbf3a7a865e1c83a8c9b8c83bf21b3eac2a7bd94588f6018f83d",
+      "matchesUpstream": true
+    },
+    {
+      "texture": "default_gui.png",
+      "sha256": "370e46b7b30f35e459965bbb832c9c0b45c580d71aafafa1d5a52fab6c55b96b",
+      "matchesUpstream": true
+    },
+    {
+      "texture": "deep_learner_hud.png",
+      "sha256": "adc9023c2e35d355c33b8c23ea52186c51a4779ecf664fd7e055028cc6304bd3",
+      "matchesUpstream": true
+    },
+    {
+      "texture": "sprites/dl_hud_bg.png",
+      "sha256": "2a167bf05cb0f03a2fb7b52774b98967fe797e90b490296125ad884eb47326e4",
+      "matchesUpstream": true
+    }
+  ]
+}
