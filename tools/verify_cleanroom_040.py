@@ -148,7 +148,7 @@ def main():
     jars = [PROJECT / 'build/libs/hostile-neural-networks-legacy-6.5.1-cleanroom.1.jar',
             PROJECT / 'build/dev/hnn-verification-srg.jar']
     if args.with_ponder:
-        jars.append(PROJECT.parent / 'ponder/build/libs/ponder-legacy-1.4.0-cleanroom-alpha.1.jar')
+        jars.append(Path(os.environ.get('LEGACY_PONDER_JAR', PROJECT.parent / 'ponder/build/libs/ponder-legacy-1.4.0-cleanroom-alpha.1.jar')))
         candidates = list((GRADLE / 'caches/modules-2/files-2.1/maven.modrinth/crafttweaker/4.1.20.698').glob('*/*.jar'))
         if len(candidates) != 1:
             raise RuntimeError('Resolve CraftTweaker with the withPonder development configuration first')

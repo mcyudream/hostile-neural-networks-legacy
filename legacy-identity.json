@@ -14,5 +14,6 @@
   "original_authors": "Brennan Ward / Shadows_of_Fire",
   "original_repository": "https://github.com/Shadows-of-Fire/Hostile-Neural-Networks",
   "verification_document": "LEGACY-VERIFICATION.md",
-  "verified_jar_sha256": "3b920160364857763e3c6c4320620900f55998106a33176550e1815a11e96d24"
+  "verified_jar_sha256": "3b920160364857763e3c6c4320620900f55998106a33176550e1815a11e96d24",
+  "verified_main_source_sha256": "38b84719fb15ae2b1c60abf1f5c76de82ae20d694cf18d837a207129e3651357"
 }
