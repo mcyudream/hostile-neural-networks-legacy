@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/Shadows-of-Fire/Hostile-Neural-Networks",
+  "branch": "1.21",
+  "commit": "db9db507c49008ea80fd422c998bfb9a602e64e1",
+  "version": "6.5.1",
+  "minecraft": "1.21.1",
+  "target": "Minecraft 1.12.2 / Cleanroom 0.4.0 / Java 25",
+  "cleanroom_baseline": "0.4.0",
+  "compile_sdk": "0.7.14-alpha"
+}
