@@ -1,0 +1,16 @@
+{
+  "directory": "hostile-neural-networks",
+  "modid": "hostile-neural-networks-legacy",
+  "name": "Hostile Neural Networks Legacy",
+  "resource_namespace": "hostilenetworks",
+  "repository": "mcyudream/hostile-neural-networks-legacy",
+  "minecraft": "1.12.2",
+  "cleanroom_baseline": "0.4.0",
+  "java": 25,
+  "ae2_implementation": null,
+  "ae2_loader_modid": null,
+  "status": "awaiting-renamed-artifact-verification",
+  "author": "yudream",
+  "original_authors": "Brennan Ward / Shadows_of_Fire",
+  "original_repository": "https://github.com/Shadows-of-Fire/Hostile-Neural-Networks"
+}
