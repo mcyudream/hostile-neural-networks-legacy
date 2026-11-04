@@ -53,7 +53,7 @@
 
 ## GitHub 发行与平台自动发布
 
-本项目 `ci.yml` 在推送与包内版本一致的 `v*` 标签后自动创建 GitHub Release。当前发行标签为 `v6.5.1-cleanroom.2`，新增龙研、热力、匠魂和血魔法联动；发行说明在 `docs/releases/6.5.1-cleanroom.2.md`。发布前强制核对正式运行验收 SHA-256 和四套报告，通过后上传生产 jar、源码包和 `SHA256SUMS`；普通 `main` 推送与 PR 执行构建和归档。
+本项目 `ci.yml` 在推送与包内版本一致的 `v*` 标签后自动创建 GitHub Release。最近已正式发布的标签为 `v6.5.1-cleanroom.2`，新增龙研、热力、匠魂和血魔法联动；发行说明在 `docs/releases/6.5.1-cleanroom.2.md`。发布前强制核对正式运行验收 SHA-256 和四套报告，通过后上传生产 jar、源码包和 `SHA256SUMS`；普通 `main` 推送与 PR 执行构建和归档。
 
 CurseForge / Modrinth 自动发布仍需另行配置实际项目 ID 和凭据：
 

@@ -7,7 +7,8 @@
 - 生产安装包：`hostile-neural-networks-legacy-6.5.1-cleanroom.2.jar`。
 - SHA-256：`3b1fc502314b510fc0b4a10143e1db63f4c6dc82fbe0f81d6546c2933c28bd13`。
 - 生产源码指纹：`0d2e3b82df73922e15cd9a8fe55f7e022b1ac15fcd76e959715d8295d660ed50`。
-- 发行标签：[`v6.5.1-cleanroom.2`](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.2)。标签 CI 强制核对同一安装包哈希和以下四套验收记录。
+- 正式发行：[`v6.5.1-cleanroom.2`](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.2)，提交 `9b3d1dc7f8c57fa4e06e1d9d40c2d6af4628ef79`。
+- [标签 CI](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/runs/41821908208) 已核对同一安装包哈希和以下四套验收记录；正式发行下载文件的核验结果见 [发布核验记录](docs/releases/6.5.1-cleanroom.2-ci.json)。
 
 | 组合 | 结果 | 检查数 | 证据 |
 | --- | --- | --- | --- |
