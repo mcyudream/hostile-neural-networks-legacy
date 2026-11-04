@@ -1,0 +1,51 @@
+{
+  "tag": "v6.5.1-cleanroom.3",
+  "release_url": "https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.3",
+  "release_id": 433957068,
+  "published_at": "2026-11-04T13:25:33Z",
+  "draft": false,
+  "prerelease": false,
+  "latest": true,
+  "commit": "470b483934b7aed5fd9ed9709655703e5e28c3a6",
+  "main_ci": "https://github.com/mcyudream/hostile-neural-networks-legacy/actions/runs/41836794886",
+  "main_ci_conclusion": "success",
+  "main_ci_artifact_id": 13325352774,
+  "main_ci_artifact_digest": "sha256:feef0ef7e0dbd3698ead1eed9cf637084c1cb38836b7747807a1b67f1b9bb2ad",
+  "release_ci": "https://github.com/mcyudream/hostile-neural-networks-legacy/actions/runs/41837841584",
+  "release_ci_conclusion": "success",
+  "release_ci_jobs": {
+    "build": "success",
+    "release": "success"
+  },
+  "verified_sha256": {
+    "hostile-neural-networks-legacy-6.5.1-cleanroom.3.jar": "0f0c8d53f22e9f12594f870e61a0faf2be0ffaf34453ab1ccf89a0ec97dfdcd7",
+    "hostile-neural-networks-legacy-6.5.1-cleanroom.3-sources.jar": "d70cc389ac8f947f7df5a9652020764efb647d8e4937888a1cfa61dce4bb7f99"
+  },
+  "assets": [
+    {
+      "id": 709603847,
+      "name": "hostile-neural-networks-legacy-6.5.1-cleanroom.3-sources.jar",
+      "size": 2015884,
+      "browser_download_url": "https://github.com/mcyudream/hostile-neural-networks-legacy/releases/download/v6.5.1-cleanroom.3/hostile-neural-networks-legacy-6.5.1-cleanroom.3-sources.jar",
+      "digest": "sha256:d70cc389ac8f947f7df5a9652020764efb647d8e4937888a1cfa61dce4bb7f99"
+    },
+    {
+      "id": 709603848,
+      "name": "hostile-neural-networks-legacy-6.5.1-cleanroom.3.jar",
+      "size": 2157135,
+      "browser_download_url": "https://github.com/mcyudream/hostile-neural-networks-legacy/releases/download/v6.5.1-cleanroom.3/hostile-neural-networks-legacy-6.5.1-cleanroom.3.jar",
+      "digest": "sha256:0f0c8d53f22e9f12594f870e61a0faf2be0ffaf34453ab1ccf89a0ec97dfdcd7"
+    },
+    {
+      "id": 709603850,
+      "name": "SHA256SUMS",
+      "size": 246,
+      "browser_download_url": "https://github.com/mcyudream/hostile-neural-networks-legacy/releases/download/v6.5.1-cleanroom.3/SHA256SUMS",
+      "digest": "sha256:9278eb9f0b15798219a0413011d03c32092f3e84875e083bd417e63bf1a2bff0"
+    }
+  ],
+  "checksums_sha256": "9278eb9f0b15798219a0413011d03c32092f3e84875e083bd417e63bf1a2bff0",
+  "verified_at": "2026-11-04T13:28:46.423674+00:00",
+  "verified_main_source_sha256": "92e85036599cd951c565ac47a1982af86fab2a194b5ee3692c6066f737e94773",
+  "runtime_acceptance_root": "docs/verification/6.5.1-cleanroom.3/cleanroom-0.4.0"
+}

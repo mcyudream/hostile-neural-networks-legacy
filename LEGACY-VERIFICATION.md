@@ -1,13 +1,14 @@
 # Hostile Neural Networks Legacy 正式基线验收
 
-## 当前验收构建 6.5.1-cleanroom.3
+## 当前正式发行 6.5.1-cleanroom.3
 
 - 日期：2026-11-04。
 - 环境：Minecraft 1.12.2 / **Cleanroom 0.4.0 正式版（无 -alpha）** / Java 25。
 - 生产安装包：`hostile-neural-networks-legacy-6.5.1-cleanroom.3.jar`。
 - SHA-256：`0f0c8d53f22e9f12594f870e61a0faf2be0ffaf34453ab1ccf89a0ec97dfdcd7`。
 - 生产源码指纹：`92e85036599cd951c565ac47a1982af86fab2a194b5ee3692c6066f737e94773`。
-- 状态：四套生产包验收完成；标签 `v6.5.1-cleanroom.3` 的 CI 发布进度见 [发布状态](PUBLICATION.md)。
+- 正式发行：[`v6.5.1-cleanroom.3`](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.3)，提交 `470b483934b7aed5fd9ed9709655703e5e28c3a6`。
+- [主分支 CI](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/runs/41836794886) 与 [标签构建 / 发布 CI](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/runs/41837841584)：**PASS**。已下载正式发行的安装包、源码包及 `SHA256SUMS`，确认与验收产物一致；详见 [发布核验记录](docs/releases/6.5.1-cleanroom.3-ci.json)。
 
 | 组合 | 结果 | 检查数 | 证据 |
 | --- | --- | --- | --- |
