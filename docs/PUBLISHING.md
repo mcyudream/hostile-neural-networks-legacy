@@ -51,9 +51,11 @@
 
 平台关系必须选择实际的 Legacy / AE2S 项目 ID，并检查其 1.12.2 文件；不能链接现代同名项目、原版 AE2 或 AE2UEL 代替 AE2S。附属安装 Ponder 时，CraftTweaker 由 Ponder 的必需关系传递安装；手工安装时也须提供它。
 
-## GitHub CI 后续自动发布
+## GitHub 发行与平台自动发布
 
-现有 `ci.yml` 负责源码构建、测试、重混淆、身份/作者/图标检查及构建产物归档。平台发布需另行配置实际项目 ID 和凭据：
+本项目 `ci.yml` 在推送与包内版本一致的 `v*` 标签后自动创建 GitHub Release。当前标签为 `v6.5.1-cleanroom.1`，发行说明在 `docs/releases/6.5.1-cleanroom.1.md`。发布前强制核对正式运行验收 SHA-256 和四套报告，通过后上传生产 jar、源码包和 `SHA256SUMS`；普通 `main` 推送与 PR 执行构建和归档。
+
+CurseForge / Modrinth 自动发布仍需另行配置实际项目 ID 和凭据：
 
 | 配置 | 存放位置 |
 | --- | --- |

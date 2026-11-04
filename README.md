@@ -1,118 +1,51 @@
 # Hostile Neural Networks Legacy
 
-![Hostile Neural Networks Legacy](branding/cover.png)
+[![CI](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/workflows/ci.yml/badge.svg)](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/workflows/ci.yml)
+[下载发行版](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.1) · [界面对照与截图](docs/UI.md) · [自定义模型](docs/CUSTOM-MODELS.md) · [验收记录](LEGACY-VERIFICATION.md)
+
+![Hostile Neural Networks Legacy 展示插画](branding/cover.png)
 
 <!-- legacy-overview:start -->
-把 HNN 6.5.1 的生物数据模型、模拟生产和战利品制造带到 1.12.2。通过击杀训练模型，再用 FE 和预测矩阵自动产出生物预测及战利品；数据中心可同时处理 25 个模型。
+把 **Hostile Neural Networks 6.5.1** 的生物数据模型、模拟生产和战利品制造带到 **Minecraft 1.12.2**。通过击杀训练模型，再用 FE 和预测矩阵自动生产生物预测及战利品；数据中心可同时处理 25 个模型。
 
-## 当前状态
+当前版本为 **`6.5.1-cleanroom.1`**，已完成正式 Cleanroom 0.4.0 的客户端、核心玩法和专用服务器验收。功能范围与限制见下文，完整证据见 [LEGACY-VERIFICATION.md](LEGACY-VERIFICATION.md)。
 
-本版本已完成当前声明范围的正式 Cleanroom 0.4.0 安装包验收。实际运行包的 SHA-256、检查项和限制见 [验收记录](LEGACY-VERIFICATION.md)。这不表示上游所有扩展或任意整合包组合均已验证。
+## 下载与安装
 
-<!-- legacy-authorship:start -->
-## 作者与来源 / Authors and upstream
-
-- 此 Legacy 版本作者与维护者 / Legacy author and maintainer：**yudream**。
-- 原作者 / Original author(s)：**Brennan Ward / Shadows_of_Fire**。
-- 原仓库 / Original repository：[Shadows-of-Fire/Hostile-Neural-Networks](https://github.com/Shadows-of-Fire/Hostile-Neural-Networks)。
-- 上游基线：`6.5.1`。
-- 固定上游提交：[`db9db507c490`](https://github.com/Shadows-of-Fire/Hostile-Neural-Networks/commit/db9db507c49008ea80fd422c998bfb9a602e64e1)。
-- 本版本独立维护；上游版权、许可证及资源来源声明保留于 LICENSE / NOTICE 文件中。
-<!-- legacy-authorship:end -->
-
-## 运行环境与身份
+1. 安装 **Minecraft 1.12.2、Cleanroom 0.4.0 正式版（无 `-alpha`）和 Java 25**。
+2. 在 [GitHub Releases](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.1) 下载 **`hostile-neural-networks-legacy-6.5.1-cleanroom.1.jar`**，放入客户端和服务器的 `mods/`。
+3. 更新时替换本项目旧 jar。`-sources.jar` 是源码包，`-mcp.jar` 是开发产物，均不作为游戏安装文件。
 
 | 项目 | 要求 / 标识 |
 | --- | --- |
 | Minecraft | 1.12.2 |
-| 运行基线 | Cleanroom **0.4.0 正式版（不带 `-alpha`）** |
-| Java | 25 |
-| 加载器 Mod ID | `hostile-neural-networks-legacy` |
-| 资源与原注册命名空间 | `hostilenetworks`（保留） |
+| 已验收加载器 | **Cleanroom 0.4.0 正式版（不带 `-alpha`）** |
+| Java | **25** |
+| Loader Mod ID | `hostile-neural-networks-legacy` |
+| 资源与注册命名空间 | `hostilenetworks`（保留） |
 
-Mod 的 alpha 版本号与加载器版本无关。开发 SDK 可以较新，兼容结论必须来自上述正式运行基线。
-加载器身份改名后，安装时应替换本项目旧 jar；原资源命名空间的保留不构成跨实现的存档转换承诺。
+运行必需项只有 Cleanroom，**不需要 Placebo**。当前目标为 Cleanroom / Java 25；未验证普通 Forge / Java 8。开发 SDK 的版本不改变上述兼容基线。
 
-## 功能与迁移范围
-
-- 深度学习器、模型框架、模拟室、战利品制造机、制造指令卡。
-- 7×7×7 数据中心、共享原料与产物库存，以及能量/模型/原料/产物四种 IO 端口。
-- 训练与推理模式、连续准确率、固定制造产物或轮转队列、模型和等级 JSON。
-
-## 与上游的具体差异
-
-| 项目 | 上游基线 | 本 Legacy 版本 |
-| --- | --- | --- |
-| 平台依赖 | Minecraft 1.21 分支及现代 Placebo / NeoForge 接口 | 以 1.12 FML、Forge Energy、IItemHandler、GUI 与数据同步实现，不需要 Placebo 运行库。 |
-| 模型范围 | 固定上游中的现代生物与第三方模型 | 默认 29 个原版生物模型，可选 8 个矿物模型；排除 1.12 不存在或未核实的模型，未用其他生物冒名替换。 |
-| 配方与掉落 | 现代原版材料与粗矿物品 | 转换 30 个基础合成配方；下界合金→钻石、回响碎片→龙息、平滑石→石头；粗铁/粗金→矿石方块。 |
-| 界面 | 现代 GUI 与实体渲染接口 | 使用上游贴图和槽位布局重写 1.12 界面、实体预览与 HUD；保留制造设置独立页面和小窗口缩放。 |
-| 教程与配方页 | 上游集成体系 | 新增本地 Ponder 的两套演示和 JEI 4 可选分类；均不内嵌运行库。 |
-| 存档与服务端 | 现代组件与网络协议 | 以 1.12 NBT、服务器校验和模型同步实现；正式 0.4.0 专服发现兼容修复限定于该版本。 |
-
-## 尚未实现与兼容边界
-
-- 蝙蝠定义保留 Reliquary 条件，但未核实对应 1.12 注册名，不能算作已验证兼容。
-- 不含 Curios、Jade 或现代 Placebo；部分 display 偏移、动画与 rainbow 颜色尚未完全复现。
-- 不提供其他 HNN / Deep Mob Learning 实现的存档转换；切换不同模型定义的世界前需重启客户端。
-- JEI 模型配方页在客户端初始化时建立，自定义模型重载后需重启客户端刷新 JEI。
-
-## 依赖
-
-- 必需：Cleanroom；无需 Placebo。
-- 可选：Ponder Legacy 1.4.0-cleanroom-alpha.1（另需 CraftTweaker 4.1.20.698）、JEI 4.16.1.302。
-
-## 使用方式
-
-1. 模型框架右键绑定生物，装入深度学习器后击杀对应生物升级。
-2. 基础级及以上模型装入模拟室，输入预测矩阵和 FE，选择训练或推理。
-3. 把生物预测交给制造机，选择固定产物或制造队列；进阶使用数据中心并行生产。
-
-## 构建与 CI
-
-在完整源码项目目录使用 Java 25 执行：
-
-```bash
-python3 tools/bootstrap_legacy.py
-bash gradlew --no-daemon :build :reobfJar --console=plain
-python3 tools/verify_legacy_package.py
-```
-
-CI 会准备固定版本的源码依赖，构建完整主源码与测试，并检查发行 jar 的身份、作者和图标。
-仅有文档的仓库会明确报告 scaffold，不把跳过编译标为 Mod 构建成功。CI 构建不能替代客户端玩法和专服验收。
-
-## 发布平台
-
-CurseForge / Modrinth 的项目资料、文件、依赖和 CI 凭据配置见 [发布说明](docs/PUBLISHING.md)。平台尚未发布的状态见 PUBLICATION.md。
-
-## 授权与图像
-
-保留 Shadows-of-Fire 的代码、贴图、模型与翻译来源；见 LICENSE、NOTICE.md 和导入清单。
-
-此版本作者为 **yudream**，上游作者与版权保留如上。`branding/icon.png` 和 `branding/cover.png` 为本项目生成的展示图，
-以代表物品或概念表现项目；不作为游戏实机截图，也不改变上游游戏资源的授权。生成记录见 `branding/provenance.json`。
-
-<!-- legacy-overview:end -->
-
-## 详细使用与开发说明
-
-面向 **Minecraft 1.12.2 / Cleanroom 0.4.0 正式版 / Java 25** 的独立移植，版本 `6.5.1-cleanroom.1`。兼容基线为不带 `-alpha` 的 Cleanroom `0.4.0`。
-
-来源为 [Shadows-of-Fire/Hostile-Neural-Networks](https://github.com/Shadows-of-Fire/Hostile-Neural-Networks) 的 `1.21` 分支、HNN 6.5.1，固定提交 `db9db507c49008ea80fd422c998bfb9a602e64e1`。代码、贴图、模型与翻译的授权说明见 [NOTICE.md](NOTICE.md) 和 [LICENSE](LICENSE)。这不是上游官方发行版。
-
-## 安装
-
-将 `build/libs/hostile-neural-networks-legacy-6.5.1-cleanroom.1.jar` 放入客户端和服务器的 `mods/`。使用 Java 25 启动 Cleanroom。`-mcp.jar` 和 `-sources.jar` 是开发产物，不要重复安装。
-
-运行必需项只有 Cleanroom；不依赖 Placebo。以下组件可选，均独立安装：
+以下组件可选，均独立安装：
 
 | 组件 | 已适配版本 | 用途 |
 | --- | --- | --- |
-| [本仓库 Ponder](https://github.com/mcyudream/ponder-legacy) | `1.4.0-cleanroom-alpha.1`，Mod ID `ponder-legacy` | 两套游戏内分步演示，覆盖六个核心物品 |
-| CraftTweaker | `4.1.20.698` | 仅安装上述 Ponder 时需要 |
+| [Ponder Legacy](https://github.com/mcyudream/ponder-legacy/releases/tag/v1.4.0-cleanroom-alpha.1) | `1.4.0-cleanroom-alpha.1`，Mod ID `ponder-legacy` | 两套游戏内分步演示，覆盖六个核心物品 |
+| CraftTweaker | `4.1.20.698` | 安装上述 Ponder 时必需 |
 | JEI | `4.16.1.302` | 模拟、制造配方及数据中心结构说明 |
 
-Ponder、CraftTweaker、JEI 均未嵌入 HNN jar。当前目标是 Cleanroom / Java 25；未验证普通 Forge / Java 8。
+Ponder、CraftTweaker、JEI 均未嵌入 HNN jar。保留资源命名空间不构成跨实现的存档转换承诺。
+
+<!-- legacy-authorship:start -->
+## 作者与来源 / Authors and upstream
+
+- Legacy 作者与维护者 / Legacy author and maintainer：**yudream**。
+- 原作者 / Original author：**Brennan Ward / Shadows_of_Fire**。
+- 原仓库 / Original repository：[Shadows-of-Fire/Hostile-Neural-Networks](https://github.com/Shadows-of-Fire/Hostile-Neural-Networks)。
+- 上游基线：`1.21` 分支、HNN **6.5.1**；固定提交 [`db9db507c490`](https://github.com/Shadows-of-Fire/Hostile-Neural-Networks/commit/db9db507c49008ea80fd422c998bfb9a602e64e1)。
+- 本版本独立维护。上游版权、许可证和资源来源保留于 [LICENSE](LICENSE)、[NOTICE.md](NOTICE.md) 与 [导入清单](docs/import-report.json)。
+<!-- legacy-authorship:end -->
+<!-- legacy-overview:end -->
 
 ## 已移植内容
 
@@ -197,6 +130,12 @@ model_tiers/basic.json                          → hostilenetworks:basic
 
 学习器、模拟室、制造机与数据中心使用上游原有 GUI 贴图、槽位位置、图标、翻页箭头和外置控制按钮。学习器保留实体预览、名称、trivia、属性图标与等级进度；数据中心右键模型进入独立制造设置页。小窗口会整体缩放，JEI 按实际显示范围避让侧边控件。布局对照与实机截图见 [界面对齐说明](docs/UI.md)。
 
+以下为正式 Cleanroom 0.4.0 验收实例中的游戏截图：
+
+![深度学习器中文界面](docs/verification/legacy-identity/cleanroom-0.4.0-final/client-with-ponder-jei/screenshots/deep-learner-zh-cn.png)
+
+![数据中心与 JEI](docs/verification/legacy-identity/cleanroom-0.4.0-final/client-with-ponder-jei/screenshots/data-center.png)
+
 ## 与上游的差异
 
 - 1.12 不存在的生物（例如溺尸、幻翼、猪灵、监守者、旋风人）不作替换；现代第三方 Mod 的模型未直接声明兼容，共排除 39 份定义。
@@ -208,29 +147,67 @@ model_tiers/basic.json                          → hostilenetworks:basic
 - 未提供旧世界或其他 HNN / Deep Mob Learning 实现的存档转换；不要假设它们的物品 NBT 可直接互换。
 - 客户端收到服务器模型与配置后会保留同步内容；切换到使用另一套本地定义的世界前，需要重启客户端以重新加载本地配置。
 
-## 构建和验证
+## 正式基线验收
 
-编译可选 Ponder 适配时，可使用同级 `../ponder`，或先运行 `python3 tools/bootstrap_legacy.py` 下载固定提交到 `.legacy-deps/ponder`。首次构建需联网下载依赖和游戏资源。
+以下记录使用实际生产 jar、原版 Minecraft 和官方运行库，在 **Cleanroom 0.4.0 正式版 / Java 25** 上完成：
+
+| 运行组合 | 结果 | 运行检查数 |
+| --- | --- | --- |
+| 客户端，无 Ponder / JEI | PASS | 46 |
+| 客户端，安装 Ponder / CraftTweaker / JEI | PASS | 70 |
+| 专用服务器，无 Ponder | PASS | 38 |
+| 专用服务器，安装 Ponder / CraftTweaker | PASS | 38 |
+
+覆盖真实机器生产与耗能、25 模型并行、自动化与满仓缓冲、存档重载、GUI 操作、JEI 避让和 Ponder 播放。完整范围、安装包 SHA-256 和运行报告见 [安装包验收](LEGACY-VERIFICATION.md)；早期移植与 UI 验收见 [详细验证记录](docs/VERIFICATION.md)。
+
+## 构建和 CI
+
+使用 Java 25。在独立克隆的仓库中，先下载固定提交的可选编译依赖，再构建：
+
+```bash
+python3 tools/bootstrap_legacy.py
+bash gradlew --no-daemon :build :reobfJar --console=plain
+python3 tools/verify_legacy_package.py
+```
+
+生产安装包位于 `build/libs/hostile-neural-networks-legacy-6.5.1-cleanroom.1.jar`。Ponder 适配使用同级 `../ponder`，或 bootstrap 下载的 `.legacy-deps/ponder`；发行 jar 不包含该运行库。
+
+[GitHub Actions](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/workflows/ci.yml) 在 `main` 推送、PR 和手动触发时编译源码、执行 Gradle 检查、重混淆并归档生产包、源码包及校验值。推送与安装包版本一致的 `v*` 标签后，CI 还会：
+
+1. 核对版本、Mod 身份、作者、图标和开发代码隔离。
+2. 强制比较生产 jar 与正式运行验收记录中的 SHA-256，并核对四套验收报告。
+3. 全部通过后创建 GitHub Release，上传安装包、源码包和 `SHA256SUMS`。
+
+发行说明保存在 [docs/releases/6.5.1-cleanroom.1.md](docs/releases/6.5.1-cleanroom.1.md)。CI 构建不能替代客户端和专服运行验收；修改生产包后需重新验收并更新记录。CurseForge / Modrinth 的准备资料见 [发布说明](docs/PUBLISHING.md)，平台状态见 [PUBLICATION.md](PUBLICATION.md)。
+
+### 本地运行验证
+
+完整工作区可使用 `tools/dev.sh` 选择本地 Java 25；其他安装路径可设置 `HNN_JAVA_HOME`。首次构建需联网下载依赖和游戏资源。
 
 ```bash
 ./tools/dev.sh :build :reobfDevHarnessJar :ponder:reobfJar
-# 使用其他 Java 25 安装时：HNN_JAVA_HOME=/path/to/jdk25 ./tools/dev.sh :build
 
-# 官方 Cleanroom 0.4.0 正式版，使用发行 jar、原版 Minecraft 及官方依赖
+# 官方 Cleanroom 0.4.0 正式版，使用发行 jar
 python3 tools/verify_cleanroom_040.py client
 python3 tools/verify_cleanroom_040.py client --with-ponder --with-jei
 python3 tools/verify_cleanroom_040.py server
 python3 tools/verify_cleanroom_040.py server --with-ponder
 
-# 开发环境快速检查；此环境的编译 SDK 为 0.7.14-alpha，不能替代上述基线验收
+# 编译 SDK 0.7.14-alpha 下的开发检查
 ./tools/dev.sh :runClient -PhnnSmoke -PpackagedSmoke
 ./tools/dev.sh :runClient -PhnnSmoke -PpackagedSmoke -PwithPonder -PwithJei
 ./tools/dev.sh :runServer -PhnnServerSmoke -PpackagedSmoke
 ./tools/dev.sh :runServer -PhnnServerSmoke -PpackagedSmoke -PwithPonder
 ```
 
-正式版验收脚本支持 Linux x64，复用校验过散列的运行库或按官方安装配方下载缺失文件；需要先完成一次开发环境资源与可选依赖下载。脚本会在 `run/cleanroom-0.4.0-legacy/` 下建立独立测试实例并写入 EULA 接受状态，使用前应已接受 Minecraft EULA。客户端实例需要图形环境。
+正式版验收脚本支持 Linux x64，复用校验过散列的运行库或按官方安装配方下载缺失文件；需要先完成一次开发环境资源与可选依赖下载。脚本在 `run/cleanroom-0.4.0-legacy/` 下建立独立实例并写入 EULA 接受状态，使用前应已接受 Minecraft EULA。客户端实例需要图形环境。
 
 官方 Cleanroom 0.4.0 在专服发现 Mod 时会调用客户端 Kirino 入口。HNN 包含只在物理端 SERVER 且加载器精确为 `0.4.0` 时启用的兼容修复，隔离这一调用；在客户端和其他版本不注册该转换器。若其他 Mod 已修复同一调用，则不再修改。
 
-测试会修改专用测试世界，请勿在 `run/` 下的验收实例保存个人内容。测试 Mod 位于 `src/dev/`，不包含在发行 jar 中。实际验证范围、运行库版本、jar 散列和截图见 [验证记录](docs/VERIFICATION.md)。
+测试会修改专用测试世界，请勿在 `run/` 下的验收实例保存个人内容。测试 Mod 位于 `src/dev/`，不包含在发行 jar 中。
+
+## 授权与展示图
+
+保留 Shadows-of-Fire 的代码、贴图、模型与翻译来源，见 [LICENSE](LICENSE)、[NOTICE.md](NOTICE.md) 和 [导入清单](docs/import-report.json)。
+
+`branding/icon.png` 和 `branding/cover.png` 为本项目生成的展示图，用代表物品和概念表现项目；封面为展示插画。生成记录见 [branding/provenance.json](branding/provenance.json)。游戏实机截图见 [界面对齐说明](docs/UI.md)。

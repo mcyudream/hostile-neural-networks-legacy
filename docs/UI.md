@@ -21,27 +21,27 @@
 
 ### 学习器（中文、大 GUI 比例）
 
-![深度学习器中文界面](verification/cleanroom-0.4.0/client-with-ponder-jei/screenshots/deep-learner-zh-cn.png)
+![深度学习器中文界面](verification/legacy-identity/cleanroom-0.4.0-final/client-with-ponder-jei/screenshots/deep-learner-zh-cn.png)
 
 ### 模拟室
 
-![模拟室](verification/cleanroom-0.4.0/client-with-ponder-jei/screenshots/simulation-training.png)
+![模拟室](verification/legacy-identity/cleanroom-0.4.0-final/client-with-ponder-jei/screenshots/simulation-training.png)
 
 ### 制造机与外置队列（安装 JEI）
 
-![制造队列](verification/cleanroom-0.4.0/client-with-ponder-jei/screenshots/fabricator-queue.png)
+![制造队列](verification/legacy-identity/cleanroom-0.4.0-final/client-with-ponder-jei/screenshots/fabricator-queue.png)
 
 ### 数据中心
 
-![数据中心](verification/cleanroom-0.4.0/client-with-ponder-jei/screenshots/data-center.png)
+![数据中心](verification/legacy-identity/cleanroom-0.4.0-final/client-with-ponder-jei/screenshots/data-center.png)
 
 ### 数据中心制造设置
 
-![独立制造设置页](verification/cleanroom-0.4.0/client-with-ponder-jei/screenshots/data-center-config.png)
+![独立制造设置页](verification/legacy-identity/cleanroom-0.4.0-final/client-with-ponder-jei/screenshots/data-center-config.png)
 
 ### 手持 HUD
 
-![手持学习器 HUD](verification/cleanroom-0.4.0/client-with-ponder-jei/screenshots/deep-learner-hud.png)
+![手持学习器 HUD](verification/legacy-identity/cleanroom-0.4.0-final/client-with-ponder-jei/screenshots/deep-learner-hud.png)
 
 ## 保留的版本差异
 
