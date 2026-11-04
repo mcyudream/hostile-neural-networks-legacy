@@ -3,7 +3,7 @@ plugins {
     id 'com.cleanroommc.cleanroomgradle'
 }
 group = 'dev.shadowsoffire'
-version = '6.5.1-cleanroom.2'
+version = '6.5.1-cleanroom.3'
 base.archivesName = 'hostile-neural-networks-legacy'
 java { toolchain.languageVersion = JavaLanguageVersion.of(25); withSourcesJar() }
 repositories {
@@ -110,8 +110,13 @@ processResources {
     filesMatching('mcmod.info') { expand version: project.version }
 }
 jar {
-    from 'LICENSE', 'NOTICE.md', 'upstream-lock.json'
+    from 'LICENSE', 'NOTICE.md', 'upstream-lock.json', 'expansion-upstream-lock.json'
+    from('licenses') { into 'licenses' }
     manifest { attributes 'FMLCorePlugin': 'dev.shadowsoffire.hostilenetworks.compat.cleanroom.Cleanroom040ServerPlugin', 'FMLCorePluginContainsFMLMod': 'true' }
+}
+tasks.named('sourcesJar', Jar) {
+    from 'LICENSE', 'NOTICE.md', 'upstream-lock.json', 'expansion-upstream-lock.json'
+    from('licenses') { into 'licenses' }
 }
 
 // Forge discovers JSON recipes using the loader ID. Item/block registry IDs stay stable.

@@ -28,8 +28,11 @@ public final class LearnerScreen extends ResponsiveContainer {
         addButton(new Arrow(0, guiLeft - 27, guiTop + 105, 24, 24, "left"));
         addButton(new Arrow(1, guiLeft - 1, guiTop + 105, 24, 24, "right"));
     }
-    private DataModel selected() { return ModelStack.model(learner.models.getStackInSlot(selected)); }
-    private int count() { int count = 0; for (int i = 0; i < 4; i++) if (ModelStack.model(learner.models.getStackInSlot(i)) != null) count++; return count; }
+    private DataModel selected() {
+        var stack = learner.models.getStackInSlot(selected); var models = PerfectModel.models(stack);
+        return models.isEmpty() ? ModelStack.model(stack) : models.get((ticks / 80) % 4);
+    }
+    private int count() { int count = 0; for (int i = 0; i < 4; i++) if (LearningModel.valid(learner.models.getStackInSlot(i))) count++; return count; }
     @Override public void updateScreen() {
         super.updateScreen(); ticks++;
         if (selected() == null && count() > 0) select(1);
@@ -82,7 +85,7 @@ public final class LearnerScreen extends ResponsiveContainer {
             for (int i = 0; i < 7; i++) y += wrapped(tr("hostilenetworks.gui.learner_empty." + i), 49, y, 200, i == 0 ? AQUA : WHITE, 2);
             return;
         }
-        var stack = learner.models.getStackInSlot(selected); ModelTier tier = model.tier(ModelStack.data(stack));
+        var stack = learner.models.getStackInSlot(selected); boolean perfect = LearningModel.perfect(stack);
         text(tr("hostilenetworks.gui.name"), 49, 6, 136, AQUA);
         int y = 18 + wrapped(variant > 0 && entity != null ? tr("hostilenetworks.gui.variant", entity.getName()) : model.name(), 49, 18, 136, WHITE, 2);
         text(tr("hostilenetworks.gui.info"), 49, y, 136, AQUA);
@@ -94,14 +97,14 @@ public final class LearnerScreen extends ResponsiveContainer {
             var attack = entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
             text(attack == null ? "0" : String.format(Locale.ROOT, "%.1f", attack.getAttributeValue()), 202, 40, 84, WHITE);
         }
-        text(tr("hostilenetworks.gui.tier", "§f" + tr("hostilenetworks.tier." + tier.id())), 49, 102, 200, WHITE);
-        text(tr("hostilenetworks.gui.accuracy", String.format(Locale.ROOT, "%.1f%%", model.accuracy(ModelStack.data(stack)) * 100)), 49, 114, 200, WHITE);
-        if (tier == ModelRegistry.tiers().getLast()) text(tr("hostilenetworks.gui.max_tier"), 49, 126, 200, 0xFF5555);
+        text(tr("hostilenetworks.gui.tier", "§f" + tr(LearningModel.tierKey(stack))), 49, 102, 200, WHITE);
+        text(tr("hostilenetworks.gui.accuracy", String.format(Locale.ROOT, "%.1f%%", LearningModel.accuracy(stack) * 100)), 49, 114, 200, WHITE);
+        if (LearningModel.complete(stack)) text(tr("hostilenetworks.gui.max_tier"), 49, 126, 200, 0xFF5555);
         else if (HostileConfig.actionUpgradesModel) {
-            ModelTier next = model.next(tier); int gained = model.gained(tier), remaining = Math.max(0, model.required(next) - ModelStack.data(stack));
+            int gained = LearningModel.gained(stack), remaining = Math.max(0, LearningModel.required(stack, true) - ModelStack.data(stack));
             int actions = gained == 0 ? remaining : (remaining + gained - 1) / gained;
             String word = tr("hostilenetworks.gui.action." + (model.blockModel ? "mine" : "kill") + (actions == 1 ? "" : "s"));
-            text(tr("hostilenetworks.gui.next_tier", tr("hostilenetworks.tier." + next.id()), actions, word), 49, 126, 200, WHITE);
+            text(tr("hostilenetworks.gui.next_tier", tr(perfect ? "hnn.extra.tier." + PerfectModel.TIERS[Math.min(4, PerfectModel.tier(stack) + 1)] : "hostilenetworks.tier." + model.next(model.tier(ModelStack.data(stack))).id()), actions, word), 49, 126, 200, WHITE);
         }
     }
 }

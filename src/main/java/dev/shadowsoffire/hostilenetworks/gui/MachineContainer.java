@@ -9,14 +9,26 @@ import net.minecraftforge.items.SlotItemHandler;
 public final class MachineContainer extends Container {
     public final MachineTile machine;
     public boolean configurationView;
-    public static int width(MachineTile tile) { return tile instanceof SimChamberTile ? 232 : tile instanceof DataCenterTile ? 230 : 176; }
-    public static int height(MachineTile tile) { return tile instanceof SimChamberTile ? 235 : tile instanceof DataCenterTile ? 223 : 178; }
+    public static int width(MachineTile tile) {
+        return tile instanceof UltimateFabTile ? 212 : tile instanceof MergerTile ? 216 : tile instanceof ExpansionTile || tile instanceof SimChamberTile ? 232 : tile instanceof DataCenterTile ? 230 : 176;
+    }
+    public static int height(MachineTile tile) {
+        return tile instanceof UltimateSimTile ? 257 : tile instanceof UltimateFabTile ? 210 : tile instanceof MergerTile ? 243 : tile instanceof ExpansionTile ? 188 : tile instanceof SimChamberTile ? 235 : tile instanceof DataCenterTile ? 223 : 178;
+    }
     private int ticks;
     public MachineContainer(EntityPlayer player, MachineTile tile) {
         machine = tile;
         for (int i = 0; i < tile.inventory.getSlots(); i++) {
             int x, y;
-            if (tile instanceof DataCenterTile) {
+            if (tile instanceof MergerTile) {
+                x = new int[]{63, 88, 112, 137, 183, 100}[i]; y = new int[]{10, 8, 8, 10, 35, 35}[i];
+            } else if (tile instanceof ModelTrainerTile) { x = -13; y = new int[]{1, 21, 39}[i];
+            } else if (tile instanceof DigitalAgonizerTile) { x = -13; y = i == 0 ? 1 : 25;
+            } else if (tile instanceof UltimateSimTile) {
+                x = new int[]{-13, 200, 158, 176, 158, 176, 200, 200, 158, 176}[i];
+                y = new int[]{1, 48, 6, 6, 24, 24, 6, 24, 48, 48}[i];
+            } else if (tile instanceof UltimateFabTile) { x = i == 0 ? 79 : 100 + (i - 1) % 6 * 18; y = i == 0 ? 74 : 7 + (i - 1) / 6 * 18;
+            } else if (tile instanceof DataCenterTile) {
                 if (i < 25) { x = 9 + i % 5 * 18; y = 21 + i / 5 * 20; }
                 else if (i < 29) { x = 132 + (i - 25) * 18; y = 20; }
                 else { x = 132 + (i - 29) % 4 * 18; y = 48 + (i - 29) / 4 * 18; }
@@ -29,8 +41,9 @@ public final class MachineContainer extends Container {
                 @Override public boolean isEnabled() { return !configurationView; }
             });
         }
-        playerSlots(player, tile instanceof SimChamberTile ? 36 : tile instanceof DataCenterTile ? 35 : 8,
-            tile instanceof SimChamberTile ? 153 : tile instanceof DataCenterTile ? 140 : 96);
+        int px = tile instanceof MergerTile ? 28 : tile instanceof UltimateFabTile ? 26 : tile instanceof ExpansionTile || tile instanceof SimChamberTile ? 36 : tile instanceof DataCenterTile ? 35 : 8;
+        int py = tile instanceof MergerTile ? 161 : tile instanceof UltimateFabTile ? 128 : tile instanceof UltimateSimTile ? 175 : tile instanceof ExpansionTile ? 106 : tile instanceof SimChamberTile ? 153 : tile instanceof DataCenterTile ? 140 : 96;
+        playerSlots(player, px, py);
     }
     private void playerSlots(EntityPlayer player, int x, int y) {
         for (int row = 0; row < 3; row++) for (int col = 0; col < 9; col++) addSlotToContainer(new Slot(player.inventory, col + row * 9 + 9, x + col * 18, y + row * 18) {

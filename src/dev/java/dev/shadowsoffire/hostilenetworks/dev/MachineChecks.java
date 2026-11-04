@@ -68,6 +68,7 @@ public final class MachineChecks {
         check.accept(dc().shellValid && retained.getSlots() == 25, "Reforming the shell reconnects existing pipe references");
         verifyLearner(); verifyRecipes(); verifySafety();
         IntegrationChecks.verify(world, player, dc(), check);
+        ExpansionChecks.verify(world, player, check);
         sim().inventory.setStackInSlot(0, model("zombie", 6)); sim().inventory.setStackInSlot(1, new ItemStack(Hostile.item("prediction_matrix"), 1));
         sim().mode = 1; sim().energy.set(2000000);
         for (int i = 0; i < 25; i++) dc().inventory.setStackInSlot(i, model("zombie", 1254));
@@ -100,7 +101,7 @@ public final class MachineChecks {
         ItemStack result = CraftingManager.findMatchingResult(grid, world);
         check.accept(result.getItem() == Hostile.item("prediction_matrix") && result.getCount() == 16, "Prediction matrix crafting produces the original sixteen-item batch");
         long recipes = 0; for (var recipe : net.minecraftforge.fml.common.registry.ForgeRegistries.RECIPES) if (recipe.getRegistryName().getNamespace().equals(HostileNetworks.LEGACY_MOD_ID)) recipes++;
-        check.accept(recipes == 30, "All thirty converted base crafting recipes register");
+        check.accept(recipes == 45, "All thirty base and fifteen Extra HNN crafting recipes register");
     }
     private void verifySafety() {
         var external = sim().getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);

@@ -37,6 +37,7 @@ public final class Network {
         MachineTile tile = container.machine;
         if (msg.action == 0) tile.redstone = (tile.redstone + 1) % 3;
         else if (msg.action == 1 && tile instanceof SimChamberTile sim) sim.changeMode();
+        else if (msg.action == 6 && tile instanceof UltimateSimTile sim) sim.extractModel = !sim.extractModel;
         else if (tile instanceof ProductionTile production) {
             int max = tile instanceof DataCenterTile ? 25 : 1;
             if (msg.modelSlot < 0 || msg.modelSlot >= max) return;

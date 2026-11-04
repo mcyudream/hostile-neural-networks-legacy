@@ -21,6 +21,41 @@ public final class HNNPonder implements PonderPlugin {
             helper.addStoryBoard(HostileNetworks.id(item), HostileNetworks.id("workflow"), (scene, util) -> workflow(scene, util, item + "_workflow")).identifiedBy(HostileNetworks.id(item + "_workflow"));
         for (String item : new String[]{"data_center", "data_center_io_port"})
             helper.addStoryBoard(HostileNetworks.id(item), HostileNetworks.id("data_center"), (scene, util) -> dataCenter(scene, util, item + "_structure")).identifiedBy(HostileNetworks.id(item + "_structure"));
+        for (String item : Hostile.ITEMS.keySet()) {
+            if (item.equals("merger_camera") || item.equals("simulator_modeling") || item.equals("blank_extra_data_model") || item.equals("extra_data_model")
+                || item.startsWith("ultimate_") || item.startsWith("upgrade_") || item.equals("setting_card"))
+                helper.addStoryBoard(HostileNetworks.id(item), HostileNetworks.id("expansion"), (scene, util) -> expansion(scene, util, item + "_expansion")).identifiedBy(HostileNetworks.id(item + "_expansion"));
+        }
+        if (Hostile.item("digital_agonizer") != null) for (String item : new String[]{"digital_agonizer", "altar_linker"})
+            helper.addStoryBoard(HostileNetworks.id(item), HostileNetworks.id("agonizer"), (scene, util) -> agonizer(scene, util, item + "_bloodmagic")).identifiedBy(HostileNetworks.id(item + "_bloodmagic"));
+    }
+    private static void expansion(SceneBuilder scene, SceneBuildingUtil util, String id) {
+        scene.title(id, I18n.format("hnn.ponder.expansion.title")); scene.configureBasePlate(0, 0, 7); scene.showBasePlate();
+        scene.world().showSection(util.select().layersFrom(1), EnumFacing.DOWN); scene.idle(20);
+        String[] steps = {"train", "merge", "learn", "simulate", "fabricate", "settings"};
+        String[] items = {"upgrade_speed", "blank_extra_data_model", "deep_learner", "prediction_matrix", "prediction", "setting_card"};
+        int[] xs = {1, 2, 2, 4, 5, 5};
+        for (int i = 0; i < steps.length; i++) {
+            scene.overlay().showText(110).text(I18n.format("hnn.ponder.expansion." + steps[i])).pointAt(util.vector().centerOf(xs[i], 1, 3)).placeNearTarget();
+            ItemStack item = Hostile.stack(items[i]);
+            if (i == 4 && ModelRegistry.get("zombie") != null) item = ModelStack.create(ModelRegistry.get("zombie"), true);
+            scene.overlay().showControls(util.vector().topOf(xs[i], 1, 3), Pointing.DOWN, 100).rightClick().withItem(item); scene.idle(115);
+        }
+        scene.markAsFinished();
+    }
+    private static void agonizer(SceneBuilder scene, SceneBuildingUtil util, String id) {
+        scene.title(id, I18n.format("hnn.ponder.agonizer.title")); scene.configureBasePlate(0, 0, 5); scene.showBasePlate();
+        scene.world().showSection(util.select().layersFrom(1), EnumFacing.DOWN); scene.idle(20);
+        String[] steps = {"altar", "link", "model", "power", "catalyst", "automation"};
+        for (int i = 0; i < steps.length; i++) {
+            int x = i == 0 ? 1 : 3;
+            scene.overlay().showText(110).text(I18n.format("hnn.ponder.agonizer." + steps[i])).pointAt(util.vector().centerOf(x, 1, 2)).placeNearTarget();
+            if (i < 2) scene.overlay().showControls(util.vector().topOf(x, 1, 2), Pointing.DOWN, 100).rightClick().withItem(Hostile.stack("altar_linker"));
+            if (i == 2 && ModelRegistry.get("zombie") != null) scene.overlay().showControls(util.vector().topOf(x, 1, 2), Pointing.DOWN, 100).withItem(ModelStack.create(ModelRegistry.get("zombie"), false));
+            if (i == 4) scene.overlay().showControls(util.vector().topOf(x, 1, 2), Pointing.DOWN, 100).withItem(Hostile.stack("overworld_prediction"));
+            scene.idle(115);
+        }
+        scene.markAsFinished();
     }
     private static void workflow(SceneBuilder scene, SceneBuildingUtil util, String id) {
         scene.title(id, I18n.format("hnn.ponder.workflow.title")); scene.configureBasePlate(0, 0, 5); scene.showBasePlate();

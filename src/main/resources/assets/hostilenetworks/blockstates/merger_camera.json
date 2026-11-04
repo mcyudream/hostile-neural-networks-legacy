@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "extrahnn:merger_camera",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "extrahnn:merger_camera"
+    },
+    "facing=south": {
+      "model": "extrahnn:merger_camera",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "extrahnn:merger_camera",
+      "y": 270
+    }
+  }
+}

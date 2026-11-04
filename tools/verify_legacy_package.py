@@ -24,6 +24,8 @@ with ZipFile(jars[0]) as archive:
     assert logo in archive.namelist(), 'Missing project icon: ' + logo
     assert archive.read(logo) == (p/'branding/icon.png').read_bytes(), 'Packaged icon differs from project artwork'
     assert '${' not in archive.read('mcmod.info').decode(), 'Unexpanded metadata'
+    assert archive.read('licenses/Extra-HNN-MIT.txt') == (p/'licenses/Extra-HNN-MIT.txt').read_bytes(), 'Extra HNN MIT license missing or changed'
+    assert json.loads(archive.read('expansion-upstream-lock.json')) == json.loads((p/'expansion-upstream-lock.json').read_text()), 'Extra HNN provenance missing or changed'
     assert not any('/dev/' in name or 'Smoke.class' in name for name in archive.namelist() if name.endswith('.class')), 'Development harness in release'
     assert not any(name.startswith(('net/createmod/', 'crafttweaker/', 'mezz/jei/', 'WayofTime/', 'slimeknights/', 'cofh/', 'com/brandon3055/', 'codechicken/', 'baubles/', 'amerifrance/guideapi/'))
                    for name in archive.namelist() if name.endswith('.class')), 'Optional dependency bundled in release'

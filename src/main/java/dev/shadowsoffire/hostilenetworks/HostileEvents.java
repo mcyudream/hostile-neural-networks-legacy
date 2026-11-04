@@ -22,6 +22,7 @@ public final class HostileEvents {
     }
     @SubscribeEvent public static void entityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!HostileConfig.rightClickToAttune || event.getItemStack().getItem() != Hostile.item("blank_data_model")) return;
+        if (Arrays.asList(ExpansionConfig.attuneBlacklist).contains(String.valueOf(EntityList.getKey(event.getTarget())))) return;
         if (!event.getWorld().isRemote) attune(event.getEntityPlayer(), event.getHand(), ModelRegistry.models().stream().filter(m -> m.attunes(event.getTarget())).toList());
         event.setCanceled(true); event.setCancellationResult(EnumActionResult.SUCCESS);
     }
@@ -60,8 +61,13 @@ public final class HostileEvents {
         var inventory = DeepLearnerItem.inventory(learner);
         for (int slot = 0; slot < 4; slot++) {
             ItemStack stack = inventory.getStackInSlot(slot); DataModel model = ModelStack.model(stack);
-            if (model == null || !match.test(model)) continue;
-            ModelStack.gain(stack, model.gained(model.tier(ModelStack.data(stack))), true);
+            if (LearningModel.perfect(stack)) {
+                if (PerfectModel.models(stack).stream().noneMatch(match)) continue;
+                PerfectModel.gain(stack);
+            } else {
+                if (model == null || !match.test(model)) continue;
+                ModelStack.gain(stack, model.gained(model.tier(ModelStack.data(stack))), true);
+            }
             inventory.setStackInSlot(slot, stack);
         }
     }

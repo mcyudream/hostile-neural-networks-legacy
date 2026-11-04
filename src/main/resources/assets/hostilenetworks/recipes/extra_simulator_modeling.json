@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "BCB",
+    "DED"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:diamond_sword"
+    },
+    "B": {
+      "item": "hostilenetworks:ultimate_sim_chamber_v1"
+    },
+    "C": {
+      "item": "hostilenetworks:merger_camera"
+    },
+    "D": {
+      "item": "hostilenetworks:upgrade_speed"
+    },
+    "E": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "item": "hostilenetworks:simulator_modeling"
+  }
+}

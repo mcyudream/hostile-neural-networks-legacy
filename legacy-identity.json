@@ -14,19 +14,25 @@
   "original_authors": "Brennan Ward / Shadows_of_Fire",
   "original_repository": "https://github.com/Shadows-of-Fire/Hostile-Neural-Networks",
   "verification_document": "LEGACY-VERIFICATION.md",
-  "verified_jar_sha256": "3b1fc502314b510fc0b4a10143e1db63f4c6dc82fbe0f81d6546c2933c28bd13",
-  "verified_main_source_sha256": "0d2e3b82df73922e15cd9a8fe55f7e022b1ac15fcd76e959715d8295d660ed50",
-  "published_verified_commit": "9b3d1dc7f8c57fa4e06e1d9d40c2d6af4628ef79",
-  "release_tag": "v6.5.1-cleanroom.2",
+  "verified_jar_sha256": "0f0c8d53f22e9f12594f870e61a0faf2be0ffaf34453ab1ccf89a0ec97dfdcd7",
+  "verified_main_source_sha256": "92e85036599cd951c565ac47a1982af86fab2a194b5ee3692c6066f737e94773",
+  "published_verified_commit": null,
+  "release_tag": "v6.5.1-cleanroom.3",
   "previous_acceptance": [
     {
       "release_tag": "v6.5.1-cleanroom.1",
       "verified_jar_sha256": "3b920160364857763e3c6c4320620900f55998106a33176550e1815a11e96d24",
       "verified_main_source_sha256": "38b84719fb15ae2b1c60abf1f5c76de82ae20d694cf18d837a207129e3651357",
       "published_verified_commit": "ca98d4fa65b080e66b0c92f5232ad84b7ef44a24"
+    },
+    {
+      "release_tag": "v6.5.1-cleanroom.2",
+      "verified_jar_sha256": "3b1fc502314b510fc0b4a10143e1db63f4c6dc82fbe0f81d6546c2933c28bd13",
+      "verified_main_source_sha256": "0d2e3b82df73922e15cd9a8fe55f7e022b1ac15fcd76e959715d8295d660ed50",
+      "published_verified_commit": "9b3d1dc7f8c57fa4e06e1d9d40c2d6af4628ef79"
     }
   ],
-  "verification_root": "docs/verification/6.5.1-cleanroom.2/cleanroom-0.4.0",
+  "verification_root": "docs/verification/6.5.1-cleanroom.3/cleanroom-0.4.0",
   "verification_variants": [
     "client-without-ponder",
     "client-with-ponder-jei-integrations",

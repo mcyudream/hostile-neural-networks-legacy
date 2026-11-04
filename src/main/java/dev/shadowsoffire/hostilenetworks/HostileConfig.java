@@ -27,6 +27,7 @@ public final class HostileConfig {
         enableBlockDataModels = cfg.getBoolean("enableBlockDataModels", "models", false, "Load experimental ore data models");
         floorBlocks = cfg.getStringList("floorBlocks", "data_center", new String[]{"minecraft:obsidian"}, "Valid floor blocks, optionally id@metadata");
         wallBlocks = cfg.getStringList("wallBlocks", "data_center", new String[]{"minecraft:stained_glass@15", "hostilenetworks:data_center_io_port"}, "Valid walls and ceiling");
+        ExpansionConfig.load(cfg);
         if (cfg.hasChanged()) cfg.save();
     }
     public static NBTTagCompound syncTag() {
@@ -34,9 +35,10 @@ public final class HostileConfig {
         n.setInteger("sim", simPowerCap); n.setInteger("fab", fabPowerCap); n.setInteger("fabCost", fabPowerCost);
         n.setInteger("dc", dataCenterPowerCap); n.setFloat("dcCost", dataCenterCost); n.setInteger("training", simModelUpgrade);
         n.setBoolean("attune", rightClickToAttune); n.setBoolean("actions", actionUpgradesModel); n.setBoolean("accuracy", continuousAccuracy);
-        return n;
+        n.setTag("expansion", ExpansionConfig.write()); return n;
     }
     public static void readSync(NBTTagCompound n) {
+        ExpansionConfig.read(n.getCompoundTag("expansion"));
         simPowerCap = n.getInteger("sim"); fabPowerCap = n.getInteger("fab"); fabPowerCost = n.getInteger("fabCost");
         dataCenterPowerCap = n.getInteger("dc"); dataCenterCost = n.getFloat("dcCost"); simModelUpgrade = n.getInteger("training");
         rightClickToAttune = n.getBoolean("attune"); actionUpgradesModel = n.getBoolean("actions"); continuousAccuracy = n.getBoolean("accuracy");

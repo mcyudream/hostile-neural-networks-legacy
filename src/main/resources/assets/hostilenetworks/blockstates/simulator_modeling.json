@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "extrahnn:simulator_modeling",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "extrahnn:simulator_modeling"
+    },
+    "facing=south": {
+      "model": "extrahnn:simulator_modeling",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "extrahnn:simulator_modeling",
+      "y": 270
+    }
+  }
+}

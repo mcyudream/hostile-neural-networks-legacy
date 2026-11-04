@@ -28,6 +28,7 @@ public final class ClientProxy extends CommonProxy {
     @Override public void init() {
         ClientRegistry.registerKeyBinding(open);
         Hostile.item("data_model").setTileEntityItemStackRenderer(new DataModelRenderer());
+        Hostile.item("extra_data_model").setTileEntityItemStackRenderer(new PerfectModelRenderer());
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, layer) -> {
             DataModel model = ModelStack.model(stack); return model == null ? 0xFFFFFF : model.color;
         }, Hostile.item("prediction"));
@@ -59,6 +60,6 @@ public final class ClientProxy extends CommonProxy {
     }
     @Override public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         if (id == 1 || id == 2) return new LearnerScreen(player, id == 1 ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND);
-        return world.getTileEntity(new BlockPos(x, y, z)) instanceof MachineTile machine ? new MachineScreen(player, machine) : null;
+        return world.getTileEntity(new BlockPos(x, y, z)) instanceof MachineTile machine ? (machine instanceof ExpansionTile extra ? new ExpansionScreen(player, extra) : new MachineScreen(player, machine)) : null;
     }
 }

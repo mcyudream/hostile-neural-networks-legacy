@@ -29,13 +29,22 @@ public final class MachineBlock extends Block {
     @Override public IBlockState withRotation(IBlockState s, Rotation r) { return s.withProperty(FACING, r.rotate(s.getValue(FACING))); }
     @Override public IBlockState withMirror(IBlockState s, Mirror m) { return withRotation(s, m.toRotation(s.getValue(FACING))); }
     @Override public boolean hasTileEntity(IBlockState state) { return true; }
-    @Override public TileEntity createTileEntity(World world, IBlockState state) { return switch (machine) { case "sim_chamber" -> new SimChamberTile(); case "loot_fabricator" -> new LootFabTile(); default -> new DataCenterTile(); }; }
+    @Override public TileEntity createTileEntity(World world, IBlockState state) {
+        if (machine.startsWith("ultimate_sim_chamber_v")) return new UltimateSimTile(machine.charAt(machine.length() - 1) - '1');
+        if (machine.startsWith("ultimate_loot_fabricator_v")) return new UltimateFabTile(machine.charAt(machine.length() - 1) - '1');
+        return switch (machine) {
+            case "sim_chamber" -> new SimChamberTile(); case "loot_fabricator" -> new LootFabTile();
+            case "merger_camera" -> new MergerTile(); case "simulator_modeling" -> new ModelTrainerTile();
+            case "digital_agonizer" -> new DigitalAgonizerTile(); default -> new DataCenterTile();
+        };
+    }
     @Override public boolean isOpaqueCube(IBlockState s) { return false; }
     @Override public boolean isFullCube(IBlockState s) { return false; }
     @Override public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }
     @Override public boolean canProvidePower(IBlockState s) { return false; }
     @Override public boolean onBlockActivated(World w, BlockPos pos, IBlockState s, EntityPlayer p, EnumHand hand, EnumFacing f, float x, float y, float z) {
-        if (p.getHeldItem(hand).getItem() == Hostile.item("fab_directive") || p.getHeldItem(hand).getItem() == Hostile.item("deep_learner")) return false;
+        for (String id : new String[]{"fab_directive", "deep_learner", "setting_card", "altar_linker"})
+            if (!p.getHeldItem(hand).isEmpty() && p.getHeldItem(hand).getItem() == Hostile.item(id)) return false;
         if (!w.isRemote) p.openGui(HostileNetworks.INSTANCE, 0, w, pos.getX(), pos.getY(), pos.getZ()); return true;
     }
     @Override public void breakBlock(World w, BlockPos pos, IBlockState state) {

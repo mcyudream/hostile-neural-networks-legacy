@@ -1,5 +1,32 @@
 # 界面对齐
 
+## 6.5.1-cleanroom.3 新增界面
+
+Extra HNN 界面固定对照 `950bc0327ed3ace3911eebf2eab5d0aca3b44949`，使用其原始 MIT PNG、模型和物品资源。
+槽位沿用原版逻辑坐标；终极模拟室按背包实际绘制边界以 257 像素计算可见高度。
+
+| 界面 | 逻辑尺寸 | 槽位 / 背包坐标 |
+| --- | --- | --- |
+| 模型融合室 | 216×243 | 四模型 `(63,10)`、`(88,8)`、`(112,8)`、`(137,10)`；框架 `(183,35)`、输出 `(100,35)`；背包 `(28,161)` |
+| 模型模拟器 | 232×188 | 模型 `(-13,1)`、升级 `(-13,21)`、`(-13,39)`；背包 `(36,106)` |
+| 终极模拟室 | 232×257 | 模型 `(-13,1)`、原料 `(200,48)`；八个输出按原版布局；背包 `(36,175)` |
+| 终极制造器 | 212×210 | 输入 `(79,74)`；6×6 输出从 `(100,7)` 开始；背包 `(26,128)` |
+| 数字化苦难之井 | 232×188 | 模型 `(-13,1)`、催化剂 `(-13,25)`；祭坛坐标、LP、催化次数与进度 |
+
+保留原有缩放和 JEI 控件避让。完美模型渲染后恢复光照贴图，避免蜘蛛眼睛等实体层导致后续物品、文字变黑。
+
+![模型融合室](verification/6.5.1-cleanroom.3/cleanroom-0.4.0/client-with-ponder-jei-integrations/screenshots/expansion-merger_camera.png)
+
+![模型模拟器](verification/6.5.1-cleanroom.3/cleanroom-0.4.0/client-with-ponder-jei-integrations/screenshots/expansion-simulator_modeling.png)
+
+![终极模拟室](verification/6.5.1-cleanroom.3/cleanroom-0.4.0/client-with-ponder-jei-integrations/screenshots/expansion-ultimate_sim_chamber_v4.png)
+
+![终极制造器](verification/6.5.1-cleanroom.3/cleanroom-0.4.0/client-with-ponder-jei-integrations/screenshots/expansion-ultimate_loot_fabricator_v4.png)
+
+![数字化苦难之井](verification/6.5.1-cleanroom.3/cleanroom-0.4.0/client-with-ponder-jei-integrations/screenshots/expansion-digital_agonizer.png)
+
+## 原 HNN 界面
+
 对照上游 `1.21` 分支固定提交 `db9db507c49008ea80fd422c998bfb9a602e64e1`。使用其原始 GUI PNG 与箭头贴图；布局坐标为 Minecraft GUI 逻辑像素。实机截图来自独立安装的 Cleanroom **0.4.0 正式版**，使用发行 jar。
 
 ## 布局

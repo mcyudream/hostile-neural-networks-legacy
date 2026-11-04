@@ -44,7 +44,7 @@ public final class LearnerContainer extends Container {
         Slot slot = inventorySlots.get(index); if (!slot.getHasStack()) return ItemStack.EMPTY;
         ItemStack source = slot.getStack(), old = source.copy();
         if (index < 4) { if (!mergeItemStack(source, 4, inventorySlots.size(), true)) return ItemStack.EMPTY; }
-        else if (source.getItem() != Hostile.item("data_model") || !mergeItemStack(source, 0, 4, false)) return ItemStack.EMPTY;
+        else if (!dev.shadowsoffire.hostilenetworks.data.LearningModel.valid(source) || !mergeItemStack(source, 0, 4, false)) return ItemStack.EMPTY;
         if (source.isEmpty()) slot.putStack(ItemStack.EMPTY); else slot.onSlotChanged(); slot.onTake(player, source); return old;
     }
 }

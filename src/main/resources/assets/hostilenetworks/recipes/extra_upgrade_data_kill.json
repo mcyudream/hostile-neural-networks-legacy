@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    "DED",
+    "FGF"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:diamond_sword"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "C": {
+      "item": "minecraft:diamond_axe"
+    },
+    "D": {
+      "item": "minecraft:nether_star"
+    },
+    "E": {
+      "item": "hostilenetworks:blank_extra_data_model"
+    },
+    "F": {
+      "item": "minecraft:ender_eye"
+    },
+    "G": {
+      "item": "hostilenetworks:upgrade_speed"
+    }
+  },
+  "result": {
+    "item": "hostilenetworks:upgrade_data_kill"
+  }
+}

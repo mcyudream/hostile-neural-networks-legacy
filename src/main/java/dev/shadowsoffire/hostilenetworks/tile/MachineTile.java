@@ -25,7 +25,7 @@ public abstract class MachineTile extends TileEntity implements ITickable {
     protected MachineTile(int slots, int outputStart, int capacity) {
         this.outputStart = outputStart;
         inventory = new ItemStackHandler(slots) {
-            @Override public int getSlotLimit(int slot) { return isModelSlot(slot) ? 1 : 64; }
+            @Override public int getSlotLimit(int slot) { return MachineTile.this.slotLimit(slot); }
             @Override protected void onContentsChanged(int slot) { MachineTile.this.markDirty(); }
         };
         energy = new EnergyStore(capacity);
@@ -35,11 +35,13 @@ public abstract class MachineTile extends TileEntity implements ITickable {
             @Override public int getSlotLimit(int slot) { return inventory.getSlotLimit(slot); }
             @Override public boolean isItemValid(int slot, ItemStack stack) { return accepts(slot, stack); }
             @Override public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) { return accepts(slot, stack) ? inventory.insertItem(slot, stack, simulate) : stack; }
-            @Override public ItemStack extractItem(int slot, int amount, boolean simulate) { return slot >= outputStart ? inventory.extractItem(slot, amount, simulate) : ItemStack.EMPTY; }
+            @Override public ItemStack extractItem(int slot, int amount, boolean simulate) { return canExtract(slot) ? inventory.extractItem(slot, amount, simulate) : ItemStack.EMPTY; }
         };
     }
     public abstract boolean accepts(int slot, ItemStack stack);
     public boolean isModelSlot(int slot) { return false; }
+    public int slotLimit(int slot) { return isModelSlot(slot) ? 1 : 64; }
+    public boolean canExtract(int slot) { return slot >= outputStart; }
     public int getOutputStart() { return outputStart; }
     public boolean canUse(EntityPlayer player) { return world != null && world.getTileEntity(pos) == this && player.getDistanceSq(pos) <= 64; }
     public boolean enabled() { return redstone == 0 || (world.isBlockPowered(pos) == (redstone == 2)); }
@@ -119,5 +121,6 @@ public abstract class MachineTile extends TileEntity implements ITickable {
             energy -= amount; markDirty(); return true;
         }
         public void set(int amount) { energy = Math.clamp(amount, 0, capacity); }
+        public void resize(int amount) { capacity = Math.max(1, amount); maxReceive = capacity; energy = Math.min(energy, capacity); }
     }
 }

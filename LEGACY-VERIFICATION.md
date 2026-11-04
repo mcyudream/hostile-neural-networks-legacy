@@ -1,6 +1,36 @@
 # Hostile Neural Networks Legacy 正式基线验收
 
-## 当前构建 6.5.1-cleanroom.2
+## 当前验收构建 6.5.1-cleanroom.3
+
+- 日期：2026-11-04。
+- 环境：Minecraft 1.12.2 / **Cleanroom 0.4.0 正式版（无 -alpha）** / Java 25。
+- 生产安装包：`hostile-neural-networks-legacy-6.5.1-cleanroom.3.jar`。
+- SHA-256：`0f0c8d53f22e9f12594f870e61a0faf2be0ffaf34453ab1ccf89a0ec97dfdcd7`。
+- 生产源码指纹：`92e85036599cd951c565ac47a1982af86fab2a194b5ee3692c6066f737e94773`。
+- 状态：四套生产包验收完成；标签 `v6.5.1-cleanroom.3` 的 CI 发布进度见 [发布状态](PUBLICATION.md)。
+
+| 组合 | 结果 | 检查数 | 证据 |
+| --- | --- | --- | --- |
+| client-without-ponder | PASS | 119 | [报告](docs/verification/6.5.1-cleanroom.3/cleanroom-0.4.0/client-without-ponder/report.json) |
+| client-with-ponder-jei-integrations | PASS | 310 | [报告](docs/verification/6.5.1-cleanroom.3/cleanroom-0.4.0/client-with-ponder-jei-integrations/report.json) |
+| server-without-ponder | PASS | 101 | [报告](docs/verification/6.5.1-cleanroom.3/cleanroom-0.4.0/server-without-ponder/report.json) |
+| server-with-ponder-integrations | PASS | 213 | [报告](docs/verification/6.5.1-cleanroom.3/cleanroom-0.4.0/server-with-ponder-integrations/report.json) |
+
+四套报告的 `runtime.json` 均记录同一安装包 SHA-256。无前置组合验证可选代码隔离；全联动组合安装龙研、热力、匠魂、血魔法及十二个锁定依赖。Ponder 使用此前验收的独立 `1.4.0-cleanroom-alpha.1` 运行库，Loader ID 为 `ponder-legacy`；加载器严格为正式 `0.4.0`。
+
+本轮新增检查包括四模型融合、重复目标独立成长、普通 / 完美模型训练、三种升级组合、V1～V4 各档产量和精确 FE、36 槽制造、部分批次与队列、满仓暂停、中途换模、模型管道抽取、高容量 NBT 恢复、设定卡转移真实模型及防复制。
+
+血魔法使用真实祭坛二进制：四档 LP、四种十次催化剂、真实二级祭坛四个有效献祭符文的 1.4 倍倍率、满坛停机、待交付 LP 防重复、链接器交互 / 跨维度拒绝、祭坛消失以及红石暂停时容量显示。
+
+客户端通过真实网络打开全部新容器，验证模式 / 抽取按钮、原始方块模型、中文 GUI、普通与大比例缩放、JEI 避让、两套新 Ponder 场景完整执行与播放器推进。实机图见 [UI 记录](docs/UI.md)。完美模型渲染产生的光照状态泄漏已修复。
+
+构建命令：`./tools/dev.sh :build :reobfDevHarnessJar`。安装包和源码包均保留 Extra HNN MIT 许可证及固定来源；安装包不包含开发验收类或可选前置。详见 [扩展玩法](docs/EXPANSION.md)。
+
+### 已知验证边界
+
+继承上一版的可选运行库限制：本环境下匠魂 2.13.0.183 的部分工具模型加载会写出警告 / 错误，上一版也存在；本轮 HNN 新方块与物品模型已检查。这里验收 HNN 的数据模型和机器联动，不将其等同于完整匠魂客户端渲染验收。
+
+## 历史已发行构建 6.5.1-cleanroom.2
 
 - 日期：2026-11-04。
 - 环境：Minecraft 1.12.2 / **Cleanroom 0.4.0 正式版（无 -alpha）** / Java 25。

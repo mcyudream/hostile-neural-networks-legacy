@@ -71,6 +71,7 @@ public final class HNNClientSmoke {
                 }
                 case 2 -> {
                     if (!ready()) return;
+                    if (Boolean.getBoolean("hnn.dev.expansionOnly")) { phase = 180; break; }
                     mc.displayGuiScreen(null); capture = "deep-learner-hud.png"; phase = 22;
                 }
                 case 22 -> {
@@ -176,10 +177,14 @@ public final class HNNClientSmoke {
                 case 142 -> { PonderSmoke.verifyPlayback(this::check, "workflow"); capture = "ponder-workflow.png"; phase = 15; }
                 case 15 -> { PonderSmoke.center(); phase++; next = ticks + 140; }
                 case 16 -> { PonderSmoke.verifyPlayback(this::check, "Data Center"); capture = "ponder-data-center.png"; phase = 160; }
-                case 160 -> { mc.displayGuiScreen(null); phase = 170; }
+                case 160 -> { PonderSmoke.expansion(); phase = 161; next = ticks + 70; }
+                case 161 -> { PonderSmoke.verifyPlayback(this::check, "Extra HNN"); capture = "ponder-expansion.png"; phase = Loader.isModLoaded("bloodmagic") ? 162 : 164; }
+                case 162 -> { PonderSmoke.agonizer(); phase = 163; next = ticks + 70; }
+                case 163 -> { PonderSmoke.verifyPlayback(this::check, "Digital Agonizer"); capture = "ponder-agonizer.png"; phase = 164; }
+                case 164 -> { mc.displayGuiScreen(null); phase = 170; }
                 case 170 -> {
                     integrationPreviews = IntegrationChecks.loadedModels(); integrationPreview = 0;
-                    if (integrationPreviews.isEmpty()) { phase = 17; break; }
+                    if (integrationPreviews.isEmpty()) { phase = 180; break; }
                     originalLearner = player().inventory.getStackInSlot(0).copy();
                     previewIntegration(); phase = 171;
                 }
@@ -200,7 +205,59 @@ public final class HNNClientSmoke {
                     if (++integrationPreview < integrationPreviews.size()) { previewIntegration(); phase = 171; }
                     else { server(() -> player().inventory.setInventorySlotContents(0, originalLearner)); phase = 174; }
                 }
-                case 174 -> { if (ready()) phase = 17; }
+                case 174 -> { if (ready()) phase = 180; }
+                case 180 -> {
+                    expansionPreview = 0;
+                    originalLanguage = mc.getLanguageManager().getCurrentLanguage(); mc.getLanguageManager().setCurrentLanguage(mc.getLanguageManager().getLanguage("zh_cn"));
+                    mc.gameSettings.language = "zh_cn"; mc.refreshResources(); openExpansion(); phase = 181; next = ticks + 15;
+                }
+                case 181 -> {
+                    if (!ready() || !(mc.currentScreen instanceof ExpansionScreen screen)) return;
+                    var id = ExpansionChecks.previews().get(expansionPreview);
+                    check(screen.inventorySlots.inventorySlots.size() == screen.machine.inventory.getSlots() + 36, id + " opens its registered client/server container with every slot");
+                    var model = mc.getRenderItem().getItemModelWithOverrides(Hostile.stack(id), mc.world, mc.player);
+                    check(model != mc.getRenderItem().getItemModelMesher().getModelManager().getMissingModel(), id + " resolves its original block/item model without a missing-model fallback");
+                    if (Loader.isModLoaded("jei")) JeiSmoke.verifyArea(this::check, id + " controls");
+                    capture = "expansion-" + id + ".png"; phase = 182;
+                }
+                case 182 -> {
+                    var screen = (ExpansionScreen) mc.currentScreen;
+                    expansionActionTick = ticks;
+                    if (screen.machine instanceof dev.shadowsoffire.hostilenetworks.tile.UltimateSimTile) {
+                        clickUi(237, 33, 0); phase = 184; next = ticks + 8;
+                    } else if (screen.machine instanceof dev.shadowsoffire.hostilenetworks.tile.UltimateFabTile) {
+                        clickUi(216 + 9, 9, 0); phase = 185; next = ticks + 8;
+                    } else { phase = 183; }
+                }
+                case 184 -> {
+                    if (((dev.shadowsoffire.hostilenetworks.tile.UltimateSimTile) ((ExpansionScreen) mc.currentScreen).machine).extractModel) {
+                        if (ticks - expansionActionTick > 100) throw new IllegalStateException("Timed out waiting for extraction-setting acknowledgment");
+                        return;
+                    }
+                    server(() -> check(((dev.shadowsoffire.hostilenetworks.tile.UltimateSimTile) world().getTileEntity(ExpansionChecks.position(2))).extractModel == false, "Ultimate Simulation extraction tab sends a validated real network action"));
+                    phase = 186;
+                }
+                case 185 -> {
+                    var clientFab = (dev.shadowsoffire.hostilenetworks.tile.UltimateFabTile) ((ExpansionScreen) mc.currentScreen).machine;
+                    if (clientFab.selections.get(dev.shadowsoffire.hostilenetworks.data.ModelRegistry.get("zombie")).queue) {
+                        if (ticks - expansionActionTick > 100) throw new IllegalStateException("Timed out waiting for production-mode acknowledgment");
+                        return;
+                    }
+                    server(() -> check(!((dev.shadowsoffire.hostilenetworks.tile.UltimateFabTile) world().getTileEntity(ExpansionChecks.position(3))).selections.get(dev.shadowsoffire.hostilenetworks.data.ModelRegistry.get("zombie")).queue, "Ultimate Fabricator production mode tab changes its real server queue"));
+                    phase = 186;
+                }
+                case 186 -> { if (ready()) { mc.gameSettings.guiScale = 4; resize(); if (Loader.isModLoaded("jei")) JeiSmoke.verifyArea(this::check, "expanded large-scale controls"); capture = "expansion-large-" + ExpansionChecks.previews().get(expansionPreview) + ".png"; phase = 183; } }
+                case 183 -> {
+                    mc.player.closeScreen(); mc.gameSettings.guiScale = 2;
+                    // Give the previous CloseWindow packet time to reach the server
+                    // before a direct harness task opens the next container.
+                    if (++expansionPreview < ExpansionChecks.previews().size()) { phase = 187; next = ticks + 6; }
+                    else {
+                        if (Boolean.getBoolean("hnn.dev.expansionOnly")) { report("PASS", null); exit = ticks + 10; break; }
+                        mc.getLanguageManager().setCurrentLanguage(originalLanguage); mc.gameSettings.language = originalLanguage.getLanguageCode(); mc.refreshResources(); phase = 17;
+                    }
+                }
+                case 187 -> { openExpansion(); phase = 181; next = ticks + 15; }
                 case 17 -> {
                     server(() -> {
                         simTag = machines.sim().writeToNBT(new net.minecraft.nbt.NBTTagCompound());
@@ -226,6 +283,13 @@ public final class HNNClientSmoke {
         } catch (Throwable error) { error.printStackTrace(); try { report("FAIL", error); } catch (Exception ignored) {} exit = ticks + 5; }
     }
     private net.minecraft.nbt.NBTTagCompound simTag, savedLearner;
+    private int expansionPreview, expansionActionTick;
+    private void openExpansion() {
+        server(() -> {
+            var pos = ExpansionChecks.position(expansionPreview); player().setPositionAndUpdate(pos.getX(), 5, 3);
+            player().openGui(HostileNetworks.INSTANCE, 0, world(), pos.getX(), pos.getY(), pos.getZ());
+        });
+    }
     private void previewIntegration() {
         server(() -> {
             var model = dev.shadowsoffire.hostilenetworks.data.ModelRegistry.get(integrationPreviews.get(integrationPreview));

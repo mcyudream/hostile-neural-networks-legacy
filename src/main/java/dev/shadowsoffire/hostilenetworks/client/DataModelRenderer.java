@@ -16,6 +16,11 @@ public final class DataModelRenderer extends TileEntityItemStackRenderer {
     private net.minecraft.world.World world;
     @Override public void renderByItem(ItemStack stack, float partial) {
         Minecraft mc = Minecraft.getMinecraft();
+        float lightX = OpenGlHelper.lastBrightnessX, lightY = OpenGlHelper.lastBrightnessY;
+        int activeTexture = org.lwjgl.opengl.GL11.glGetInteger(org.lwjgl.opengl.GL13.GL_ACTIVE_TEXTURE);
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        boolean lightmap = org.lwjgl.opengl.GL11.glIsEnabled(org.lwjgl.opengl.GL11.GL_TEXTURE_2D);
+        GlStateManager.setActiveTexture(activeTexture);
         GlStateManager.pushMatrix();
         try {
             GlStateManager.translate(.5, .5, .5);
@@ -33,6 +38,14 @@ public final class DataModelRenderer extends TileEntityItemStackRenderer {
                 GlStateManager.scale(scale, scale, scale); GlStateManager.rotate(180, 0, 1, 0);
                 mc.getRenderManager().renderEntity(entity, 0, 0, 0, 0, 0, false);
             }
-        } finally { GlStateManager.color(1, 1, 1, 1); GlStateManager.popMatrix(); }
+        } finally {
+            // Entity layers (notably spider eyes) enable the lightmap for their own
+            // pass. Restore it before the next GUI item or font is rendered.
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightX, lightY);
+            GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+            if (lightmap) GlStateManager.enableTexture2D(); else GlStateManager.disableTexture2D();
+            GlStateManager.setActiveTexture(activeTexture);
+            GlStateManager.color(1, 1, 1, 1); GlStateManager.popMatrix();
+        }
     }
 }

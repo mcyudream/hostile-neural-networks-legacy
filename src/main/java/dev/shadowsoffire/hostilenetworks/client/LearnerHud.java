@@ -18,7 +18,7 @@ final class LearnerHud extends Gui {
     static void render(ItemStack learner) {
         var inventory = DeepLearnerItem.inventory(learner);
         List<ItemStack> models = new ArrayList<>(4);
-        for (int i = 0; i < 4; i++) if (ModelStack.model(inventory.getStackInSlot(i)) != null) models.add(inventory.getStackInSlot(i));
+        for (int i = 0; i < 4; i++) if (LearningModel.valid(inventory.getStackInSlot(i))) models.add(inventory.getStackInSlot(i));
         if (models.isEmpty()) return;
         Minecraft mc = Minecraft.getMinecraft();
         GlStateManager.pushMatrix(); GlStateManager.color(1, 1, 1, 1); GlStateManager.enableBlend();
@@ -36,18 +36,17 @@ final class LearnerHud extends Gui {
         for (int i = 0; i < models.size(); i++) {
             ItemStack stack = models.get(i); DataModel model = ModelStack.model(stack);
             int data = ModelStack.data(stack), y = 6 + i * 28;
-            ModelTier tier = model.tier(data), next = model.next(tier);
-            int filled = next == tier ? 87 : (int) Math.ceil(87D * (data - model.required(tier)) / Math.max(1, model.required(next) - model.required(tier)));
+            int filled = (int) Math.ceil(87 * LearningModel.fraction(stack));
             mc.getTextureManager().bindTexture(BAR); GlStateManager.color(1, 1, 1, 1);
             drawModalRectWithCustomSizedTexture(24, y + 11, 0, 0, 89, 12, 256, 256);
             drawModalRectWithCustomSizedTexture(25, y + 12, 0, 12, Math.clamp(filled, 0, 87), 10, 256, 256);
             RenderHelper.enableGUIStandardItemLighting();
             mc.getRenderItem().renderItemAndEffectIntoGUI(stack, 6, y + 9);
             RenderHelper.disableStandardItemLighting();
-            String tierName = I18n.format("hostilenetworks.tier." + tier.id());
-            mc.fontRenderer.drawStringWithShadow(tierName + I18n.format("hostilenetworks.hud.model"), 8, y, tier.color());
-            if (next != tier) {
-                int remaining = Math.max(0, model.required(next) - data), gained = model.gained(tier);
+            String tierName = I18n.format(LearningModel.tierKey(stack));
+            mc.fontRenderer.drawStringWithShadow(tierName + I18n.format("hostilenetworks.hud.model"), 8, y, model == null ? 0xE08CFF : model.tier(data).color());
+            if (!LearningModel.complete(stack)) {
+                int remaining = Math.max(0, LearningModel.required(stack, true) - data), gained = LearningModel.gained(stack);
                 int actions = gained == 0 ? remaining : (remaining + gained - 1) / gained;
                 mc.fontRenderer.drawStringWithShadow(I18n.format("hostilenetworks.hud.kills", actions), 27, y + 13, 0xFFFFFF);
             }

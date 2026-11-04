@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "hostilenetworks:digital_agonizer",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "hostilenetworks:digital_agonizer"
+    },
+    "facing=south": {
+      "model": "hostilenetworks:digital_agonizer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "hostilenetworks:digital_agonizer",
+      "y": 270
+    }
+  }
+}

@@ -26,7 +26,7 @@ public final class DeepLearnerItem extends Item {
     public static ItemStackHandler inventory(ItemStack learner) {
         return new ItemStackHandler(4) {
             { if (learner.hasTagCompound() && learner.getTagCompound().hasKey("models", 10)) deserializeNBT(learner.getTagCompound().getCompoundTag("models")); }
-            @Override public boolean isItemValid(int slot, ItemStack stack) { return stack.getItem() == Hostile.item("data_model"); }
+            @Override public boolean isItemValid(int slot, ItemStack stack) { return LearningModel.valid(stack); }
             @Override public int getSlotLimit(int slot) { return 1; }
             @Override protected void onContentsChanged(int slot) { ModelStack.tag(learner).setTag("models", serializeNBT()); }
         };
@@ -36,7 +36,7 @@ public final class DeepLearnerItem extends Item {
         ItemStackHandler inv = inventory(stack);
         for (int i = 0; i < 4; i++) {
             ItemStack s = inv.getStackInSlot(i); DataModel model = ModelStack.model(s);
-            if (model != null) list.add(model.name() + " — " + I18n.translateToLocal("hostilenetworks.tier." + model.tier(ModelStack.data(s)).id()));
+            if (LearningModel.valid(s)) list.add((model == null ? I18n.translateToLocal("item.hostilenetworks.extra_data_model.name") : model.name()) + " — " + I18n.translateToLocal(LearningModel.tierKey(s)));
         }
     }
     @Override public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean changed) { return changed || oldStack.getItem() != newStack.getItem(); }

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "extrahnn:ultimate_loot_fabricator_v2",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "extrahnn:ultimate_loot_fabricator_v2"
+    },
+    "facing=south": {
+      "model": "extrahnn:ultimate_loot_fabricator_v2",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "extrahnn:ultimate_loot_fabricator_v2",
+      "y": 270
+    }
+  }
+}

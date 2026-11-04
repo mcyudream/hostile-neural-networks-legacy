@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/lentel27/Extra-Hostile-Neural-Networks",
+  "commit": "950bc0327ed3ace3911eebf2eab5d0aca3b44949",
+  "version": "2.2.5",
+  "license": "MIT",
+  "resource_namespace": "extrahnn",
+  "registry_namespace": "hostilenetworks",
+  "recipe_replacements": {
+    "minecraft:netherite_scrap": "minecraft:quartz",
+    "minecraft:netherite_ingot": "minecraft:nether_star",
+    "minecraft:netherite_block": "minecraft:diamond_block",
+    "minecraft:netherite_sword": "minecraft:diamond_sword",
+    "minecraft:copper_ingot": "minecraft:iron_ingot"
+  },
+  "digital_agonizer": {
+    "implementation": "independent",
+    "reference": "https://github.com/xt9/DeepMobLearning-BloodMagic",
+    "copied_code_or_assets": false
+  }
+}

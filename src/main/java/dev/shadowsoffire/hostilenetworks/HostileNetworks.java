@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = HostileNetworks.LEGACY_MOD_ID, name = "Hostile Neural Networks Legacy", version = "6.5.1-cleanroom.2",
+@Mod(modid = HostileNetworks.LEGACY_MOD_ID, name = "Hostile Neural Networks Legacy", version = "6.5.1-cleanroom.3",
     acceptedMinecraftVersions = "[1.12.2]", dependencies = "required-after:cleanroom@[0.4.0,);after:ponder-legacy;after:jei;after:draconicevolution;after:thermalfoundation;after:tconstruct;after:bloodmagic")
 public final class HostileNetworks {
     /** Loader identity; resource and saved registry namespaces remain unchanged. */
@@ -33,6 +33,11 @@ public final class HostileNetworks {
         GameRegistry.registerTileEntity(LootFabTile.class, id("loot_fabricator"));
         GameRegistry.registerTileEntity(DataCenterTile.class, id("data_center"));
         GameRegistry.registerTileEntity(IOPortTile.class, id("data_center_io_port"));
+        GameRegistry.registerTileEntity(MergerTile.class, id("merger_camera"));
+        GameRegistry.registerTileEntity(ModelTrainerTile.class, id("simulator_modeling"));
+        GameRegistry.registerTileEntity(UltimateSimTile.class, id("ultimate_sim_chamber"));
+        GameRegistry.registerTileEntity(UltimateFabTile.class, id("ultimate_loot_fabricator"));
+        if (net.minecraftforge.fml.common.Loader.isModLoaded("bloodmagic")) GameRegistry.registerTileEntity(DigitalAgonizerTile.class, id("digital_agonizer"));
         Network.register();
         proxy.preInit();
     }

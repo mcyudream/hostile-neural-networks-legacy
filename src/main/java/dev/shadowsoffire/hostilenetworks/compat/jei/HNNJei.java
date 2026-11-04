@@ -25,6 +25,7 @@ public final class HNNJei implements IModPlugin {
         // JEI's default GuiContainer bounds omit HNN's side tabs and use unscaled logical pixels.
         registry.addGuiScreenHandler(LearnerScreen.class, HNNJei::properties);
         registry.addGuiScreenHandler(MachineScreen.class, HNNJei::properties);
+        registry.addGuiScreenHandler(ExpansionScreen.class, HNNJei::properties);
         List<Recipe> simulations = new ArrayList<>(), fabrications = new ArrayList<>();
         for (DataModel model : ModelRegistry.models()) {
             simulations.add(new Recipe(model, -1));
@@ -34,6 +35,19 @@ public final class HNNJei implements IModPlugin {
         registry.addRecipeCatalyst(Hostile.stack("sim_chamber"), SIM); registry.addRecipeCatalyst(Hostile.stack("loot_fabricator"), FAB);
         registry.addIngredientInfo(Hostile.stack("data_center"), ItemStack.class, "hnn.ponder.floor", "hnn.ponder.shell", "hnn.ponder.controller", "hnn.ponder.parallel");
         registry.addIngredientInfo(Hostile.stack("data_center_io_port"), ItemStack.class, "hnn.ponder.ports");
+        registry.addIngredientInfo(Hostile.stack("merger_camera"), ItemStack.class, "hnn.extra.jei.merge");
+        registry.addIngredientInfo(Hostile.stack("blank_extra_data_model"), ItemStack.class, "hnn.extra.jei.merge");
+        registry.addIngredientInfo(Hostile.stack("simulator_modeling"), ItemStack.class, "hnn.extra.jei.train");
+        for (int v = 1; v <= 4; v++) {
+            registry.addRecipeCatalyst(Hostile.stack("ultimate_sim_chamber_v" + v), SIM);
+            registry.addRecipeCatalyst(Hostile.stack("ultimate_loot_fabricator_v" + v), FAB);
+            registry.addIngredientInfo(Hostile.stack("ultimate_sim_chamber_v" + v), ItemStack.class, "hnn.extra.jei.sim");
+            registry.addIngredientInfo(Hostile.stack("ultimate_loot_fabricator_v" + v), ItemStack.class, "hnn.extra.jei.fab");
+        }
+        if (Hostile.item("digital_agonizer") != null) {
+            registry.addIngredientInfo(Hostile.stack("digital_agonizer"), ItemStack.class, "hnn.extra.jei.agonizer");
+            registry.addIngredientInfo(Hostile.stack("altar_linker"), ItemStack.class, "hnn.info.altar_linker");
+        }
     }
     private static IGuiProperties properties(ResponsiveContainer screen) {
         Rectangle area = screen.getVisibleArea();

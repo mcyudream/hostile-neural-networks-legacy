@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "BCB",
+    "DED"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:ender_eye"
+    },
+    "B": {
+      "item": "hostilenetworks:ultimate_sim_chamber_v2"
+    },
+    "C": {
+      "item": "hostilenetworks:ultimate_sim_chamber_v1"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "E": {
+      "item": "hostilenetworks:blank_extra_data_model"
+    }
+  },
+  "result": {
+    "item": "hostilenetworks:ultimate_sim_chamber_v3"
+  }
+}

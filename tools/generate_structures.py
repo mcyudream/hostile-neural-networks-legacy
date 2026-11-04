@@ -41,3 +41,13 @@ for x in range(1, 8):
 center[(4, 2, 1)] = ('hostilenetworks:data_center', {'facing': 'north'})
 center[(6, 2, 1)] = ('hostilenetworks:data_center_io_port', {'mode': 'energy'})
 write('data_center', [9, 9, 9], center)
+expansion = {(x, 0, z): ('minecraft:stone', {}) for x in range(7) for z in range(7)}
+for x, block in ((1, 'simulator_modeling'), (2, 'merger_camera'), (4, 'ultimate_sim_chamber_v1'), (5, 'ultimate_loot_fabricator_v1')):
+    expansion[(x, 1, 3)] = ('hostilenetworks:' + block, {'facing': 'north'})
+expansion[(5, 1, 4)] = ('minecraft:chest', {'facing': 'north'})
+write('expansion', [7, 3, 7], expansion)
+agonizer = {(x, 0, z): ('minecraft:stone', {}) for x in range(5) for z in range(5)}
+agonizer[(1, 1, 2)] = ('bloodmagic:altar', {})
+agonizer[(3, 1, 2)] = ('hostilenetworks:digital_agonizer', {'facing': 'north'})
+agonizer[(3, 2, 2)] = ('minecraft:hopper', {'facing': 'down', 'enabled': 'true'})
+write('agonizer', [5, 4, 5], agonizer)
