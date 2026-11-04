@@ -1,0 +1,85 @@
+{
+  "minecraft": "1.12.2",
+  "purpose": "Optional integration runtime verification; never bundled in the release jar",
+  "targets": {
+    "draconicevolution": "2.3.28.354 (official filename; mcmod.info reports 2.3.28.193)",
+    "thermalfoundation": "2.6.7.1",
+    "tconstruct": "2.13.0.183",
+    "bloodmagic": "2.4.3-105"
+  },
+  "jars": [
+    {
+      "file": "Baubles-1.12-1.5.2.jar",
+      "file_id": 2518667,
+      "url": "https://edge.forgecdn.net/files/2518/667/Baubles-1.12-1.5.2.jar",
+      "sha256": "b32010b2f2778aa1188585e7ead91ad46d4cb2c715f9c778a61848ba7fe51f8d"
+    },
+    {
+      "file": "BloodMagic-1.12.2-2.4.3-105.jar",
+      "file_id": 2822288,
+      "url": "https://edge.forgecdn.net/files/2822/288/BloodMagic-1.12.2-2.4.3-105.jar",
+      "sha256": "ef187aea109446bdb7b35e06958d4c6d22f5f7ceb4e5bcaeab16f3ad29fe16a5"
+    },
+    {
+      "file": "BrandonsCore-1.12.2-2.4.20.162-universal.jar",
+      "file_id": 3408276,
+      "url": "https://edge.forgecdn.net/files/3408/276/BrandonsCore-1.12.2-2.4.20.162-universal.jar",
+      "sha256": "7f26e2cad131d3cb79296b0309dbde4f361b34c7f602d9575aecff893bb04d76"
+    },
+    {
+      "file": "codechickenlib-3.3.5-universal.jar",
+      "modrinth_version": "iBR8uRy3",
+      "url": "https://cdn.modrinth.com/data/KphJPRlN/versions/iBR8uRy3/codechickenlib-3.3.5-universal.jar",
+      "sha256": "1a04e0cc76e429595917a3e919b217184a2cbb15a3885ac863103746386acf45",
+      "source": "https://github.com/Refitbench/CodeChickenLib/releases/tag/3.3.5"
+    },
+    {
+      "file": "CoFHCore-1.12.2-4.6.6.1-universal.jar",
+      "file_id": 2920433,
+      "url": "https://edge.forgecdn.net/files/2920/433/CoFHCore-1.12.2-4.6.6.1-universal.jar",
+      "sha256": "e07b0c48def9ce8cfaa4cf7a7c656bf7f7d6815f74fbcc2957dd43efa78486a9"
+    },
+    {
+      "file": "CoFHWorld-1.12.2-1.4.0.1-universal.jar",
+      "file_id": 2920434,
+      "url": "https://edge.forgecdn.net/files/2920/434/CoFHWorld-1.12.2-1.4.0.1-universal.jar",
+      "sha256": "f10cd57075690ecbe52094f8af0d2a5af12f89c82b7c6eb73d3d090d74206ea0"
+    },
+    {
+      "file": "Draconic-Evolution-1.12.2-2.3.28.354-universal.jar",
+      "file_id": 3431261,
+      "url": "https://edge.forgecdn.net/files/3431/261/Draconic-Evolution-1.12.2-2.3.28.354-universal.jar",
+      "sha256": "1eecdefa00056efac98ff56e25f7ed840b70e2d809c628e38c9c5b5518ff14ff"
+    },
+    {
+      "file": "Guide-API-1.12-2.1.8-63.jar",
+      "file_id": 2645992,
+      "url": "https://edge.forgecdn.net/files/2645/992/Guide-API-1.12-2.1.8-63.jar",
+      "sha256": "e201712ef8fadc6c4b6380939751e92fe32cad2ba2dcb717e1acb3b07e0c2125"
+    },
+    {
+      "file": "Mantle-1.12-1.3.3.55.jar",
+      "file_id": 2713386,
+      "url": "https://edge.forgecdn.net/files/2713/386/Mantle-1.12-1.3.3.55.jar",
+      "sha256": "0975ad3ef3b8b35fe43461feabe44d406b5521b0a2f3d1965c8d2f6a59ad2e65"
+    },
+    {
+      "file": "RedstoneFlux-1.12-2.1.1.1-universal.jar",
+      "file_id": 2920436,
+      "url": "https://edge.forgecdn.net/files/2920/436/RedstoneFlux-1.12-2.1.1.1-universal.jar",
+      "sha256": "6ff7f96d076bfaad83fb6ba92ec457b8a76391439663b0cc32a9ec5398345280"
+    },
+    {
+      "file": "TConstruct-1.12.2-2.13.0.183.jar",
+      "file_id": 2902483,
+      "url": "https://edge.forgecdn.net/files/2902/483/TConstruct-1.12.2-2.13.0.183.jar",
+      "sha256": "707107f746ffc9d2bf35912953ae1ce780f7b7c4b7cf86b4821a1a151bcf9f6f"
+    },
+    {
+      "file": "ThermalFoundation-1.12.2-2.6.7.1-universal.jar",
+      "file_id": 2926428,
+      "url": "https://edge.forgecdn.net/files/2926/428/ThermalFoundation-1.12.2-2.6.7.1-universal.jar",
+      "sha256": "5052f3e308b3ecb6620d26c5ab0cc15c0373732086337483a19fd4447e540ab0"
+    }
+  ]
+}

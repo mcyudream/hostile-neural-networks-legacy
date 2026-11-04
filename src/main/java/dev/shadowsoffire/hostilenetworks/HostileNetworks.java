@@ -13,8 +13,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = HostileNetworks.LEGACY_MOD_ID, name = "Hostile Neural Networks Legacy", version = "6.5.1-cleanroom.1",
-    acceptedMinecraftVersions = "[1.12.2]", dependencies = "required-after:cleanroom@[0.4.0,);after:ponder-legacy;after:jei")
+@Mod(modid = HostileNetworks.LEGACY_MOD_ID, name = "Hostile Neural Networks Legacy", version = "6.5.1-cleanroom.2",
+    acceptedMinecraftVersions = "[1.12.2]", dependencies = "required-after:cleanroom@[0.4.0,);after:ponder-legacy;after:jei;after:draconicevolution;after:thermalfoundation;after:tconstruct;after:bloodmagic")
 public final class HostileNetworks {
     /** Loader identity; resource and saved registry namespaces remain unchanged. */
     public static final String LEGACY_MOD_ID = "hostile-neural-networks-legacy";

@@ -200,3 +200,10 @@ block.hostilenetworks.data_center.name=数据中心
 tile.hostilenetworks.data_center.name=数据中心
 block.hostilenetworks.data_center_io_port.name=数据中心 IO 端口
 tile.hostilenetworks.data_center_io_port.name=数据中心 IO 端口
+
+# Optional 1.12.2 integrations
+hnn.model.chaos_guardian=混沌守卫
+hnn.model.corrupted_demon=腐化恶魔
+hnn.trivia.chaos_guardian=首次击败即可将模型升至基础级。持续供能，让混沌成为可预测的资源。
+hnn.trivia.blue_slime=史莱姆空岛蕴藏着多种黏液。此模型可制造蓝色、紫色和岩浆史莱姆球。
+hnn.trivia.corrupted_demon=腐化僵尸、绵羊、鸡和蜘蛛共用此模型，预测可制造恶魔意志与五种意志结晶。

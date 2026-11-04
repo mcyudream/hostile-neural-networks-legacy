@@ -134,6 +134,7 @@ def main():
     parser.add_argument('side', choices=['client', 'server'])
     parser.add_argument('--with-ponder', action='store_true')
     parser.add_argument('--with-jei', action='store_true')
+    parser.add_argument('--with-integrations', action='store_true', help='Install the pinned Draconic/Thermal/Tinkers/Blood Magic test set')
     parser.add_argument('--prepare-only', action='store_true')
     args = parser.parse_args()
     if platform.system() != 'Linux' or platform.machine() not in ('x86_64', 'amd64'):
@@ -141,12 +142,19 @@ def main():
     classpath, natives = prepare(args.side)
     if args.prepare_only:
         return
-    variant = args.side + ('-with-ponder' if args.with_ponder else '-without-ponder') + ('-jei' if args.with_jei else '')
-    run = PROJECT / 'run' / f'cleanroom-{VERSION}-legacy' / variant
+    identity = json.loads((PROJECT / 'legacy-identity.json').read_text())
+    release_version = identity['release_tag'].removeprefix('v')
+    variant = args.side + ('-with-ponder' if args.with_ponder else '-without-ponder') + ('-jei' if args.with_jei else '') + ('-integrations' if args.with_integrations else '')
+    run = PROJECT / 'run' / release_version / f'cleanroom-{VERSION}' / variant
     mods = run / 'mods'
     mods.mkdir(parents=True, exist_ok=True)
-    jars = [PROJECT / 'build/libs/hostile-neural-networks-legacy-6.5.1-cleanroom.1.jar',
+    jars = [PROJECT / 'build/libs' / f'{identity["modid"]}-{release_version}.jar',
             PROJECT / 'build/dev/hnn-verification-srg.jar']
+    if args.with_integrations:
+        lock = json.loads((PROJECT / 'integration-runtime-lock.json').read_text())
+        for entry in lock['jars']:
+            destination = WORKSPACE / '.dev/hnn-compat/jars' / entry['file']
+            jars.append(download(entry['url'], destination, entry['sha256'], 'sha256'))
     if args.with_ponder:
         jars.append(Path(os.environ.get('LEGACY_PONDER_JAR', PROJECT.parent / 'ponder/build/libs/ponder-legacy-1.4.0-cleanroom-alpha.1.jar')))
         candidates = list((GRADLE / 'caches/modules-2/files-2.1/maven.modrinth/crafttweaker/4.1.20.698').glob('*/*.jar'))
@@ -187,6 +195,7 @@ def main():
         command += ['-Dhnn.dev.serverSmoke=true', 'net.minecraftforge.fml.relauncher.ServerLaunchWrapper', 'nogui']
     report.unlink(missing_ok=True)
     runtime = {'cleanroom': VERSION, 'side': args.side, 'ponder': args.with_ponder, 'jei': args.with_jei,
+               'integrations': args.with_integrations,
                'audio_backend': os.environ.get('ALSOFT_DRIVERS'),
                'isolated_natives': {p.name: digest(p, 'sha256') for p in natives.glob('*.so')},
                'installerSha256': digest(PACK, 'sha256'), 'jars': {p.name: digest(p, 'sha256') for p in jars},
@@ -197,7 +206,7 @@ def main():
         result = subprocess.run(command, cwd=run, stdout=log, stderr=subprocess.STDOUT, timeout=600)
     if result.returncode or not report.exists() or json.loads(report.read_text()).get('result') != 'PASS':
         raise SystemExit(f'Verification failed (exit={result.returncode}); inspect {run}')
-    archive = PROJECT / 'docs/verification/legacy-identity' / f'cleanroom-{VERSION}-legacy' / variant
+    archive = PROJECT / identity['verification_root'] / variant
     archive.mkdir(parents=True, exist_ok=True)
     for file in ('runtime.json', 'startup.log'):
         shutil.copyfile(run / file, archive / file)

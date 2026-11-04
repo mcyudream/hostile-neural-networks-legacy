@@ -22,6 +22,10 @@
     {
       "id": "minecraft:dragon_egg",
       "count": 1
+    },
+    {
+      "id": "draconicevolution:dragon_heart",
+      "optional": true
     }
   ],
   "data_gained": {

@@ -36,9 +36,10 @@ public final class MachineChecks {
     public void setup() {
         world.getGameRules().setOrCreateGameRule("doMobSpawning", "false"); world.getGameRules().setOrCreateGameRule("doDaylightCycle", "false"); world.setWorldTime(6000);
         if (player.connection == null) player.setPosition(1, 5, -4); else player.setPositionAndUpdate(1, 5, -4);
-        check.accept(ModelRegistry.models().size() == 29, "29 vanilla entity models load without optional mods or experimental block models");
+        int optionalModels = IntegrationChecks.loadedModelCount();
+        check.accept(ModelRegistry.models().size() == 29 + optionalModels, "29 vanilla entity models plus " + optionalModels + " installed integration models load");
         HostileConfig.enableBlockDataModels = true; ModelRegistry.load();
-        check.accept(ModelRegistry.get("hostilenetworks:blocks/iron_ore") != null && ModelRegistry.models().size() == 37, "Eight optional ore models load with legacy item metadata");
+        check.accept(ModelRegistry.get("hostilenetworks:blocks/iron_ore") != null && ModelRegistry.models().size() == 37 + optionalModels, "Eight optional ore models load with legacy item metadata");
         check.accept(ModelRegistry.get("hostilenetworks:sheep").drops.size() == 17, "All sixteen wool metadata variants and mutton are preserved");
         HostileConfig.enableBlockDataModels = false; ModelRegistry.load();
         for (int x = -3; x <= 5; x++) for (int z = -2; z <= 3; z++) world.setBlockState(new BlockPos(x, 3, z), Blocks.STONE.getDefaultState());
@@ -66,6 +67,7 @@ public final class MachineChecks {
         world.setBlockState(corner, Blocks.STAINED_GLASS.getStateFromMeta(15)); dc().recheck();
         check.accept(dc().shellValid && retained.getSlots() == 25, "Reforming the shell reconnects existing pipe references");
         verifyLearner(); verifyRecipes(); verifySafety();
+        IntegrationChecks.verify(world, player, dc(), check);
         sim().inventory.setStackInSlot(0, model("zombie", 6)); sim().inventory.setStackInSlot(1, new ItemStack(Hostile.item("prediction_matrix"), 1));
         sim().mode = 1; sim().energy.set(2000000);
         for (int i = 0; i < 25; i++) dc().inventory.setStackInSlot(i, model("zombie", 1254));

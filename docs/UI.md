@@ -48,3 +48,11 @@
 1.12 字体与现代 Minecraft 字体存在差异，中文换行、字宽和实体姿势不保证逐像素相同。实体预览支持目标变体轮换、部分缩放与 NBT，尚未完整实现上游所有显示偏移和动画参数；彩虹等级色暂用青色。模型物品提示保留 1.12 文本样式，未移植现代自定义 tooltip 组件。
 
 验证方式和完整报告见 [VERIFICATION.md](VERIFICATION.md)。
+
+## 6.5.1-cleanroom.2 联动模型预览
+
+新增六个模型继续使用同一套学习器布局。混沌守卫单独缩小至 `display.scale = 0.125`，使翅膀保持在预览面板内。
+
+![混沌守卫预览](verification/6.5.1-cleanroom.2/cleanroom-0.4.0/client-with-ponder-jei-integrations/screenshots/integration-draconic-chaos_guardian.png)
+
+![血魔法腐化恶魔预览](verification/6.5.1-cleanroom.2/cleanroom-0.4.0/client-with-ponder-jei-integrations/screenshots/integration-bloodmagic-demon.png)

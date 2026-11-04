@@ -45,7 +45,7 @@
 | 项目 | 必需关系 | 可选关系 / 说明 |
 | --- | --- | --- |
 | Ponder Legacy | CraftTweaker 4.1.20.698 | 附属自行依赖 Ponder；不要把开发 API jar 当运行库 |
-| Hostile Neural Networks Legacy | Cleanroom / Java 要求写入描述 | Ponder Legacy；JEI 用于配方查询 |
+| Hostile Neural Networks Legacy | Cleanroom / Java 要求写入描述 | Ponder Legacy；JEI 用于配方查询；龙研 / 热力基本 / 匠魂 / 血魔法为模型联动，安装版本及前置见 `INTEGRATIONS.md` |
 | Powah Legacy | Cleanroom / Java 要求写入描述 | Ponder Legacy；目前没有 energizing JEI 页面 |
 | AE2S Ponder Legacy | **AE2S / Supergiant 1.1.0**，实际 loader ID `ae2` | Ponder Legacy；没有 Ponder 时正常启动但不显示教程 |
 
@@ -53,7 +53,7 @@
 
 ## GitHub 发行与平台自动发布
 
-本项目 `ci.yml` 在推送与包内版本一致的 `v*` 标签后自动创建 GitHub Release。当前标签为 `v6.5.1-cleanroom.1`，发行说明在 `docs/releases/6.5.1-cleanroom.1.md`。发布前强制核对正式运行验收 SHA-256 和四套报告，通过后上传生产 jar、源码包和 `SHA256SUMS`；普通 `main` 推送与 PR 执行构建和归档。
+本项目 `ci.yml` 在推送与包内版本一致的 `v*` 标签后自动创建 GitHub Release。当前发行标签为 `v6.5.1-cleanroom.2`，新增龙研、热力、匠魂和血魔法联动；发行说明在 `docs/releases/6.5.1-cleanroom.2.md`。发布前强制核对正式运行验收 SHA-256 和四套报告，通过后上传生产 jar、源码包和 `SHA256SUMS`；普通 `main` 推送与 PR 执行构建和归档。
 
 CurseForge / Modrinth 自动发布仍需另行配置实际项目 ID 和凭据：
 

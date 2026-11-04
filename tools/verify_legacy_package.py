@@ -25,7 +25,7 @@ with ZipFile(jars[0]) as archive:
     assert archive.read(logo) == (p/'branding/icon.png').read_bytes(), 'Packaged icon differs from project artwork'
     assert '${' not in archive.read('mcmod.info').decode(), 'Unexpanded metadata'
     assert not any('/dev/' in name or 'Smoke.class' in name for name in archive.namelist() if name.endswith('.class')), 'Development harness in release'
-    assert not any(name.startswith(('net/createmod/', 'crafttweaker/', 'mezz/jei/'))
+    assert not any(name.startswith(('net/createmod/', 'crafttweaker/', 'mezz/jei/', 'WayofTime/', 'slimeknights/', 'cofh/', 'com/brandon3055/', 'codechicken/', 'baubles/', 'amerifrance/guideapi/'))
                    for name in archive.namelist() if name.endswith('.class')), 'Optional dependency bundled in release'
     expected_tag = 'v' + metadata['version']
     assert identity['release_tag'] == expected_tag, 'Release tag differs from packaged version'
@@ -38,12 +38,15 @@ if args.require_verified_hash:
                          + '\nAccepted: ' + identity['verified_jar_sha256'])
     assert identity['cleanroom_baseline'] == '0.4.0', 'Expected the official 0.4.0 release baseline'
     assert identity['status'] == 'verified-cleanroom-0.4.0', 'Runtime acceptance is incomplete'
-    for variant in ('client-without-ponder', 'client-with-ponder-jei',
-                    'server-without-ponder', 'server-with-ponder'):
-        evidence = p/'docs/verification/legacy-identity/cleanroom-0.4.0-final'/variant
+    for variant in identity['verification_variants']:
+        evidence = p/identity['verification_root']/variant
         report = json.loads((evidence/'report.json').read_text())
         runtime = json.loads((evidence/'runtime.json').read_text())
         assert report['result'] == 'PASS', 'Failed runtime acceptance: ' + variant
         assert runtime['cleanroom'] == '0.4.0', 'Wrong runtime baseline: ' + variant
         assert runtime['jars'].get(jars[0].name) == sha256, 'Runtime package mismatch: ' + variant
+        if runtime.get('integrations'):
+            lock = json.loads((p/'integration-runtime-lock.json').read_text())
+            for entry in lock['jars']:
+                assert runtime['jars'].get(entry['file']) == entry['sha256'], 'Integration runtime mismatch: ' + entry['file']
 print('PASS:', jars[0].name, metadata['modid'], 'SHA-256:', sha256)

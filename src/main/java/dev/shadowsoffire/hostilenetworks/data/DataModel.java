@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.ResourceLocation;
@@ -67,6 +68,7 @@ public final class DataModel {
     }
     public boolean matches(ResourceLocation key) { return target.equals(key) || variants.contains(key); }
     public boolean attunes(Entity entity) {
+        if (entity instanceof MultiPartEntityPart part && part.parent instanceof Entity parent) entity = parent;
         if (blockModel || !matches(EntityList.getKey(entity))) return false;
         if (!json.has("attunement")) return true;
         JsonObject attune = json.getAsJsonObject("attunement");

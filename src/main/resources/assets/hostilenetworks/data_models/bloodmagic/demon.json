@@ -1,0 +1,53 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "bloodmagic"
+    }
+  ],
+  "entity": "bloodmagic:corrupted_zombie",
+  "variants": [
+    "bloodmagic:corrupted_sheep",
+    "bloodmagic:corrupted_chicken",
+    "bloodmagic:corrupted_spider"
+  ],
+  "name_color": "#A61B35",
+  "display": {},
+  "sim_cost": 2048,
+  "input": {
+    "item": "hostilenetworks:prediction_matrix"
+  },
+  "base_drop": {
+    "id": "hostilenetworks:overworld_prediction"
+  },
+  "trivia": "hnn.trivia.corrupted_demon",
+  "fabricator_drops": [
+    {
+      "id": "bloodmagic:monster_soul",
+      "nbt": "{souls:50.0d}"
+    },
+    {
+      "id": "bloodmagic:item_demon_crystal",
+      "data": 0
+    },
+    {
+      "id": "bloodmagic:item_demon_crystal",
+      "data": 1
+    },
+    {
+      "id": "bloodmagic:item_demon_crystal",
+      "data": 2
+    },
+    {
+      "id": "bloodmagic:item_demon_crystal",
+      "data": 3
+    },
+    {
+      "id": "bloodmagic:item_demon_crystal",
+      "data": 4
+    }
+  ],
+  "name": {
+    "translate": "hnn.model.corrupted_demon"
+  }
+}

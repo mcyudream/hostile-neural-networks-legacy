@@ -363,5 +363,41 @@
     "loot_fabricator": "diamond replaces unavailable netherite ingot",
     "data_center": "dragon breath replaces unavailable echo shards",
     "framework": "stone replaces smooth stone item"
+  },
+  "scope": "Historical initial HNN 6.5.1 import; later verified legacy integration additions are listed separately below.",
+  "legacy_integrations": {
+    "added_in": "6.5.1-cleanroom.2",
+    "documentation": "docs/INTEGRATIONS.md",
+    "models": [
+      "draconic/chaos_guardian.json",
+      "thermal/blizz.json",
+      "thermal/blitz.json",
+      "thermal/basalz.json",
+      "tconstruct/blue_slime.json",
+      "bloodmagic/demon.json"
+    ],
+    "adapted_from_initial_exclusions": [
+      "thermal/blizz.json",
+      "thermal/blitz.json",
+      "thermal/basalz.json"
+    ],
+    "registry_sources": {
+      "draconic": {
+        "repository": "https://github.com/brandon3055/Draconic-Evolution",
+        "commit": "5c29fe1e4c2544ae159253dcdeedacadcb0e8c51"
+      },
+      "thermal": {
+        "repository": "https://github.com/CoFH/ThermalFoundation-1.12-Legacy",
+        "commit": "4f088d82a8e6fbd767cd4bc7d0c3428888a6ff2f"
+      },
+      "tconstruct": {
+        "repository": "https://github.com/SlimeKnights/TinkersConstruct",
+        "commit": "c01173c0408352c50a2e8c5017552323ce42f5b4"
+      },
+      "bloodmagic": {
+        "repository": "https://github.com/WayofTime/BloodMagic",
+        "commit": "e830736ee8ee10b0eff208504db8f92f24cd1f1c"
+      }
+    }
   }
 }

@@ -355,3 +355,10 @@ item.hostilenetworks.twilight_prediction.name=Generalized Twilight Prediction
 item.hostilenetworks.fab_directive.name=Fabrication Directive
 item.hostilenetworks.fab_directive.desc.name=Sneak-right-click to copy fabricator or data center settings
 item.hostilenetworks.fab_directive.desc2.name=Right-click to apply saved selections
+
+# Optional 1.12.2 integrations
+hnn.model.chaos_guardian=Chaos Guardian
+hnn.model.corrupted_demon=Corrupted Demon
+hnn.trivia.chaos_guardian=A single victory awakens this model. Sustained power can turn chaos into a predictable resource.
+hnn.trivia.blue_slime=Slime islands hold more than one flavor. This model fabricates blue, purple and magma slimeballs.
+hnn.trivia.corrupted_demon=Corrupted zombies, sheep, chickens and spiders share this model. Their predictions yield Demonic Will or crystallized Will.

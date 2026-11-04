@@ -1,19 +1,19 @@
 # Hostile Neural Networks Legacy
 
 [![CI](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/workflows/ci.yml/badge.svg)](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/workflows/ci.yml)
-[下载发行版](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.1) · [界面对照与截图](docs/UI.md) · [自定义模型](docs/CUSTOM-MODELS.md) · [验收记录](LEGACY-VERIFICATION.md)
+[下载发行版](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.2) · [界面对照与截图](docs/UI.md) · [自定义模型](docs/CUSTOM-MODELS.md) · [验收记录](LEGACY-VERIFICATION.md)
 
 ![Hostile Neural Networks Legacy 展示插画](branding/cover.png)
 
 <!-- legacy-overview:start -->
 把 **Hostile Neural Networks 6.5.1** 的生物数据模型、模拟生产和战利品制造带到 **Minecraft 1.12.2**。通过击杀训练模型，再用 FE 和预测矩阵自动生产生物预测及战利品；数据中心可同时处理 25 个模型。
 
-当前版本为 **`6.5.1-cleanroom.1`**，已完成正式 Cleanroom 0.4.0 的客户端、核心玩法和专用服务器验收。功能范围与限制见下文，完整证据见 [LEGACY-VERIFICATION.md](LEGACY-VERIFICATION.md)。
+当前版本为 **`6.5.1-cleanroom.2`**，新增龙之研究、热力基本、匠魂和血魔法的六个可选模型，见 [联动说明](docs/INTEGRATIONS.md)。正式 Cleanroom 0.4.0 的验收记录见 [LEGACY-VERIFICATION.md](LEGACY-VERIFICATION.md)，安装包与源码包见 [GitHub Releases](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.2)。
 
 ## 下载与安装
 
 1. 安装 **Minecraft 1.12.2、Cleanroom 0.4.0 正式版（无 `-alpha`）和 Java 25**。
-2. 在 [GitHub Releases](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.1) 下载 **`hostile-neural-networks-legacy-6.5.1-cleanroom.1.jar`**，放入客户端和服务器的 `mods/`。
+2. 从 [GitHub Releases](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.2) 下载 **`hostile-neural-networks-legacy-6.5.1-cleanroom.2.jar`**，放入客户端和服务器的 `mods/`。
 3. 更新时替换本项目旧 jar。`-sources.jar` 是源码包，`-mcp.jar` 是开发产物，均不作为游戏安装文件。
 
 | 项目 | 要求 / 标识 |
@@ -33,6 +33,7 @@
 | [Ponder Legacy](https://github.com/mcyudream/ponder-legacy/releases/tag/v1.4.0-cleanroom-alpha.1) | `1.4.0-cleanroom-alpha.1`，Mod ID `ponder-legacy` | 两套游戏内分步演示，覆盖六个核心物品 |
 | CraftTweaker | `4.1.20.698` | 安装上述 Ponder 时必需 |
 | JEI | `4.16.1.302` | 模拟、制造配方及数据中心结构说明 |
+| 龙之研究 / 热力基本 / 匠魂 / 血魔法 | [已验证运行文件及前置](docs/INTEGRATIONS.md#验证用依赖版本) | 六个可选模型；龙研 / 热力使用 CodeChickenLib CRE 3.3.5 |
 
 Ponder、CraftTweaker、JEI 均未嵌入 HNN jar。保留资源命名空间不构成跨实现的存档转换承诺。
 
@@ -57,7 +58,18 @@ Ponder、CraftTweaker、JEI 均未嵌入 HNN jar。保留资源命名空间不�
 - 自定义 JSON 模型、等级与原子重载；中英文界面；学习器快捷键、模型实体预览与手持 HUD。
 - Ponder 可选演示和 JEI 可选配方页；未安装时核心玩法正常运行。
 
-默认启用 **29 个原版生物模型**。可在配置中开启 **8 个矿物方块模型**。共导入 38 份定义，其中蝙蝠模型仍带 Reliquary 条件，未验证 1.12 Reliquary 注册名，不计入已验证兼容范围。导入、物品映射和排除清单见 [import-report.json](docs/import-report.json)。
+默认启用 **29 个原版生物模型**，四项联动全部安装后为 **35 个生物模型**；另可开启 **8 个矿物方块模型**。当前共有 44 份定义，其中蝙蝠模型仍带 Reliquary 条件，未验证 1.12 Reliquary 注册名，不计入已验证兼容范围。初次导入与后续新增清单见 [import-report.json](docs/import-report.json)。
+
+### 新增可选联动
+
+| Mod | 新增模型 | 主要产物 |
+| --- | --- | --- |
+| 龙之研究 | 混沌守卫；已有末影龙模型增加龙之心选项 | 混沌碎片、龙之心、龙尘 |
+| 热力基本 | Blizz、Blitz、Basalz | 三种对应元素棒 |
+| 匠魂 | 蓝色史莱姆 | 蓝色、紫色和岩浆史莱姆球 |
+| 血魔法 | 四种腐化生物共用一个腐化恶魔模型 | 含 50 意志的恶魔意志、五类意志结晶 |
+
+模型支持框架绑定、学习器击杀成长、模拟、制造、数据中心和 JEI；混沌守卫与末影龙的多部位碰撞箱也可绑定。未安装对应 Mod 时自动跳过模型。混沌守卫模型一次击杀达到基础，推理需持续输入 **32,768 FE/t**。详细模型 ID、产物数量、前置与验收范围见 [联动说明](docs/INTEGRATIONS.md)。
 
 ## 核心玩法
 
@@ -138,7 +150,7 @@ model_tiers/basic.json                          → hostilenetworks:basic
 
 ## 与上游的差异
 
-- 1.12 不存在的生物（例如溺尸、幻翼、猪灵、监守者、旋风人）不作替换；现代第三方 Mod 的模型未直接声明兼容，共排除 39 份定义。
+- 1.12 不存在的生物（例如溺尸、幻翼、猪灵、监守者、旋风人）不作替换。初次导入排除 39 份定义，其中 3 份热力定义现已按 1.12 注册名重新适配；其余未核实的第三方模型未声明兼容。
 - 30 个基础合成配方已转换。制造机配方以钻石替代下界合金，数据中心以龙息替代回响碎片，框架中的平滑石改为石头。铁 / 金的粗矿产物改为对应矿石方块，需要后续冶炼。
 - 保留暮色基础预测物品，但没有自动移植现代 Twilight Forest 的模型和额外配方；可通过自定义 JSON 为已核实的 1.12 目标添加模型。
 - 不包含 Curios、Jade、现代 Placebo / NeoForge 注册与模型生成命令。绑定条件只支持本移植说明中的子集。
@@ -153,12 +165,12 @@ model_tiers/basic.json                          → hostilenetworks:basic
 
 | 运行组合 | 结果 | 运行检查数 |
 | --- | --- | --- |
-| 客户端，无 Ponder / JEI | PASS | 46 |
-| 客户端，安装 Ponder / CraftTweaker / JEI | PASS | 70 |
-| 专用服务器，无 Ponder | PASS | 38 |
-| 专用服务器，安装 Ponder / CraftTweaker | PASS | 38 |
+| 客户端，无联动 Mod / Ponder / JEI | PASS | 54 |
+| 客户端，四项联动及 Ponder / CraftTweaker / JEI | PASS | 176 |
+| 专用服务器，无联动 Mod / Ponder | PASS | 46 |
+| 专用服务器，四项联动及 Ponder / CraftTweaker | PASS | 138 |
 
-覆盖真实机器生产与耗能、25 模型并行、自动化与满仓缓冲、存档重载、GUI 操作、JEI 避让和 Ponder 播放。完整范围、安装包 SHA-256 和运行报告见 [安装包验收](LEGACY-VERIFICATION.md)；早期移植与 UI 验收见 [详细验证记录](docs/VERIFICATION.md)。
+覆盖六个联动模型的真实实体绑定与死亡成长、全部产物及意志 NBT、机器生产与耗能、25 模型并行、自动化与满仓缓冲、存档重载、GUI 操作、JEI 避让和 Ponder 播放。完整范围、安装包 SHA-256 和运行报告见 [安装包验收](LEGACY-VERIFICATION.md)；早期移植与 UI 验收见 [详细验证记录](docs/VERIFICATION.md)。
 
 ## 构建和 CI
 
@@ -170,7 +182,7 @@ bash gradlew --no-daemon :build :reobfJar --console=plain
 python3 tools/verify_legacy_package.py
 ```
 
-生产安装包位于 `build/libs/hostile-neural-networks-legacy-6.5.1-cleanroom.1.jar`。Ponder 适配使用同级 `../ponder`，或 bootstrap 下载的 `.legacy-deps/ponder`；发行 jar 不包含该运行库。
+生产安装包位于 `build/libs/hostile-neural-networks-legacy-6.5.1-cleanroom.2.jar`。Ponder 适配使用同级 `../ponder`，或 bootstrap 下载的 `.legacy-deps/ponder`；发行 jar 不包含该运行库。
 
 [GitHub Actions](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/workflows/ci.yml) 在 `main` 推送、PR 和手动触发时编译源码、执行 Gradle 检查、重混淆并归档生产包、源码包及校验值。推送与安装包版本一致的 `v*` 标签后，CI 还会：
 
@@ -178,7 +190,7 @@ python3 tools/verify_legacy_package.py
 2. 强制比较生产 jar 与正式运行验收记录中的 SHA-256，并核对四套验收报告。
 3. 全部通过后创建 GitHub Release，上传安装包、源码包和 `SHA256SUMS`。
 
-发行说明保存在 [docs/releases/6.5.1-cleanroom.1.md](docs/releases/6.5.1-cleanroom.1.md)。CI 构建不能替代客户端和专服运行验收；修改生产包后需重新验收并更新记录。CurseForge / Modrinth 的准备资料见 [发布说明](docs/PUBLISHING.md)，平台状态见 [PUBLICATION.md](PUBLICATION.md)。
+当前版本使用标签 `v6.5.1-cleanroom.2`，发行说明保存在 [docs/releases/6.5.1-cleanroom.2.md](docs/releases/6.5.1-cleanroom.2.md)。CI 构建不能替代客户端和专服运行验收；修改生产包后需重新验收并更新记录。CurseForge / Modrinth 的准备资料见 [发布说明](docs/PUBLISHING.md)，平台状态见 [PUBLICATION.md](PUBLICATION.md)。
 
 ### 本地运行验证
 
@@ -189,9 +201,9 @@ python3 tools/verify_legacy_package.py
 
 # 官方 Cleanroom 0.4.0 正式版，使用发行 jar
 python3 tools/verify_cleanroom_040.py client
-python3 tools/verify_cleanroom_040.py client --with-ponder --with-jei
+python3 tools/verify_cleanroom_040.py client --with-ponder --with-jei --with-integrations
 python3 tools/verify_cleanroom_040.py server
-python3 tools/verify_cleanroom_040.py server --with-ponder
+python3 tools/verify_cleanroom_040.py server --with-ponder --with-integrations
 
 # 编译 SDK 0.7.14-alpha 下的开发检查
 ./tools/dev.sh :runClient -PhnnSmoke -PpackagedSmoke
@@ -200,7 +212,7 @@ python3 tools/verify_cleanroom_040.py server --with-ponder
 ./tools/dev.sh :runServer -PhnnServerSmoke -PpackagedSmoke -PwithPonder
 ```
 
-正式版验收脚本支持 Linux x64，复用校验过散列的运行库或按官方安装配方下载缺失文件；需要先完成一次开发环境资源与可选依赖下载。脚本在 `run/cleanroom-0.4.0-legacy/` 下建立独立实例并写入 EULA 接受状态，使用前应已接受 Minecraft EULA。客户端实例需要图形环境。
+正式版验收脚本支持 Linux x64，复用校验过散列的运行库或按官方安装配方下载缺失文件；需要先完成一次开发环境资源与可选依赖下载。脚本在 `run/6.5.1-cleanroom.2/cleanroom-0.4.0/` 下建立独立实例并写入 EULA 接受状态，使用前应已接受 Minecraft EULA。客户端实例需要图形环境。
 
 官方 Cleanroom 0.4.0 在专服发现 Mod 时会调用客户端 Kirino 入口。HNN 包含只在物理端 SERVER 且加载器精确为 `0.4.0` 时启用的兼容修复，隔离这一调用；在客户端和其他版本不注册该转换器。若其他 Mod 已修复同一调用，则不再修改。
 

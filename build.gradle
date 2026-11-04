@@ -3,7 +3,7 @@ plugins {
     id 'com.cleanroommc.cleanroomgradle'
 }
 group = 'dev.shadowsoffire'
-version = '6.5.1-cleanroom.1'
+version = '6.5.1-cleanroom.2'
 base.archivesName = 'hostile-neural-networks-legacy'
 java { toolchain.languageVersion = JavaLanguageVersion.of(25); withSourcesJar() }
 repositories {

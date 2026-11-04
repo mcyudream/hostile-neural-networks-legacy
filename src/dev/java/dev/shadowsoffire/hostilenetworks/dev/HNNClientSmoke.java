@@ -31,6 +31,9 @@ public final class HNNClientSmoke {
     private String capture;
     private CompletableFuture<Void> pending;
     private Language originalLanguage;
+    private java.util.List<String> integrationPreviews;
+    private int integrationPreview;
+    private net.minecraft.item.ItemStack originalLearner;
     private void check(boolean valid, String name) { if (!valid) throw new IllegalStateException(name); synchronized (checks) { checks.add(name); } }
     @Mod.EventHandler public void init(FMLInitializationEvent e) throws Exception {
         if (!Boolean.getBoolean("hnn.dev.smoke")) return;
@@ -168,12 +171,36 @@ public final class HNNClientSmoke {
                 case 140 -> { JeiSmoke.fabrication(); capture = "jei-fabrication.png"; phase++; }
                 case 141 -> {
                     if (Loader.isModLoaded("ponder-legacy")) { PonderSmoke.verify(this::check); phase = 142; next = ticks + 50; }
-                    else { check(true, "Client completes core gameplay with Ponder absent"); phase = 17; }
+                    else { check(true, "Client completes core gameplay with Ponder absent"); phase = 170; }
                 }
                 case 142 -> { PonderSmoke.verifyPlayback(this::check, "workflow"); capture = "ponder-workflow.png"; phase = 15; }
                 case 15 -> { PonderSmoke.center(); phase++; next = ticks + 140; }
                 case 16 -> { PonderSmoke.verifyPlayback(this::check, "Data Center"); capture = "ponder-data-center.png"; phase = 160; }
-                case 160 -> { mc.displayGuiScreen(null); phase = 17; }
+                case 160 -> { mc.displayGuiScreen(null); phase = 170; }
+                case 170 -> {
+                    integrationPreviews = IntegrationChecks.loadedModels(); integrationPreview = 0;
+                    if (integrationPreviews.isEmpty()) { phase = 17; break; }
+                    originalLearner = player().inventory.getStackInSlot(0).copy();
+                    previewIntegration(); phase = 171;
+                }
+                case 171 -> {
+                    if (!ready()) return;
+                    server(() -> player().openGui(HostileNetworks.INSTANCE, 1, world(), 0, 0, 0)); phase = 172; next = ticks + 20;
+                }
+                case 172 -> {
+                    if (!ready() || !(mc.currentScreen instanceof LearnerScreen screen)) return;
+                    var model = dev.shadowsoffire.hostilenetworks.data.ModelRegistry.get(integrationPreviews.get(integrationPreview));
+                    var field = LearnerScreen.class.getDeclaredField("entity"); field.setAccessible(true);
+                    var entity = (net.minecraft.entity.Entity) field.get(screen);
+                    check(entity != null && net.minecraft.entity.EntityList.getKey(entity).equals(model.target), model.id + " renders its real optional-mod entity in the learner GUI");
+                    capture = "integration-" + integrationPreviews.get(integrationPreview).replace('/', '-') + ".png"; phase = 173;
+                }
+                case 173 -> {
+                    mc.player.closeScreen();
+                    if (++integrationPreview < integrationPreviews.size()) { previewIntegration(); phase = 171; }
+                    else { server(() -> player().inventory.setInventorySlotContents(0, originalLearner)); phase = 174; }
+                }
+                case 174 -> { if (ready()) phase = 17; }
                 case 17 -> {
                     server(() -> {
                         simTag = machines.sim().writeToNBT(new net.minecraft.nbt.NBTTagCompound());
@@ -199,6 +226,14 @@ public final class HNNClientSmoke {
         } catch (Throwable error) { error.printStackTrace(); try { report("FAIL", error); } catch (Exception ignored) {} exit = ticks + 5; }
     }
     private net.minecraft.nbt.NBTTagCompound simTag, savedLearner;
+    private void previewIntegration() {
+        server(() -> {
+            var model = dev.shadowsoffire.hostilenetworks.data.ModelRegistry.get(integrationPreviews.get(integrationPreview));
+            var learner = Hostile.stack("deep_learner");
+            dev.shadowsoffire.hostilenetworks.item.DeepLearnerItem.inventory(learner).setStackInSlot(0, machines.model(model.id.toString(), model.required(model.next(dev.shadowsoffire.hostilenetworks.data.ModelRegistry.tiers().getFirst()))));
+            player().inventory.setInventorySlotContents(0, learner); player().inventoryContainer.detectAndSendChanges();
+        });
+    }
     private void clickUi(int x, int y, int button) throws Exception { clickUi(x, y, button, false); }
     private void clickUi(int x, int y, int button, boolean settings) throws Exception {
         var screen = mc.currentScreen;
