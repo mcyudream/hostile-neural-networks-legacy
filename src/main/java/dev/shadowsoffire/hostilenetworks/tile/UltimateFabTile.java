@@ -19,7 +19,7 @@ public final class UltimateFabTile extends ExpansionTile {
         if (!ready()) return;
         ItemStack input = inventory.getStackInSlot(0); DataModel model = ModelStack.model(input);
         if (model == null) { progress = 0; failure = "model"; return; }
-        int drop = selections.current(model);
+        int drop = selectedDrop(model);
         changedInputs(model.id + ":" + drop);
         if (drop < 0) { failure = "no_selection"; return; }
         ItemStack output = model.drops.get(drop).copy();
@@ -27,7 +27,7 @@ public final class UltimateFabTile extends ExpansionTile {
         for (; count > 0; count--) { output.setCount(model.drops.get(drop).getCount() * count); if (canFit(List.of(output))) break; }
         if (count == 0) { failure = "output"; return; }
         if (payTick() && progress >= duration()) {
-            inventory.extractItem(0, count, false); emit(List.of(output)); selections.get(model).advance(); progress = 0; running = ""; settingsChanged();
+            inventory.extractItem(0, count, false); emit(List.of(output)); advanceSelection(model); progress = 0; running = ""; settingsChanged();
         }
     }
     @Override public NBTTagCompound writeToNBT(NBTTagCompound n) { super.writeToNBT(n); n.setInteger("version", version); return n; }

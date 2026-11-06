@@ -18,7 +18,7 @@ public final class LootFabTile extends ProductionTile {
         if (!pending.isEmpty()) { failure = "buffering"; return; }
         ItemStack input = inventory.getStackInSlot(0); DataModel model = ModelStack.model(input);
         if (model == null) { progress = 0; failure = "model"; return; }
-        int selection = selections.current(model);
+        int selection = selectedDrop(model);
         if (!runningModel.equals(model.id.toString()) || runningDrop != selection) { progress = 0; runningModel = model.id.toString(); runningDrop = selection; }
         if (selection < 0) { failure = "no_selection"; return; }
         ItemStack output = model.drops.get(selection);
@@ -26,7 +26,7 @@ public final class LootFabTile extends ProductionTile {
         if (!energy.spend(HostileConfig.fabPowerCost)) { failure = "energy"; return; }
         failure = "none";
         if (++progress >= 60) {
-            inventory.extractItem(0, 1, false); emit(List.of(output)); selections.get(model).advance(); progress = 0; settingsChanged();
+            inventory.extractItem(0, 1, false); emit(List.of(output)); advanceSelection(model); progress = 0; settingsChanged();
         }
     }
     @Override public NBTTagCompound writeToNBT(NBTTagCompound tag) {

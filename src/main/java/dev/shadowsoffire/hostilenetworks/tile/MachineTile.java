@@ -1,6 +1,7 @@
 package dev.shadowsoffire.hostilenetworks.tile;
 
 import java.util.*;
+import dev.shadowsoffire.hostilenetworks.api.MachineController;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
@@ -8,6 +9,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.*;
 import net.minecraftforge.items.*;
@@ -21,6 +23,21 @@ public abstract class MachineTile extends TileEntity implements ITickable {
     protected final int outputStart;
     protected int age;
     private final IItemHandler external;
+    private BlockPos controller;
+
+    public boolean isExternallyControlled() { return controller != null; }
+    public MachineController controller() {
+        if (controller == null || world == null || !world.isBlockLoaded(controller)) return null;
+        return world.getTileEntity(controller) instanceof MachineController c && c.controls(this) ? c : null;
+    }
+    public boolean claimController(BlockPos owner) {
+        if (world == null || world.isRemote || controller != null && !controller.equals(owner)
+            || !world.isBlockLoaded(owner) || !(world.getTileEntity(owner) instanceof MachineController c) || !c.controls(this)) return false;
+        controller = owner.toImmutable(); markDirty(); return true;
+    }
+    public void releaseController(BlockPos owner) {
+        if (owner.equals(controller)) { controller = null; settingsChanged(); }
+    }
 
     protected MachineTile(int slots, int outputStart, int capacity) {
         this.outputStart = outputStart;
@@ -34,8 +51,8 @@ public abstract class MachineTile extends TileEntity implements ITickable {
             @Override public ItemStack getStackInSlot(int slot) { return inventory.getStackInSlot(slot); }
             @Override public int getSlotLimit(int slot) { return inventory.getSlotLimit(slot); }
             @Override public boolean isItemValid(int slot, ItemStack stack) { return accepts(slot, stack); }
-            @Override public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) { return accepts(slot, stack) ? inventory.insertItem(slot, stack, simulate) : stack; }
-            @Override public ItemStack extractItem(int slot, int amount, boolean simulate) { return canExtract(slot) ? inventory.extractItem(slot, amount, simulate) : ItemStack.EMPTY; }
+            @Override public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) { return !isExternallyControlled() && accepts(slot, stack) ? inventory.insertItem(slot, stack, simulate) : stack; }
+            @Override public ItemStack extractItem(int slot, int amount, boolean simulate) { return !isExternallyControlled() && canExtract(slot) ? inventory.extractItem(slot, amount, simulate) : ItemStack.EMPTY; }
         };
     }
     public abstract boolean accepts(int slot, ItemStack stack);
@@ -43,7 +60,7 @@ public abstract class MachineTile extends TileEntity implements ITickable {
     public int slotLimit(int slot) { return isModelSlot(slot) ? 1 : 64; }
     public boolean canExtract(int slot) { return slot >= outputStart; }
     public int getOutputStart() { return outputStart; }
-    public boolean canUse(EntityPlayer player) { return world != null && world.getTileEntity(pos) == this && player.getDistanceSq(pos) <= 64; }
+    public boolean canUse(EntityPlayer player) { return !isExternallyControlled() && world != null && world.getTileEntity(pos) == this && player.getDistanceSq(pos) <= 64; }
     public boolean enabled() { return redstone == 0 || (world.isBlockPowered(pos) == (redstone == 2)); }
     public void settingsChanged() { markDirty(); if (world != null) world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3); }
     public boolean canFit(List<ItemStack> outputs) {
@@ -83,7 +100,17 @@ public abstract class MachineTile extends TileEntity implements ITickable {
         for (ItemStack stack : pending) drops.add(stack.copy());
         return drops;
     }
-    @Override public void update() { if (world != null && !world.isRemote) { age++; tickServer(); } }
+    @Override public void update() {
+        if (world == null || world.isRemote) return;
+        if (controller != null) {
+            MachineController active = controller();
+            if (active == null) {
+                if (!world.isBlockLoaded(controller)) { failure = "controller_unloaded"; return; }
+                controller = null; markDirty();
+            } else if (!active.canRun(this)) { failure = "controller_paused"; return; }
+        }
+        age++; tickServer();
+    }
     protected abstract void tickServer();
     @Override public boolean hasCapability(Capability<?> capability, EnumFacing side) {
         return capability == CapabilityEnergy.ENERGY || capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, side);
@@ -97,12 +124,15 @@ public abstract class MachineTile extends TileEntity implements ITickable {
         super.writeToNBT(tag);
         tag.setTag("inventory", inventory.serializeNBT()); tag.setInteger("energy", energy.getEnergyStored());
         tag.setInteger("redstone", redstone); tag.setString("failure", failure);
+        if (controller != null) tag.setLong("externalController", controller.toLong());
+        else tag.removeTag("externalController");
         NBTTagList buffer = new NBTTagList(); for (ItemStack stack : pending) buffer.appendTag(stack.writeToNBT(new NBTTagCompound()));
         tag.setTag("pending", buffer); return tag;
     }
     @Override public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag); inventory.deserializeNBT(tag.getCompoundTag("inventory")); energy.set(tag.getInteger("energy"));
         redstone = Math.clamp(tag.getInteger("redstone"), 0, 2); failure = tag.getString("failure");
+        controller = tag.hasKey("externalController", 4) ? BlockPos.fromLong(tag.getLong("externalController")) : null;
         pending.clear(); NBTTagList buffer = tag.getTagList("pending", 10);
         for (int i = 0; i < buffer.tagCount(); i++) { ItemStack stack = new ItemStack(buffer.getCompoundTagAt(i)); if (!stack.isEmpty()) pending.add(stack); }
     }

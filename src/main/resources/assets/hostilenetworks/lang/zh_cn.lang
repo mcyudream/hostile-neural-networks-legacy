@@ -289,3 +289,7 @@ hnn.ponder.agonizer.model=上侧槽放入基础及以上的普通模型。基础
 hnn.ponder.agonizer.power=任意侧输入 FE。每周期耗时 60 刻，每刻 128 FE，可用红石暂停。祭坛不存在或已满时暂停，不额外消耗电力和催化剂。
 hnn.ponder.agonizer.catalyst=下侧槽可选放入通用预测：主世界、下界、末地、暮色分别增幅 2.2、2.4、2.7、2.5 倍，每份可用十个完成周期，并叠加祭坛献祭符文倍率。
 hnn.ponder.agonizer.automation=通过漏斗或管道补充催化剂并持续供电，LP 直接进入绑定祭坛，可在祭坛制作石板或给宝珠充能。保存重载保留绑定和催化剩余次数。
+
+hnn.machine.externally_controlled=机器正在执行外部订单，请通过控制接口操作。
+hnn.status.controller_unloaded=等待外部控制接口加载
+hnn.status.controller_paused=外部控制接口已暂停

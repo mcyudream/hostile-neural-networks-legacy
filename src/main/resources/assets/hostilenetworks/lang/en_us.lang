@@ -444,3 +444,7 @@ hnn.ponder.agonizer.model=Insert a normal model at Basic or above in the top sid
 hnn.ponder.agonizer.power=Supply FE from any side. One LP cycle lasts 60 paid ticks at 128 FE/t. Redstone controls can pause processing. A missing or full altar pauses the machine without consuming new energy or catalysts.
 hnn.ponder.agonizer.catalyst=Optionally insert a Generalized Prediction in the lower side slot. Overworld / Nether / End / Twilight boost LP by 2.2 / 2.4 / 2.7 / 2.5 for ten completed cycles each. The altar rune bonus also applies.
 hnn.ponder.agonizer.automation=Feed catalysts through a hopper or item pipe and keep FE supplied. LP goes directly to the linked altar; use Blood Magic automation there to craft slates or charge an orb. Save/reload retains the link and remaining catalyst uses.
+
+hnn.machine.externally_controlled=This machine is executing an external order. Use its control interface.
+hnn.status.controller_unloaded=Waiting for the external controller to load
+hnn.status.controller_paused=External controller paused

@@ -1,0 +1,155 @@
+---- Minecraft Crash Report ----
+
+WARNING: coremods are present:
+  PonderMixinLoader (ponder-legacy-1.4.0.jar)
+  MixinBooter (cleanroom-0.4.0.jar)
+  HNNCleanroom040ServerCompatibility (hostile-neural-networks-legacy-6.5.1-cleanroom.4.jar)
+Contact their authors BEFORE contacting forge
+
+// Daisy, daisy...
+
+Time: 2026-11-06 02:39
+Description: Initializing game
+
+java.lang.InternalError: java.lang.IllegalAccessException: static final field has no write access: net.minecraft.client.gui.GuiMainMenu.field_110353_x/net.minecraft.util.ResourceLocation/putStatic, from class java.lang.Object (module java.base)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newFieldAccessor(MethodHandleAccessorFactory.java:208)
+	at java.base/jdk.internal.reflect.ReflectionFactory.newFieldAccessor(ReflectionFactory.java:109)
+	at java.base/java.lang.reflect.Field.acquireOverrideFieldAccessor(Field.java:1195)
+	at java.base/java.lang.reflect.Field.getOverrideFieldAccessor(Field.java:1164)
+	at java.base/java.lang.reflect.Field.set(Field.java:832)
+	at codechicken.lib.reflect.ReflectionManager.setField(ReflectionManager.java:103)
+	at com.brandon3055.draconicevolution.client.handler.ClientEventHandler.guiOpenEvent(ClientEventHandler.java:182)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:79)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:204)
+	at net.minecraft.client.Minecraft.func_147108_a(Minecraft.java:977)
+	at net.minecraft.client.Minecraft.func_71384_a(Minecraft.java:541)
+	at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:374)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at top.outlands.foundation.LaunchHandler.launch(LaunchHandler.java:125)
+	at top.outlands.foundation.boot.Foundation.main(Foundation.java:42)
+Caused by: java.lang.IllegalAccessException: static final field has no write access: net.minecraft.client.gui.GuiMainMenu.field_110353_x/net.minecraft.util.ResourceLocation/putStatic, from class java.lang.Object (module java.base)
+	at java.base/java.lang.invoke.MemberName.makeAccessException(MemberName.java:889)
+	at java.base/java.lang.invoke.MethodHandles$Lookup.unreflectField(MethodHandles.java:3441)
+	at java.base/java.lang.invoke.MethodHandles$Lookup.unreflectSetter(MethodHandles.java:3432)
+	at java.base/java.lang.invoke.MethodHandleImpl$1.unreflectField(MethodHandleImpl.java:1607)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newFieldAccessor(MethodHandleAccessorFactory.java:186)
+	... 14 more
+
+(MixinBooter) Mixins in Stacktrace:
+	net.minecraft.client.Minecraft:
+		net.createmod.ponder.mixin.MinecraftResizeMixin (mixins.ponder.json)
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newFieldAccessor(MethodHandleAccessorFactory.java:208)
+	at java.base/jdk.internal.reflect.ReflectionFactory.newFieldAccessor(ReflectionFactory.java:109)
+	at java.base/java.lang.reflect.Field.acquireOverrideFieldAccessor(Field.java:1195)
+	at java.base/java.lang.reflect.Field.getOverrideFieldAccessor(Field.java:1164)
+	at java.base/java.lang.reflect.Field.set(Field.java:832)
+	at codechicken.lib.reflect.ReflectionManager.setField(ReflectionManager.java:103)
+	at com.brandon3055.draconicevolution.client.handler.ClientEventHandler.guiOpenEvent(ClientEventHandler.java:182)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:79)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:204)
+	at net.minecraft.client.Minecraft.func_147108_a(Minecraft.java:977)
+	at net.minecraft.client.Minecraft.func_71384_a(Minecraft.java:541)
+
+-- Initialization --
+Details:
+Stacktrace:
+	at net.minecraft.client.Minecraft.func_99999_d(Minecraft.java:374)
+	at net.minecraft.client.main.Main.main(SourceFile:123)
+	at top.outlands.foundation.LaunchHandler.launch(LaunchHandler.java:125)
+	at top.outlands.foundation.boot.Foundation.main(Foundation.java:42)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Linux (amd64) version 7.0.0-42-generic
+	Java Version: 25.0.5, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 414380848 bytes (395 MB) / 1203765248 bytes (1148 MB) up to 3221225472 bytes (3072 MB)
+	JVM Flags: 1 total; -Xmx3G
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP 9.42 Cleanroom 0.4.0 29 mods loaded, 29 mods active
+States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	| State  | ID                             | Version           | Source                                               |
+	|:------ |:------------------------------ |:----------------- |:---------------------------------------------------- |
+	| LCHIJA | minecraft                      | 1.12.2            | minecraft.jar                                        |
+	| LCHIJA | mcp                            | 9.42              | minecraft.jar                                        |
+	| LCHIJA | cleanroom                      | 0.4.0             | cleanroom-0.4.0.jar                                  |
+	| LCHIJA | mixinbooter                    | 10.7              | cleanroom-0.4.0.jar                                  |
+	| LCHIJA | configanytime                  | 3.0               | cleanroom-0.4.0.jar                                  |
+	| LCHIJA | kirino_engine                  | epoch-1.a1        | cleanroom-0.4.0.jar                                  |
+	| LCHIJA | kirino_ecs                     | epoch-1.a1        | cleanroom-0.4.0.jar                                  |
+	| LCHIJA | kirino_gl                      | epoch-1.a1        | cleanroom-0.4.0.jar                                  |
+	| LCHIJA | FML                            | 8.0.99.99         | cleanroom-0.4.0.jar                                  |
+	| LCHIJA | forge                          | 14.23.5.2864      | cleanroom-0.4.0.jar                                  |
+	| LCHIJA | baubles                        | 1.5.2             | Baubles-1.12-1.5.2.jar                               |
+	| LCHIJA | guideapi                       | 1.12-2.1.8-63     | Guide-API-1.12-2.1.8-63.jar                          |
+	| LCHIJA | bloodmagic                     | 1.12.2-2.4.3-105  | BloodMagic-1.12.2-2.4.3-105.jar                      |
+	| LCHIJA | codechickenlib                 | 3.3.5             | codechickenlib-3.3.5-universal.jar                   |
+	| LCHIJA | redstoneflux                   | 2.1.1             | RedstoneFlux-1.12-2.1.1.1-universal.jar              |
+	| LCHIJA | brandonscore                   | 2.4.20            | BrandonsCore-1.12.2-2.4.20.162-universal.jar         |
+	| LCHIJA | cofhcore                       | 4.6.6             | CoFHCore-1.12.2-4.6.6.1-universal.jar                |
+	| LCHIJA | cofhworld                      | 1.4.0             | CoFHWorld-1.12.2-1.4.0.1-universal.jar               |
+	| LCHIJA | crafttweaker                   | 4.1.20            | crafttweaker-4.1.20.698.jar                          |
+	| LCHIJA | ctgui                          | 1.0.0             | crafttweaker-4.1.20.698.jar                          |
+	| LCHIJA | jei                            | 4.16.1.302        | jei_1.12.2-4.16.1.302.jar                            |
+	| LCHIJA | crafttweakerjei                | 2.0.3             | crafttweaker-4.1.20.698.jar                          |
+	| LCHIJA | thermalfoundation              | 2.6.7             | ThermalFoundation-1.12.2-2.6.7.1-universal.jar       |
+	| LCHIJA | draconicevolution              | 2.3.28            | Draconic-Evolution-1.12.2-2.3.28.354-universal.jar   |
+	| LCHIJA | ponder-legacy                  | 1.4.0             | ponder-legacy-1.4.0.jar                              |
+	| LCHIJA | mantle                         | 1.12-1.3.3.55     | Mantle-1.12-1.3.3.55.jar                             |
+	| LCHIJA | tconstruct                     | 1.12.2-2.13.0.183 | TConstruct-1.12.2-2.13.0.183.jar                     |
+	| LCHIJA | hostile-neural-networks-legacy | 6.5.1-cleanroom.4 | hostile-neural-networks-legacy-6.5.1-cleanroom.4.jar |
+	| LCHIJA | hnn_verification               | 1                 | hnn-verification-srg.jar                             |
+
+Potentially tampered mods:
+	CoFHWorld-1.12.2-1.4.0.1-universal.jar
+	RedstoneFlux-1.12-2.1.1.1-universal.jar
+	ThermalFoundation-1.12.2-2.6.7.1-universal.jar
+
+	Cleanroom Version: 0.4.0
+	Loaded coremods (and transformers): 
+PonderMixinLoader (ponder-legacy-1.4.0.jar)
+  
+MixinBooter (cleanroom-0.4.0.jar)
+  
+HNNCleanroom040ServerCompatibility (hostile-neural-networks-legacy-6.5.1-cleanroom.4.jar)
+  
+	Pulsar/tconstruct loaded Pulses: 
+		- TinkerCommons (Enabled/Forced)
+		- TinkerWorld (Enabled/Not Forced)
+		- TinkerTools (Enabled/Not Forced)
+		- TinkerHarvestTools (Enabled/Forced)
+		- TinkerMeleeWeapons (Enabled/Forced)
+		- TinkerRangedWeapons (Enabled/Forced)
+		- TinkerModifiers (Enabled/Forced)
+		- TinkerSmeltery (Enabled/Not Forced)
+		- TinkerGadgets (Enabled/Not Forced)
+		- TinkerOredict (Enabled/Forced)
+		- TinkerIntegration (Enabled/Forced)
+		- TinkerFluids (Enabled/Forced)
+		- TinkerMaterials (Enabled/Forced)
+		- TinkerModelRegister (Enabled/Forced)
+
+	Launched Version: Cleanroom-0.4.0
+	LWJGL: 3.3.6-snapshot
+	OpenGL: llvmpipe (LLVM 21.1.8, 256 bits) GL version 4.5 (Compatibility Profile) Mesa 26.0.8-1ubuntu0.3, Mesa
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'fml,forge,cleanroom'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 16x AMD Ryzen 9 9950X 16-Core Processor

@@ -1,5 +1,17 @@
 # 界面对齐
 
+## 6.5.1-cleanroom.4 终极模拟室背包修复
+
+修复窗口较小时玩家背包、快捷栏与鼠标点击位置不一致的问题。`GuiScreen.handleMouseInput` 已按虚拟画布宽高换算鼠标坐标；此前在按下、释放、拖动及侧栏处理中再次除以缩放比例，导致界面缩小时取到其他格子的物品。现在只对绘制时的鼠标位置换算一次，输入沿用原版事件坐标。扩展机器的背包改用 Extra HNN 自带的 `extrahnn:textures/gui/inventory.png`，与机器面板保持一致。
+
+绘制世界背景及触发 Forge 的 `BackgroundDrawnEvent` 时恢复实际视口的坐标与矩阵，保证 JEI 列表和按钮使用自己的正常比例，小窗口下也能避开 HNN 面板和侧栏。验收在缩放后的界面已经绘制数帧后检查 JEI 占位，并核对实际截图。
+
+回归使用正式 Cleanroom 0.4.0 的生产安装包，将 36 个背包槽填入不同编号和数量的物品，在 1280×800 普通窗口与 960×480 小窗口下检查三行背包和快捷栏两端的真实取出、放回及服务器同步。小窗口测试断言缩放确实小于 0.95；旧安装包在该条件下无法从第一行正确取出物品，失败记录保存在 [修复前记录](verification/6.5.1-cleanroom.4/inventory-before-fix/report.json)。
+
+![修复后：普通窗口满背包](verification/6.5.1-cleanroom.4/cleanroom-0.4.0/client-without-ponder/screenshots/expansion-inventory-normal.png)
+
+![修复后：小窗口满背包](verification/6.5.1-cleanroom.4/cleanroom-0.4.0/client-without-ponder/screenshots/expansion-inventory-large.png)
+
 ## 6.5.1-cleanroom.3 新增界面
 
 Extra HNN 界面固定对照 `950bc0327ed3ace3911eebf2eab5d0aca3b44949`，使用其原始 MIT PNG、模型和物品资源。

@@ -1,17 +1,20 @@
 package dev.shadowsoffire.hostilenetworks.client;
 
-import java.io.IOException;
 import java.awt.Rectangle;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-/** Upstream texture coordinates remain in logical pixels, including off-panel tabs. */
+/** Upstream texture coordinates remain in logical pixels, including off-panel tabs.
+ * GuiScreen already maps mouse events through our virtual width and height;
+ * only rendering receives coordinates in the actual scaled viewport.
+ */
 public abstract class ResponsiveContainer extends GuiContainer {
     protected static final int AQUA = 0x62D8FF, WHITE = 0xFFFFFF, LIME = 0x00FFC0;
     protected static final ResourceLocation PLAYER = texture("default_gui");
@@ -39,9 +42,16 @@ public abstract class ResponsiveContainer extends GuiContainer {
         super.drawScreen(Math.round(mouseX / fit), Math.round(mouseY / fit), ticks);
         renderHoveredToolTip(Math.round(mouseX / fit), Math.round(mouseY / fit)); GlStateManager.popMatrix();
     }
-    @Override protected void mouseClicked(int x, int y, int button) throws IOException { super.mouseClicked(Math.round(x / fit), Math.round(y / fit), button); }
-    @Override protected void mouseReleased(int x, int y, int state) { super.mouseReleased(Math.round(x / fit), Math.round(y / fit), state); }
-    @Override protected void mouseClickMove(int x, int y, int button, long time) { super.mouseClickMove(Math.round(x / fit), Math.round(y / fit), button, time); }
+    @Override public void drawDefaultBackground() {
+        // Forge posts BackgroundDrawnEvent here. Overlays such as JEI use actual
+        // viewport coordinates and must not inherit this container's transform.
+        int logicalWidth = width, logicalHeight = height;
+        ScaledResolution resolution = new ScaledResolution(mc);
+        width = resolution.getScaledWidth(); height = resolution.getScaledHeight();
+        GlStateManager.pushMatrix(); GlStateManager.scale(1 / fit, 1 / fit, 1);
+        try { super.drawDefaultBackground(); }
+        finally { GlStateManager.popMatrix(); width = logicalWidth; height = logicalHeight; }
+    }
     protected void blit(ResourceLocation resource, int x, int y, int u, int v, int w, int h) {
         GlStateManager.color(1, 1, 1, 1); GlStateManager.enableBlend(); mc.getTextureManager().bindTexture(resource);
         drawTexturedModalRect(x, y, u, v, w, h);

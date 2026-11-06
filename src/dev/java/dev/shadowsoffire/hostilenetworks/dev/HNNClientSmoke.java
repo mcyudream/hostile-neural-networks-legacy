@@ -222,6 +222,17 @@ public final class HNNClientSmoke {
                 }
                 case 182 -> {
                     var screen = (ExpansionScreen) mc.currentScreen;
+                    if (screen.machine instanceof dev.shadowsoffire.hostilenetworks.tile.UltimateSimTile && !inventoryChecked) {
+                        inventoryPass = inventoryCorner = 0;
+                        originalDisplayWidth = mc.displayWidth; originalDisplayHeight = mc.displayHeight;
+                        server(() -> {
+                            savedInventory = player().inventory.writeToNBT(new net.minecraft.nbt.NBTTagList());
+                            for (int i = 0; i < 36; i++) player().inventory.setInventorySlotContents(i,
+                                new net.minecraft.item.ItemStack(net.minecraft.init.Items.DYE, i + 1, i % 16).setStackDisplayName("Inventory " + i));
+                            player().openContainer.detectAndSendChanges();
+                        });
+                        phase = 190; next = ticks + 8; break;
+                    }
                     expansionActionTick = ticks;
                     if (screen.machine instanceof dev.shadowsoffire.hostilenetworks.tile.UltimateSimTile) {
                         clickUi(237, 33, 0); phase = 184; next = ticks + 8;
@@ -258,6 +269,55 @@ public final class HNNClientSmoke {
                     }
                 }
                 case 187 -> { openExpansion(); phase = 181; next = ticks + 15; }
+                case 190 -> {
+                    if (!ready()) return;
+                    if (inventoryPass > 0 && Loader.isModLoaded("jei")) JeiSmoke.verifyArea(this::check, "filled Ultimate Simulation inventory");
+                    capture = "expansion-inventory-" + (inventoryPass == 0 ? "normal" : "large") + ".png";
+                    phase = 191;
+                }
+                case 191 -> {
+                    var screen = (ExpansionScreen) mc.currentScreen;
+                    var slot = screen.inventorySlots.inventorySlots.get(screen.machine.inventory.getSlots() + inventoryCorners[inventoryCorner]);
+                    inventoryIndex = slot.getSlotIndex(); inventoryCount = inventoryIndex + 1;
+                    clickUi(slot.xPos + 8, slot.yPos + 8, 0);
+                    check(mc.player.inventory.getItemStack().getCount() == inventoryCount && slot.getStack().isEmpty(),
+                        "Displayed inventory slot " + inventoryIndex + " picks up the correct stack at GUI scale " + mc.gameSettings.guiScale);
+                    phase = 192; next = ticks + 6;
+                }
+                case 192 -> {
+                    server(() -> check(player().inventory.getItemStack().getCount() == inventoryCount && player().inventory.getStackInSlot(inventoryIndex).isEmpty(),
+                        "Server confirms pickup from displayed inventory slot " + inventoryIndex + " at GUI scale " + mc.gameSettings.guiScale));
+                    phase = 193;
+                }
+                case 193 -> {
+                    if (!ready()) return;
+                    var screen = (ExpansionScreen) mc.currentScreen;
+                    var slot = screen.inventorySlots.inventorySlots.get(screen.machine.inventory.getSlots() + inventoryCorners[inventoryCorner]);
+                    clickUi(slot.xPos + 8, slot.yPos + 8, 0);
+                    check(mc.player.inventory.getItemStack().isEmpty() && slot.getStack().getCount() == inventoryCount,
+                        "Displayed inventory slot " + inventoryIndex + " accepts its stack back at GUI scale " + mc.gameSettings.guiScale);
+                    phase = 194; next = ticks + 6;
+                }
+                case 194 -> {
+                    server(() -> check(player().inventory.getItemStack().isEmpty() && player().inventory.getStackInSlot(inventoryIndex).getCount() == inventoryCount,
+                        "Server confirms return to displayed inventory slot " + inventoryIndex + " at GUI scale " + mc.gameSettings.guiScale));
+                    phase = 195;
+                }
+                case 195 -> {
+                    if (!ready()) return;
+                    if (++inventoryCorner < inventoryCorners.length) phase = 191;
+                    else if (++inventoryPass < 2) {
+                        inventoryCorner = 0; mc.gameSettings.guiScale = 4; resizeWindow(960, 480);
+                        var fitField = ResponsiveContainer.class.getDeclaredField("fit"); fitField.setAccessible(true);
+                        check(fitField.getFloat(mc.currentScreen) < .95f, "Small-window inventory check actually exercises a shrunken GUI");
+                        phase = 190; next = ticks + 6;
+                    } else {
+                        inventoryChecked = true; mc.gameSettings.guiScale = 2; resizeWindow(originalDisplayWidth, originalDisplayHeight);
+                        server(() -> { player().inventory.readFromNBT(savedInventory); player().openContainer.detectAndSendChanges(); });
+                        phase = 196; next = ticks + 8;
+                    }
+                }
+                case 196 -> { if (ready()) phase = 182; }
                 case 17 -> {
                     server(() -> {
                         simTag = machines.sim().writeToNBT(new net.minecraft.nbt.NBTTagCompound());
@@ -283,6 +343,11 @@ public final class HNNClientSmoke {
         } catch (Throwable error) { error.printStackTrace(); try { report("FAIL", error); } catch (Exception ignored) {} exit = ticks + 5; }
     }
     private net.minecraft.nbt.NBTTagCompound simTag, savedLearner;
+    private net.minecraft.nbt.NBTTagList savedInventory;
+    private final int[] inventoryCorners = {0, 8, 9, 17, 18, 26, 27, 35};
+    private int inventoryPass, inventoryCorner, inventoryIndex, inventoryCount;
+    private int originalDisplayWidth, originalDisplayHeight;
+    private boolean inventoryChecked;
     private int expansionPreview, expansionActionTick;
     private void openExpansion() {
         server(() -> {
@@ -308,9 +373,27 @@ public final class HNNClientSmoke {
         java.lang.reflect.Method click;
         try { click = GuiScreen.class.getDeclaredMethod("mouseClicked", int.class, int.class, int.class); }
         catch (NoSuchMethodException ignored) { click = GuiScreen.class.getDeclaredMethod("func_73864_a", int.class, int.class, int.class); }
-        click.setAccessible(true); click.invoke(screen, Math.round((left + x) * scale), Math.round((top + y) * scale), button);
+        // GuiScreen.handleMouseInput converts native display coordinates using
+        // this screen's virtual width/height before dispatching its callbacks.
+        var resolution = new ScaledResolution(mc);
+        int rawX = Math.round((left + x) * scale * mc.displayWidth / resolution.getScaledWidth());
+        int rawY = mc.displayHeight - 1 - Math.round((top + y) * scale * mc.displayHeight / resolution.getScaledHeight());
+        int eventX = rawX * screen.width / mc.displayWidth;
+        int eventY = screen.height - rawY * screen.height / mc.displayHeight - 1;
+        click.setAccessible(true); click.invoke(screen, eventX, eventY, button);
+        java.lang.reflect.Method release;
+        try { release = GuiScreen.class.getDeclaredMethod("mouseReleased", int.class, int.class, int.class); }
+        catch (NoSuchMethodException ignored) { release = GuiScreen.class.getDeclaredMethod("func_146286_b", int.class, int.class, int.class); }
+        release.setAccessible(true); release.invoke(screen, eventX, eventY, button);
     }
     private void resize() { ScaledResolution resolution = new ScaledResolution(mc); mc.currentScreen.setWorldAndResolution(mc, resolution.getScaledWidth(), resolution.getScaledHeight()); }
+    private void resizeWindow(int width, int height) throws Exception {
+        org.lwjgl.opengl.Display.setDisplayMode(new org.lwjgl.opengl.DisplayMode(width, height));
+        java.lang.reflect.Method resize;
+        try { resize = Minecraft.class.getDeclaredMethod("resize", int.class, int.class); }
+        catch (NoSuchMethodException ignored) { resize = Minecraft.class.getDeclaredMethod("func_71370_a", int.class, int.class); }
+        resize.setAccessible(true); resize.invoke(mc, width, height);
+    }
     @SubscribeEvent public void render(TickEvent.RenderTickEvent e) {
         if (e.phase != TickEvent.Phase.END || capture == null) return;
         try { ScreenShotHelper.saveScreenshot(output.toFile(), capture, mc.displayWidth, mc.displayHeight, mc.getFramebuffer()); }

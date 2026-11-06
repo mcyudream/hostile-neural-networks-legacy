@@ -59,7 +59,7 @@ public final class MachineScreen extends ResponsiveContainer {
         super.keyTyped(key, code);
     }
     @Override protected void mouseClicked(int x, int y, int button) throws IOException {
-        int lx = Math.round(x / fit) - left(), ly = Math.round(y / fit) - top();
+        int lx = x - left(), ly = y - top();
         if (configuring && over(lx, ly, -22, 0, 18, 18)) { configure(false); return; }
         if (!configuring && button == 0) {
             int rx = machine instanceof SimChamberTile ? 228 : -22;
@@ -84,7 +84,7 @@ public final class MachineScreen extends ResponsiveContainer {
             if (state.queue) for (int i = 0; i < visible; i++) if (over(lx, ly, 180 + i % 3 * 18, 30 + i / 3 * 18, 18, 18)) { click(5, i); return; }
         }
         if (configuring) {
-            for (GuiButton guiButton : buttonList) if (guiButton.mousePressed(mc, Math.round(x / fit), Math.round(y / fit))) { guiButton.playPressSound(mc.getSoundHandler()); actionPerformed(guiButton); }
+            for (GuiButton guiButton : buttonList) if (guiButton.mousePressed(mc, x, y)) { guiButton.playPressSound(mc.getSoundHandler()); actionPerformed(guiButton); }
             return;
         }
         super.mouseClicked(x, y, button);

@@ -30,6 +30,7 @@ public final class SettingCardItem extends InfoItem {
         return n;
     }
     public static boolean paste(MachineTile tile, NBTTagCompound n, EntityPlayer player) {
+        if (tile.isExternallyControlled()) return false;
         if (!family(tile).equals(n.getString("family"))) return false;
         if (tile instanceof SimChamberTile sim && sim.progress > 0 || tile instanceof ExpansionTile extra && extra.progress > 0) return false;
         ItemStack wanted = new ItemStack(n.getCompoundTag("model"));

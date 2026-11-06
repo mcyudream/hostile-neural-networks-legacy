@@ -19,6 +19,7 @@ public final class ExpansionScreen extends ResponsiveContainer {
     public final ExpansionTile machine;
     private int page;
     private static ResourceLocation extra(String name) { return new ResourceLocation("extrahnn", "textures/gui/" + name + ".png"); }
+    private static final ResourceLocation EXTRA_PLAYER = extra("inventory");
     private final ResourceLocation base;
     public ExpansionScreen(EntityPlayer player, ExpansionTile tile) {
         super(new MachineContainer(player, tile), MachineContainer.width(tile), MachineContainer.height(tile)); machine = tile;
@@ -50,7 +51,7 @@ public final class ExpansionScreen extends ResponsiveContainer {
         double energy = machine.energy.getEnergyStored() / (double) Math.max(1, machine.energy.getMaxEnergyStored());
         if (machine instanceof MergerTile) {
             blit(base, l, t, 0, 0, 216, 152); blit(base, l + 203, t + 59, 216, 0, 7, 87 - (int) Math.ceil(87 * energy));
-            blit(PLAYER, l + 20, t + 153, 0, 0, 176, 90);
+            blit(EXTRA_PLAYER, l + 20, t + 153, 0, 0, 176, 90);
             if (machine.progress > 0) {
                 double f = machine.progress / (double) machine.duration();
                 for (int i = 0; i < 4; i++) { int x = new int[]{70, 95, 119, 144}[i], y = i == 0 || i == 3 ? 28 : 26; drawRect(l + x, t + y, l + x + 2, t + y + (int) (16 * f), 0xFF00FFC0); }
@@ -61,20 +62,20 @@ public final class ExpansionScreen extends ResponsiveContainer {
             ItemStack stack = machine.inventory.getStackInSlot(0);
             double data = LearningModel.valid(stack) ? LearningModel.fraction(stack) : 0;
             blit(base, l + 14, t + 73, 234, 0, 7, 87 - (int) Math.ceil(87 * data));
-            blit(PLAYER, l + 28, t + 167, 0, 0, 176, 90);
+            blit(EXTRA_PLAYER, l + 28, t + 167, 0, 0, 176, 90);
             control(228, 24, new ItemStack(machine.extractModel ? Items.HOPPER_MINECART : Items.MINECART));
         } else if (machine instanceof UltimateFabTile) {
             blit(base, l, t, 0, 0, 212, 119);
             int h = (int) (53 * energy); blit(base, l + 6, t + 86 - h, 0, 119, 7, h);
             h = Math.min(35, machine.progress * 35 / machine.duration()); blit(base, l + 84, t + 70 - h, 7, 119, 6, h);
-            blit(PLAYER, l + 18, t + 120, 0, 0, 176, 90); fabrication(mx - l, my - t);
+            blit(EXTRA_PLAYER, l + 18, t + 120, 0, 0, 176, 90); fabrication(mx - l, my - t);
         } else {
             blit(base, l + 8, t, 0, 0, 216, 97); blit(base, l - 14, t, 223, 0, 18, 18);
             if (machine instanceof ModelTrainerTile) {
                 blit(base, l - 14, t + 20, 223, 18, 18, 18); blit(base, l - 14, t + 38, 223, 18, 18, 18);
             } else blit(base, l - 14, t + 24, 223, 18, 18, 18);
             blit(base, l + 211, t + 5, 216, 0, 7, 87 - (int) Math.ceil(87 * energy));
-            blit(PLAYER, l + 28, t + 98, 0, 0, 176, 90);
+            blit(EXTRA_PLAYER, l + 28, t + 98, 0, 0, 176, 90);
         }
         blit(texture("loot_fabricator"), l + rx(), t, 31, 83, 18, 18);
         String glyph = machine.redstone == 0 ? "items/redstone_dust" : machine.redstone == 1 ? "blocks/redstone_torch_off" : "blocks/redstone_torch_on";
@@ -136,7 +137,7 @@ public final class ExpansionScreen extends ResponsiveContainer {
         }
     }
     @Override protected void mouseClicked(int x, int y, int button) throws IOException {
-        int mx = Math.round(x / fit) - guiLeft, my = Math.round(y / fit) - guiTop;
+        int mx = x - guiLeft, my = y - guiTop;
         if (button == 0) {
             if (over(mx, my, rx(), 0, 18, 18)) { send(0, 0); return; }
             if (machine instanceof UltimateSimTile && over(mx, my, 228, 24, 18, 18)) { send(6, 0); return; }

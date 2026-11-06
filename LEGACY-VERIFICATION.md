@@ -1,6 +1,37 @@
 # Hostile Neural Networks Legacy 正式基线验收
 
-## 当前正式发行 6.5.1-cleanroom.3
+## 当前验收构建 6.5.1-cleanroom.4
+
+日期：2026-11-06。新增不依赖 AE2 的通用外部机器控制 API，供独立 HNN AE2S 附属使用。
+控制期间保护库存与固定产物，保留真实机器的 FE 消耗、进度及用户原有选择。详见 [API 说明](docs/AUTOMATION-API.md)。
+以下为正式 Cleanroom 0.4.0 / Java 25 的生产包回归验收，CI 发布进度见 [发布状态](PUBLICATION.md)。
+
+- 安装包：`hostile-neural-networks-legacy-6.5.1-cleanroom.4.jar`。
+- SHA-256：`a3c60aac621926e3c97f5e2dcf657e8c0b3b4989faed8f55bf0a8ebd2458eaa9`。
+
+| 组合 | 结果 | 检查数 | 证据 |
+| --- | --- | --- | --- |
+| client-without-ponder | PASS | 184 | [报告](docs/verification/6.5.1-cleanroom.4/cleanroom-0.4.0/client-without-ponder/report.json) |
+| client-with-ponder-jei-integrations | PASS | 376 | [报告](docs/verification/6.5.1-cleanroom.4/cleanroom-0.4.0/client-with-ponder-jei-integrations/report.json) |
+| server-without-ponder | PASS | 101 | [报告](docs/verification/6.5.1-cleanroom.4/cleanroom-0.4.0/server-without-ponder/report.json) |
+| server-with-ponder-integrations | PASS | 213 | [报告](docs/verification/6.5.1-cleanroom.4/cleanroom-0.4.0/server-with-ponder-integrations/report.json) |
+
+上述四组检查沿用并覆盖上一正式版核心机器、扩展机器、可选模型与客户端 / 专服流程。
+AE2S 订单、库存锁和中途重载属于独立附属的单独验收范围。
+
+### 终极模拟室背包回归
+
+修复 `GuiScreen` 鼠标事件被再次缩放导致的点击错位；覆盖按下、释放、拖动及侧栏操作。扩展机器背包恢复 Extra HNN 原始贴图。
+以 36 槽满背包，在 1280×800 普通窗口与 960×480 小窗口检查三行主背包和快捷栏两端的取出 / 放回，并核对服务器收到的格子与物品数量。
+小窗口断言实际缩放小于 0.95，避免中文 GUI 比例设置仍退回普通尺寸而漏测。
+旧安装包在小窗口下取错第一行物品的 [失败记录](docs/verification/6.5.1-cleanroom.4/inventory-before-fix/report.json) 已保留；修复后的同一流程在上述两套客户端均通过。
+普通窗口与小窗口的满背包截图见 [界面记录](docs/UI.md)。
+
+### 本轮可选依赖边界
+
+修复验证过程中，一次全联动客户端启动触发龙研主菜单随机彩蛋，CodeChickenLib 在 Java 25 下反射写入静态常量时抛出 `InternalError`；[失败日志与运行清单](docs/verification/6.5.1-cleanroom.4/draconic-main-menu-failure/crash.txt) 对应当时的中间构建，后续启动完成全部检查。该可选运行库的主菜单问题仍可能偶发。
+
+## 历史正式发行 6.5.1-cleanroom.3
 
 - 日期：2026-11-04。
 - 环境：Minecraft 1.12.2 / **Cleanroom 0.4.0 正式版（无 -alpha）** / Java 25。

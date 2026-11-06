@@ -12,7 +12,8 @@ parser.add_argument('--require-verified-hash', action='store_true',
 parser.add_argument('--tag', help='Require this release tag to match the packaged version')
 args = parser.parse_args()
 identity = json.loads((p/'legacy-identity.json').read_text())
-jars = [f for f in (p/'build/libs').glob(identity['modid']+'-*.jar') if not f.stem.endswith(('-sources','-api','-mcp','-javadoc'))]
+jars = [p/'build/libs'/(identity['modid']+'-'+identity['release_tag'].removeprefix('v')+'.jar')]
+jars = [f for f in jars if f.is_file()]
 if len(jars) != 1:
     raise SystemExit('Expected exactly one production jar: '+repr(jars))
 with ZipFile(jars[0]) as archive:

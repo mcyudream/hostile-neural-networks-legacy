@@ -18,7 +18,7 @@ public final class FabDirectiveItem extends InfoItem {
             if (player.isSneaking()) {
                 ModelStack.tag(stack).setTag("selections", machine.selections.write());
                 player.sendStatusMessage(new TextComponentTranslation("hnn.directive.copied"), true);
-            } else if (stack.hasTagCompound() && stack.getTagCompound().hasKey("selections", 10)) {
+            } else if (!machine.isExternallyControlled() && stack.hasTagCompound() && stack.getTagCompound().hasKey("selections", 10)) {
                 machine.selections.read(stack.getTagCompound().getCompoundTag("selections")); machine.settingsChanged();
                 player.sendStatusMessage(new TextComponentTranslation("hnn.directive.pasted"), true);
             }

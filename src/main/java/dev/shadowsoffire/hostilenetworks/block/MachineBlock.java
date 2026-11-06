@@ -43,6 +43,10 @@ public final class MachineBlock extends Block {
     @Override public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }
     @Override public boolean canProvidePower(IBlockState s) { return false; }
     @Override public boolean onBlockActivated(World w, BlockPos pos, IBlockState s, EntityPlayer p, EnumHand hand, EnumFacing f, float x, float y, float z) {
+        if (w.getTileEntity(pos) instanceof MachineTile tile && tile.isExternallyControlled()) {
+            if (!w.isRemote) p.sendStatusMessage(new net.minecraft.util.text.TextComponentTranslation("hnn.machine.externally_controlled"), true);
+            return true;
+        }
         for (String id : new String[]{"fab_directive", "deep_learner", "setting_card", "altar_linker"})
             if (!p.getHeldItem(hand).isEmpty() && p.getHeldItem(hand).getItem() == Hostile.item(id)) return false;
         if (!w.isRemote) p.openGui(HostileNetworks.INSTANCE, 0, w, pos.getX(), pos.getY(), pos.getZ()); return true;

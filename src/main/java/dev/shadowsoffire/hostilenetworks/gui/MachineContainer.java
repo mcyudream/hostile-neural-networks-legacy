@@ -54,6 +54,9 @@ public final class MachineContainer extends Container {
         });
     }
     @Override public boolean canInteractWith(EntityPlayer player) { return machine.canUse(player); }
+    @Override public ItemStack slotClick(int slot, int button, ClickType type, EntityPlayer player) {
+        return machine.canUse(player) ? super.slotClick(slot, button, type, player) : ItemStack.EMPTY;
+    }
     @Override public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         Slot slot = inventorySlots.get(index); if (!slot.getHasStack()) return ItemStack.EMPTY;
         ItemStack source = slot.getStack(), old = source.copy(); int slots = machine.inventory.getSlots();
