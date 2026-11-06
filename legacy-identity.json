@@ -16,7 +16,7 @@
   "verification_document": "LEGACY-VERIFICATION.md",
   "verified_jar_sha256": "a3c60aac621926e3c97f5e2dcf657e8c0b3b4989faed8f55bf0a8ebd2458eaa9",
   "verified_main_source_sha256": "9de5bc96a876f7f9f7803c8e2e66cd2a601fb561803fba1666757293f27bb2e7",
-  "published_verified_commit": null,
+  "published_verified_commit": "90e21dd842c16dee60f54f050b94026f86b3c252",
   "release_tag": "v6.5.1-cleanroom.4",
   "previous_acceptance": [
     {

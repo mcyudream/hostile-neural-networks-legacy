@@ -1,13 +1,16 @@
 # Hostile Neural Networks Legacy 正式基线验收
 
-## 当前验收构建 6.5.1-cleanroom.4
+## 当前正式发行 6.5.1-cleanroom.4
 
 日期：2026-11-06。新增不依赖 AE2 的通用外部机器控制 API，供独立 HNN AE2S 附属使用。
 控制期间保护库存与固定产物，保留真实机器的 FE 消耗、进度及用户原有选择。详见 [API 说明](docs/AUTOMATION-API.md)。
-以下为正式 Cleanroom 0.4.0 / Java 25 的生产包回归验收，CI 发布进度见 [发布状态](PUBLICATION.md)。
+以下为正式 Cleanroom 0.4.0 / Java 25 的生产包回归验收。
 
 - 安装包：`hostile-neural-networks-legacy-6.5.1-cleanroom.4.jar`。
 - SHA-256：`a3c60aac621926e3c97f5e2dcf657e8c0b3b4989faed8f55bf0a8ebd2458eaa9`。
+- 生产源码指纹：`9de5bc96a876f7f9f7803c8e2e66cd2a601fb561803fba1666757293f27bb2e7`。
+- 正式发行：[`v6.5.1-cleanroom.4`](https://github.com/mcyudream/hostile-neural-networks-legacy/releases/tag/v6.5.1-cleanroom.4)，提交 `90e21dd842c16dee60f54f050b94026f86b3c252`。
+- [主分支 CI](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/runs/42184723021) 与 [标签构建 / 发布 CI](https://github.com/mcyudream/hostile-neural-networks-legacy/actions/runs/42185094662)：**PASS**。已下载 CI 及正式发行的安装包、源码包和 `SHA256SUMS`，确认与验收产物一致，详见 [发布核验记录](docs/releases/6.5.1-cleanroom.4-ci.json)。
 
 | 组合 | 结果 | 检查数 | 证据 |
 | --- | --- | --- | --- |

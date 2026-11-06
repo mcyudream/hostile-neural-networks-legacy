@@ -8,7 +8,7 @@
 <!-- legacy-overview:start -->
 把 **Hostile Neural Networks 6.5.1** 的生物数据模型、模拟生产和战利品制造带到 **Minecraft 1.12.2**。通过击杀训练模型，再用 FE 和预测矩阵自动生产生物预测及战利品；数据中心可同时处理 25 个模型。
 
-本次版本 **`6.5.1-cleanroom.4`** 修复终极模拟室在小窗口下的背包点击错位、扩展机器背包贴图及 JEI 遮挡，见 [界面修复与截图](docs/UI.md)。新增不依赖 AE2 的 [通用机器控制 API](docs/AUTOMATION-API.md)，供独立 AE2S / Supergiant 附属接入。
+当前正式版 **`6.5.1-cleanroom.4`** 修复终极模拟室在小窗口下的背包点击错位、扩展机器背包贴图及 JEI 遮挡，见 [界面修复与截图](docs/UI.md)。新增不依赖 AE2 的 [通用机器控制 API](docs/AUTOMATION-API.md)，供独立 AE2S / Supergiant 附属接入。
 
 已并入 **Extra HNN 2.2.5**：四目标完美模型、融合室、模型模拟器、三种升级卡、设定卡、V1～V4 终极模拟室与终极制造器，以及可选血魔法**数字化苦难之井**。完整参数、操作流程、1.12 配方替代与授权见 [扩展玩法说明](docs/EXPANSION.md)。
 
@@ -195,7 +195,7 @@ python3 tools/verify_legacy_package.py
 2. 强制比较生产 jar 与正式运行验收记录中的 SHA-256，并核对四套验收报告。
 3. 全部通过后创建 GitHub Release，上传安装包、源码包和 `SHA256SUMS`。
 
-本次发行标签为 `v6.5.1-cleanroom.4`，发行说明保存在 [docs/releases/6.5.1-cleanroom.4.md](docs/releases/6.5.1-cleanroom.4.md)。CI 构建不能替代客户端和专服运行验收；修改生产包后需重新验收并更新记录。CurseForge / Modrinth 的准备资料见 [发布说明](docs/PUBLISHING.md)，平台状态见 [PUBLICATION.md](PUBLICATION.md)。
+最新正式发行标签为 `v6.5.1-cleanroom.4`，发行说明保存在 [docs/releases/6.5.1-cleanroom.4.md](docs/releases/6.5.1-cleanroom.4.md)。[主分支构建、标签发布及下载文件核验](docs/releases/6.5.1-cleanroom.4-ci.json)均已通过，正式发行的安装包与运行验收包 SHA-256 一致。CI 构建不能替代客户端和专服运行验收；修改生产包后需重新验收并更新记录。CurseForge / Modrinth 的准备资料见 [发布说明](docs/PUBLISHING.md)，平台状态见 [PUBLICATION.md](PUBLICATION.md)。
 
 ### 本地运行验证
 
